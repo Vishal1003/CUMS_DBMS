@@ -1,0 +1,19 @@
+{
+  "name": "cums_dbms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vishal1003/CUMS_DBMS.git"
+  },
+  "author": "Vishal Jha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vishal1003/CUMS_DBMS/issues"
+  },
+  "homepage": "https://github.com/Vishal1003/CUMS_DBMS#readme"
+}
