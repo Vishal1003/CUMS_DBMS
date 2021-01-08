@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD STUDENT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../public/CSS/main.css">
+    <link rel="stylesheet" href="../../public/CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../public/CSS/student-profile.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div id="wrapper">
+
+            <aside id="sidebar-wrapper">
+
+                <div class="sidebar-brand">
+                    <h2>CMS NSIT</h2>
+                </div>
+
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="#"><i class="fa fa-home"></i>Overview</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-id-card"></i>Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar-check"></i>Attendance</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar"></i>TimeTable</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sticky-note"></i>Marks</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-credit-card"></i>Fee History</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-graduation-cap"></i>Scholarship</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#"><i class="fa fa-cog"></i>Settings</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <div id="navbar-wrapper" style="position: fixed;">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <section id="content-wrapper">
+                <main role="main" class="pt-5 main">
+
+                    <div class="main-content">                
+                        <!-- Header -->
+                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                            style="height: 100px; background-size: cover; background-position: center top;">
+                            <!-- Header container -->
+                            
+                        </div>
+                        <!-- Page content -->
+                        <div class="container-fluid mt--7">
+                            <div class="row">
+                                <div class="col-xl-12 order-xl-1">
+                                    <div class="card bg-secondary shadow">
+                                        <div class="card-header bg-white border-0">
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h3 class="mb-0">My account</h3>
+                                                </div>
+                                                <div class="col-4 text-right">
+                                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-username">Username</label>
+                                                                <input type="text" id="input-username"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Username" value="lucky.jesse">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label"
+                                                                    for="input-email">Email address</label>
+                                                                <input type="email" id="input-email"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="jesse@example.com">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-first-name">First name</label>
+                                                                <input type="text" id="input-first-name"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="First name" value="Lucky">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-last-name">Last name</label>
+                                                                <input type="text" id="input-last-name"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Last name" value="Jesse">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <!-- Address -->
+                                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-address">Address</label>
+                                                                <input id="input-address"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Home Address"
+                                                                    value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                                                                    type="text">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-city">City</label>
+                                                                <input type="text" id="input-city"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="City" value="New York">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-country">Country</label>
+                                                                <input type="text" id="input-country"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Country" value="United States">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label"
+                                                                    for="input-country">Postal code</label>
+                                                                <input type="number" id="input-postal-code"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Postal code">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <!-- Description -->
+                                                <h6 class="heading-small text-muted mb-4">About me</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="form-group focused">
+                                                        <label>About Me</label>
+                                                        <textarea rows="4" class="form-control form-control-alternative"
+                                                            placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </main>
+            </section>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const $button = document.querySelector('#sidebar-toggle');
+        const $wrapper = document.querySelector('#wrapper');
+
+        $button.addEventListener('click', (e) => {
+            e.preventDefault();
+            $wrapper.classList.toggle('toggled');
+        });
+    </script>
+</body>
+
+</html>
