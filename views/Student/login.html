@@ -10,36 +10,65 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../public/CSS/main.css">
+    <link rel="stylesheet" href="../../public/CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../public/CSS/student-profile.css">
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
-                    <!-- <% include ./partials/messages %> -->
-                    <form action="/users/login" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control"
-                                placeholder="Enter Email" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control"
-                                placeholder="Enter Password" />
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
-                    </form>
-                    <p class="lead mt-4">
-                        No Account? <a href="/users/register">Register</a>
-                    </p>
+
+    <div id="navbar-wrapper" style="position: fixed;">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand"><b>CMS NSIT</b></a>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
 
+    <section id="content-wrapper">
+        <main role="main" class="pt-5 main">
+            <div class="header text-center pt-5 pt-lg-4">
+                <h1>STUDENT <span style="color: orangered;">LOGIN</span></h1>
+            </div>
+
+            <hr>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 m-auto">
+                        <div class="card card-body" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
+                            <!-- <% include ./partials/messages %> -->
+                            <form action="/users/login" method="POST">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                        placeholder="Enter Email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        placeholder="Enter Password" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </form>
+                            <p class="lead mt-4">
+                                No Account? <a href="/users/register">Register</a>
+                            </p>
+                            <p class="lead">
+                                Forgot Password? <a href="/users/register">Generate New Password</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

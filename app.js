@@ -1,28 +1,48 @@
+const path = require('path');
+const env = require('dotenv');
 const express = require('express');
+const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
+
+env.config();
 const app = express();
 
 const db = mysql.createConnection({
-  host: 'localhost', // IP address if website
-  user: 'root',
-  password: 'mysql',
-  database: 'cums_dbms',
-  port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: 'cumsdbms'
 });
 
-db.connect((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('MYSQL connected...');
+db.connect((err) => {
+  if(err){
+    throw err;
   }
-});
+  console.log("Mysql Connected")
+})
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.send('<h1>Home Page</h1>');
 });
 
-app.listen(5000, () => {
-  console.log('Server started');
+
+// run this root for the first time to create a database named cumsdbms
+app.get('/create-db', (req, res) => {
+  let sql = 'CREATE DATABASE cumsdbms';
+  db.query(sql, (err, result) => {
+    if(err)
+      throw err;
+    
+    console.log(result);
+  });
+  res.send('Database Connected..');
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server started @ ${PORT}`);
 });
