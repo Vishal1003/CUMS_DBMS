@@ -8,6 +8,7 @@ const mysql = require('mysql');
 env.config();
 const app = express();
 
+// establish connection
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -15,18 +16,31 @@ const db = mysql.createConnection({
   database: 'cumsdbms'
 });
 
+// connect to database
 db.connect((err) => {
   if(err){
     throw err;
   }
   console.log("Mysql Connected")
-})
+});
+
+
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+const adminRoutes = require('./routes/admin');
+const staffRoutes = require('./routes/student');
+const studentRoutes = require('./routes/student');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/admin', adminRoutes);
+app.use('/staff', staffRoutes);
+app.use('/student', studentRoutes);
+
 app.get('/', (req, res) => {
-  res.send('<h1>Home Page</h1>');
+  res.render('index');
 });
 
 
