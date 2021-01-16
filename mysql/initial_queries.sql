@@ -1,10 +1,9 @@
 use cumsdbms;
 create table admin(
-	PersonId int not null unique auto_increment,
-	FirstName varchar(255) not null,
-    LastName varchar(255) not null,
-    Email varchar(255) not null unique,
+    personId int not null unique auto_increment,
+    firstName varchar(255) not null,
+    lastName varchar(255) not null,
+    email varchar(255) not null unique,
     passwrd varchar(255) not null,
-    primary key (PersonId)
+    primary key (personId)
 );
-insert into admin (FirstName, LastName, Email, passwrd) values ("Ram", "Gopal", "admin@nsut.ac.in", "admin");

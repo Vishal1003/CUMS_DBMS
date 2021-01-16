@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN ADMIN</title>
+    <title>REGISTER ADMIN</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
@@ -32,7 +32,7 @@
     <section id="content-wrapper">
         <main role="main" class="pt-5 main">
             <div class="header text-center pt-5 pt-lg-4">
-                <h1>ADMIN <span style="color: orangered;">LOGIN</span></h1>
+                <h1>ADMIN <span style="color: orangered;">REGISTER</span></h1>
             </div>
 
             <hr>
@@ -40,9 +40,22 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 m-auto">
-                        <div class="card card-body" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
-                            <form action="/users/login" method="POST">
+                        <div class="card card-body"
+                            style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <h1 class="text-center mb-3" style="font-size: 28px;"><i class="fa fa-user-plus"
+                                    style="font-size: 28px;"></i> Register</h1>
+                            <!-- Register Form -->
+                            <form action="/admin/register" method="POST">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-control"
+                                        placeholder="Enter First Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-control"
+                                        placeholder="Enter Last Name" />
+                                </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="email" id="email" name="email" class="form-control"
@@ -53,33 +66,35 @@
                                     <input type="password" id="password" name="password" class="form-control"
                                         placeholder="Enter Password" />
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                        class="form-control" placeholder="Confirm Password" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Register</button>
                             </form>
-                            <p class="lead mt-4">
-                                No Account? <a href="/admin/register">Register</a>
-                            </p>
-                            <p class="lead">
-                                Forgot Password? <a href="/admin/register">Generate New Password</a>
-                            </p>
                         </div>
                     </div>
                 </div>
+                <% if (message.length > 0) { %>
+                <% if (!successful) {%>
+                <h4 class="alert alert-danger mt4"> <%= message %> </h4>
+                <% } else { %>
+                <h4 class="alert alert-success mt4"> <%= message %> </h4>
+                <% } %>
+                <% }%>
             </div>
-
         </main>
     </section>
-
-
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

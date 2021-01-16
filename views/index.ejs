@@ -39,13 +39,22 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 m-auto">
-                        <div class="card card-body" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                        <div class="card card-body"
+                            style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
                             <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> LOGIN</h1>
-                            <button class="btn btn-primary btn-block"><a style="color: white;" href="/admin">ADMIN LOGIN</a></button>
+                            <!-- Login buttons for homepage -->
+                            <button class="btn btn-primary btn-block" onclick="location.href = '/admin'">
+                                <a style="color: white;">ADMIN LOGIN</a>
+                            </button>
                             <br>
-                            <button class="btn btn-primary btn-block"><a style="color: white;" href="/staff">STAFF LOGIN</a></button>
+                            <button class="btn btn-primary btn-block" onclick="location.href = '/staff'">
+                                <a style="color: white;">STAFF LOGIN</a>
+                            </button>
                             <br>
-                            <button class="btn btn-primary btn-block"><a style="color: white;" href="/student">STUDENT LOGIN</a></button>
+                            <button class="btn btn-primary btn-block" onclick="location.href = '/student'">
+                                <a style="color: white;">STUDENT LOGIN</a>
+                            </button>
+
                         </div>
                     </div>
                 </div>
