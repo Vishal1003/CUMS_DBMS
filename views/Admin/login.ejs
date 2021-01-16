@@ -1,14 +1,11 @@
 <%- include('../Includes/begin.ejs') %>
 <%- include('../Includes/navbar.ejs') %>
-
 <section id="content-wrapper">
     <main role="main" class="pt-5 main">
         <div class="header text-center pt-5 pt-lg-4">
-            <h1>STUDENT <span style="color: orangered;">LOGIN</span></h1>
+            <h1>ADMIN <span style="color: orangered;">LOGIN</span></h1>
         </div>
-
         <hr>
-
         <div class="container">
             <div class="row">
                 <div class="col-md-6 m-auto">
@@ -27,8 +24,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </form>
+                        <p class="lead mt-4">
+                            No Account? <a href="/admin/register">Register</a>
+                        </p>
                         <p class="lead">
-                            Forgot Password? <a href="/users/register">Generate New Password</a>
+                            Forgot Password? <a href="/admin/register">Generate New Password</a>
                         </p>
                     </div>
                 </div>
@@ -37,5 +37,4 @@
 
     </main>
 </section>
-
 <%- include('../Includes/end.ejs') %>

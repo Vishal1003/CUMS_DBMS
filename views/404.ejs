@@ -1,0 +1,11 @@
+<%- include('./Includes/begin.ejs') %>
+<%- include('./Includes/navbar.ejs') %>
+<section id="content-wrapper">
+    <main role="main" class="pt-5 main">
+        <hr>
+    </main>
+    <% if (error === true) { %>
+    <h4 class="alert alert-danger mt4"> <%= errorMessage %> </h4>
+    <% }%>
+</section>
+<%- include('./Includes/end.ejs') %>

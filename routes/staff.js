@@ -1,12 +1,9 @@
-const path = require('path');
 const express = require('express');
-
+const controller = require('../controllers/staff');
 
 const router = express.Router();
 
 // get login page
-router.get('/', (req, res, next) => {
-    res.render('Staff/login-staff')
-});
+router.get('/', controller.getLogin);
 
 module.exports = router;

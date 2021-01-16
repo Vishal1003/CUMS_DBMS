@@ -1,13 +1,31 @@
-const Mysql = require('../mysql/mysql');
+const Mysql = require('../database/mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-exports.register = async (req, res, next) => {
+exports.getLogin = (req, res, next) => {
+  res.render('Admin/login', {
+    pageTitle: 'ADMIN LOGIN',
+    path: '/Admin/login',
+  });
+};
+
+exports.getRegister = (req, res, next) => {
+  res.render('Admin/register', {
+    error: false,
+    errorMessage: '',
+    pageTitle: 'ADMIN REGISTER',
+    path: '/Admin/register',
+  });
+};
+
+exports.postRegister = async (req, res, next) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    return res.render('Admin/register-admin', {
-      message: 'Passwords do not match',
-      successful: false,
+    return res.render('Admin/register', {
+      error: true,
+      errorMessage: 'Passwords do not match',
+      pageTitle: 'REGISTER ADMIN',
+      path: '/Admin/register',
     });
   }
   const db = Mysql.connect();
@@ -19,9 +37,11 @@ exports.register = async (req, res, next) => {
         throw error;
       }
       if (results.length > 0) {
-        return res.render('Admin/register-admin', {
-          message: 'That Email has been already in use.',
-          successful: false,
+        return res.render('Admin/register', {
+          error: true,
+          errorMessage: 'That email is already in use',
+          pageTitle: 'REGISTER ADMIN',
+          path: '/Admin/register',
         });
       }
       let hashedPassword = await bcrypt.hash(password, 8);
@@ -37,9 +57,9 @@ exports.register = async (req, res, next) => {
           if (error) {
             throw error;
           }
-          return res.render('Admin/register-admin', {
-            message: 'User Registered',
-            successful: true,
+          return res.render('Admin/login', {
+            pageTitle: 'ADMIN LOGIN',
+            path: '/Admin/login',
           });
         }
       );
