@@ -17,8 +17,11 @@ exports.postLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    let errors = [];
+
     if (!email || !password) {
-      return res.status(400).render('Admin/login')
+      errors.push({ msg: 'Please enter all fields' });
+      return res.status(400).render('Admin/login', { errors })
     }
 
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
@@ -26,7 +29,8 @@ exports.postLogin = async (req, res, next) => {
 
       if (!results || !(await bcrypt.compare(password, results[0].passwrd))) {
         console.log("Email or Password is Incorrect");
-        res.status(401).render('Admin/login');
+        errors.push({ msg: 'Email or Password is Incorrect' });
+        res.status(401).render('Admin/login', { errors });
       }
 
       else {
@@ -55,19 +59,17 @@ exports.getDashboard = (req, res, next) => {
 }
 
 exports.getRegister = (req, res, next) => {
-  res.render('Admin/register', {
-    error: false,
-    errorMessage: '',
-    pageTitle: 'ADMIN REGISTER',
-    path: '/Admin/register',
-  });
+  res.render('Admin/register');
 };
 
 exports.postRegister = async (req, res, next) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  let errors = [];
+
   if (password !== confirmPassword) {
-    console.log("Passwords do not match");
-    return res.render('Admin/register');
+    errors.push({ msg: 'Passwords do not match' });
+    return res.render('Admin/register', { errors });
   }
   db.query(
     'SELECT EMAIL FROM ADMIN WHERE EMAIL = ?',
@@ -77,8 +79,8 @@ exports.postRegister = async (req, res, next) => {
         throw error;
       }
       if (results.length > 0) {
-        console.log("That email is already in use")
-        return res.render('Admin/register');
+        errors.push({ msg: 'That email is already in use' });
+        return res.render('Admin/register', { errors });
       }
       let hashedPassword = await bcrypt.hash(password, 8);
       db.query(
@@ -93,8 +95,8 @@ exports.postRegister = async (req, res, next) => {
           if (error) {
             throw error;
           }
-          console.log("User registered")
-          return res.render('Admin/login');
+          req.flash('success_msg','You are now registered and can log in');
+          return res.redirect('/admin/login');
         }
       );
     }
@@ -105,5 +107,6 @@ exports.postRegister = async (req, res, next) => {
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
+  req.flash('success_msg', 'You are logged out');
   res.redirect('/admin/login');
 }

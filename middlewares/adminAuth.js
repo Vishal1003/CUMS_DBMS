@@ -6,6 +6,7 @@ const requireAuth = (req, res, next) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, result) => {
             if (err) {
                 console.log(err);
+                req.flash('error_msg', 'You need to login as ADMIN in order to view that source!');
                 res.redirect('/admin/login');
             } else {
                 req.user = result.id;
@@ -13,6 +14,7 @@ const requireAuth = (req, res, next) => {
             }
         })
     } else {
+        req.flash('error_msg', 'You need to login as ADMIN in order to view that source!');
         res.redirect('/admin/login')
     }
 }
@@ -34,4 +36,4 @@ const forwardAuth = (req, res, next) => {
     }
 }
 
-module.exports = {requireAuth, forwardAuth};
+module.exports = { requireAuth, forwardAuth };

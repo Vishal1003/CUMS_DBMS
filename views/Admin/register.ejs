@@ -1,54 +1,55 @@
 <%- include('../Includes/begin.ejs') %>
-<%- include('../Includes/navbar.ejs') %>
+    <%- include('../Includes/navbar.ejs') %>
 
-<section id="content-wrapper">
-    <main role="main" class="pt-5 main">
-        <div class="header text-center pt-5 pt-lg-4">
-            <h1>ADMIN <span style="color: orangered;">REGISTER</span></h1>
-        </div>
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+                <div class="header text-center pt-5 pt-lg-4">
+                    <h1>ADMIN <span style="color: orangered;">REGISTER</span></h1>
+                </div>
 
-        <hr>
+                <hr>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 m-auto">
-                    <div class="card card-body" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                        <h1 class="text-center mb-3" style="font-size: 28px;"><i class="fa fa-user-plus"
-                                style="font-size: 28px;"></i> Register</h1>
-                        <!-- Register Form -->
-                        <form action="/admin/register" method="POST">
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="form-control"
-                                    placeholder="Enter First Name" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 m-auto">
+                            <div class="card card-body"
+                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                                <h1 class="text-center mb-3" style="font-size: 28px;"><i class="fa fa-user-plus"
+                                        style="font-size: 28px;"></i> Register</h1>
+                                <%- include('../Includes/messages') %>
+                                    <form action="/admin/register" method="POST">
+                                        <div class="form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" id="firstName" name="firstName" class="form-control"
+                                                placeholder="Enter First Name" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" name="lastName" class="form-control"
+                                                placeholder="Enter Last Name" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                placeholder="Enter Email" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                placeholder="Enter Password" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmPassword">Confirm Password</label>
+                                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                                class="form-control" placeholder="Confirm Password" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                    </form>
                             </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="form-control"
-                                    placeholder="Enter Last Name" />
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="Enter Email" />
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" id="password" name="password" class="form-control"
-                                    placeholder="Enter Password" />
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-                                    placeholder="Confirm Password" />
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
-</section>
+            </main>
+        </section>
 
-<%- include('../Includes/end.ejs') %>
+        <%- include('../Includes/end.ejs') %>
