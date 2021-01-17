@@ -102,3 +102,8 @@ exports.postRegister = async (req, res, next) => {
 };
 
 
+
+exports.getLogout = (req, res, next) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.redirect('/admin/login');
+}
