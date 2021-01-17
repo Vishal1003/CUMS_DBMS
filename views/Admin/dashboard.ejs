@@ -1,0 +1,18 @@
+<%- include('../Includes/begin.ejs') %>
+<%- include('../Includes/navbar.ejs') %>
+
+<div class="container mt-10 pt-8">
+    <div class="jumbotron mt-8">
+        <h1 class="display-4">Hello <%= user.firstName %></h1>
+        <p class="lead">It's good to see you logged in!</p>
+        <hr class="my-4">
+        <p>Want to log out?</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Logout</a>
+        </p>
+    </div>
+</div>
+
+
+
+<%- include('../Includes/end.ejs') %>
