@@ -1,5 +1,7 @@
 <%- include('../Includes/begin.ejs') %>
 
+    <link rel="stylesheet" href="../CSS/admin-dashboard.css">
+
     <div class="container-fluid">
 
         <div id="wrapper">
@@ -17,21 +19,50 @@
                     <li>
                         <a href="#"><i class="fa fa-id-card"></i>Profile</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-calendar-check"></i>Attendance</a>
+
+                    <li class="dropdown">
+                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
+                        <div class="dropdown-content">
+                            <a href="#">Add New Staff</a>
+                            <a href="#">Modify Staff</a>
+                        </div>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-calendar"></i>TimeTable</a>
+
+
+                    <li class="dropdown">
+                        <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
+                        <div class="dropdown-content">
+                            <a href="#">Add New Student</a>
+                            <a href="#">Modify Student</a>
+                        </div>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sticky-note"></i>Marks</a>
+
+                    <li class="dropdown">
+                        <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
+                        <div class="dropdown-content">
+                            <a href="#">Add New Course</a>
+                            <a href="#">Modify Course</a>
+                        </div>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-credit-card"></i>Fee History</a>
+
+                    <li class="dropdown">
+                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard"></i>Manage Classes</a>
+                        <div class="dropdown-content">
+                            <a href="#">Add New Class</a>
+                            <a href="#">Modify Class</a>
+                        </div>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-graduation-cap"></i>Scholarship</a>
+
+                    <li class="dropdown">
+                        <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
+                        <div class="dropdown-content">
+                            <a href="#">Add New Department</a>
+                            <a href="#">Modify Department</a>
+                        </div>
                     </li>
+
+
+
                     <hr>
                     <li>
                         <a href="#"><i class="fa fa-cog"></i>Settings</a>
@@ -55,55 +86,78 @@
             <section id="content-wrapper">
                 <main role="main" class="pt-5 main">
                     <div class="header pb-4 pb-sm-8 pt-5 pt-lg-4 d-flex align-items-center"
-                    style="max-height: 100px; background-size: cover; background-position: center top;">
-                        <h1>Hello <%= user.firstName %> </h1>
+                        style="max-height: 100px; background-size: cover; background-position: center top;">
+                        <h1>Hello <%= user.firstName %>
+                        </h1>
                     </div>
 
                     <hr>
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <div class="card mb-5"
+                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
                                 <img height="250" class="card-img-top"
-                                    src="https://unihub.mdx.ac.uk/__data/assets/image/0031/527089/MDXapp_my-attendance-mdx-app-red_1x1.jpg"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtfZsqPh0G49g8UzrQT71pBaBLrErQx4816g&usqp=CAU"
                                     alt="image">
                                 <div class="card-body">
-                                    <h5 class="card-title">Attendance</h5>
-                                    <p class="card-text">View the attendance status for each of your courses. (Make sure
-                                        that
-                                        the atted. is atleast 75%) </p>
-                                    <a href="#" class="btn btn-primary">View Attendance</a>
+                                    <h5 class="card-title">Manage Staff</h5>
+                                    <p class="card-text">Manage your staff here. You can edit and
+                                        can add or remove a staff. All your changes will be reflected to them as well.
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-wrapper text-center d-flex justify-content-between"
+                                        style="color: #fff;">
+                                        <a class="btn btn-primary">Add</a>
+                                        <a class="btn btn-primary">Modify</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
-                            <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <div class="card mb-5"
+                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
                                 <img height="250" class="card-img-top"
-                                    src="https://cdn.iconscout.com/icon/premium/png-256-thumb/marks-sheet-1816853-1541534.png"
+                                    src="https://i.pinimg.com/originals/cb/a9/db/cba9db2b2e83ddaf77e44d69eb6f4b69.png"
                                     alt="image">
                                 <div class="card-body">
-                                    <h5 class="card-title">Marks</h5>
-                                    <p class="card-text">View the marks obtained for each of your courses. These include
-                                        the
-                                        marks upto your previous semester.</p>
-                                    <a href="#" class="btn btn-primary">View Marks</a>
+                                    <h5 class="card-title">Manage Student</h5>
+                                    <p class="card-text">Manage your student's profile here (edit/add/remove). All your
+                                        changes will be reflected to them as well.
+                                    </p>
+
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-wrapper text-center d-flex justify-content-between"
+                                        style="color: #fff;">
+                                        <a class="btn btn-primary">Add</a>
+                                        <a class="btn btn-primary">Modify</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
-                            <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <div class="card mb-5"
+                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
                                 <img height="250" class="card-img-top"
-                                    src="https://www.wikihow.com/images/thumb/5/5f/Make-a-Timetable-Step-3-Version-3.jpg/v4-460px-Make-a-Timetable-Step-3-Version-3.jpg.webp"
+                                    src="https://stmarkcatholicparish.files.wordpress.com/2013/01/books.png"
                                     alt="image">
                                 <div class="card-body">
-                                    <h5 class="card-title">Time Table</h5>
-                                    <p class="card-text">View your timetable. (It shows the time table of all the
-                                        courses
-                                        you
-                                        have registered for!)</p>
-                                    <a href="#" class="btn btn-primary">View Timetable</a>
+                                    <h5 class="card-title">Manage Courses</h5>
+                                    <p class="card-text">Manage courses here (edit/add/remove). All your changes will be
+                                        reflected in the database.
+                                    </p>
+
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-wrapper text-center d-flex justify-content-between"
+                                        style="color: #fff;">
+                                        <a class="btn btn-primary">Add</a>
+                                        <a class="btn btn-primary">Modify</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +193,6 @@
             $wrapper.classList.toggle('toggled');
         });
     </script>
-</body>
+    </body>
 
-</html>
+    </html>

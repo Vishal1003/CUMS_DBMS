@@ -21,7 +21,7 @@ exports.postLogin = async (req, res, next) => {
 
     if (!email || !password) {
       errors.push({ msg: 'Please enter all fields' });
-      return res.status(400).render('Admin/login', { errors })
+      return res.status(400).render('Admin/login', { errors });
     }
 
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
