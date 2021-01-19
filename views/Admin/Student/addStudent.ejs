@@ -1,6 +1,6 @@
-<%- include('../Includes/begin.ejs') %>
+<%- include('../../Includes/begin.ejs') %>
 
-    <link rel="stylesheet" href="../CSS/admin-dashboard.css">
+    <link rel="stylesheet" href="../../CSS/admin-dashboard.css">
 
     <div class="container-fluid">
 
@@ -20,7 +20,7 @@
                         <a href="#"><i class="fa fa-id-card"></i>Profile</a>
                     </li>
 
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
                         <div class="dropdown-content">
                             <a href="#">Add New Staff</a>
@@ -29,7 +29,7 @@
                     </li>
 
 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
                         <div class="dropdown-content">
                             <a href="#">Add New Student</a>
@@ -98,30 +98,31 @@
                                         <div class="card-header bg-white border-0">
                                             <div class="row align-items-center">
                                                 <div class="col-8">
-                                                    <h3 class="mb-0" style="color: brown;">ADD NEW STAFF</h3>
+                                                    <h3 class="mb-0" style="color: brown;">ADD NEW STUDENT</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
 
                                             <form>
-                                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                                                <h6 class="heading-small text-muted mb-4">Student information</h6>
                                                 <div class="pl-lg-4">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="input-email">Email
+                                                                <label class="form-control-label" for="email">Email
                                                                     address</label>
-                                                                <input type="email" id="input-email"
+                                                                <input type="email" id="email" name="email"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="jesse@example.com">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
-                                                                <label class="form-control-label" for="">DOB <span style="font-size: x-small;">(will be temp. passoword of the user)</span></label>
-                                                                <input type="text" id="input-dob"
+                                                                <label class="form-control-label" for="dob">DOB <span
+                                                                        style="font-size: x-small;">(will be temp.
+                                                                        passoword of the user)</span></label>
+                                                                <input type="text" id="dob" name="dob"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="DD/MM/YYYY">
                                                             </div>
@@ -130,21 +131,44 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="input-first-name">First name</label>
-                                                                <input type="text" id="input-first-name"
+                                                                <label class="form-control-label" for="first-name">First
+                                                                    name</label>
+                                                                <input type="text" id="first-name" name="firstName"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="First name">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="input-last-name">Last
+                                                                <label class="form-control-label" for="last-name">Last
                                                                     name</label>
-                                                                <input type="text" id="input-last-name"
+                                                                <input type="text" id="last-name" name="lastName"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="Last name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <h6 class="heading-small text-muted mb-4">Course and Department</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-address">Courses</label>
+                                                                <input id="course" name="course"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Course1, Course2..." type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="input-city">Departments</label>
+                                                                <input type="text" id="department" name="department"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Department1, Department2...">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,8 +180,8 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group focused">
                                                                 <label class="form-control-label"
-                                                                    for="input-address">Address</label>
-                                                                <input id="input-address"
+                                                                    for="address">Address</label>
+                                                                <input id="address" name="address"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="Home Address" type="text">
                                                             </div>
@@ -167,35 +191,35 @@
                                                         <div class="col-lg-4">
                                                             <div class="form-group focused">
                                                                 <label class="form-control-label"
-                                                                    for="input-city">City</label>
-                                                                <input type="text" id="input-city"
+                                                                    for="city">City</label>
+                                                                <input type="text" id="city" name="city"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="City">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="input-country">Country</label>
-                                                                <input type="text" id="input-country"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Country">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
                                                             <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="input-country">Postal
+                                                                <label class="form-control-label" for="country">Postal
                                                                     code</label>
-                                                                <input type="number" id="input-postal-code"
+                                                                <input type="number" id="postal-code" name="postalCode"
                                                                     class="form-control form-control-alternative"
                                                                     placeholder="Postal code">
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="contact">Contact No. (+91)</label>
+                                                                <input type="text" id="contact" name="contact"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="0000000000">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <hr class="my-4">
                                                 <button type="submit" class="btn btn-primary btn-block">REGISTER
-                                                    STAFF</button>
+                                                    STUDENT</button>
                                             </form>
 
 
@@ -215,8 +239,6 @@
             </section>
 
         </div>
-
-
 
     </div>
 

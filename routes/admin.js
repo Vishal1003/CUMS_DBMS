@@ -17,7 +17,7 @@ router.get('/dashboard', requireAuth, controller.getDashboard);
 router.get('/logout', requireAuth, controller.getLogout);
 
 router.get('/addStaff', (req, res) => {
-    res.render('Admin/addStaff')
+    res.render('Admin/Staff/addStaff')
 })
 
 module.exports = router;
