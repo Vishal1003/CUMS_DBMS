@@ -1,6 +1,6 @@
-<%- include('../Includes/begin.ejs') %>
+<%- include('../../Includes/begin.ejs') %>
 
-    <link rel="stylesheet" href="../CSS/admin-dashboard.css">
+    <link rel="stylesheet" href="../../CSS/admin-dashboard.css">
 
     <div class="container-fluid">
 
@@ -13,7 +13,7 @@
                 </div>
 
                 <ul class="sidebar-nav">
-                    <li class="active">
+                    <li>
                         <a href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
                     </li>
                     <li>
@@ -53,7 +53,7 @@
                         </div>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
                         <div class="dropdown-content">
                             <a href="/admin/addDept">Add New Department</a>
@@ -85,90 +85,63 @@
 
             <section id="content-wrapper">
                 <main role="main" class="pt-5 main">
-                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-4 d-flex align-items-center"
-                        style="max-height: 100px; background-size: cover; background-position: center top;">
-                        <h1>Hello <%= user.firstName %>
-                        </h1>
-                    </div>
 
-                    <hr>
+                    <div class="main-content">
+                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                            style="height: 100px; background-size: cover; background-position: center top;">
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtfZsqPh0G49g8UzrQT71pBaBLrErQx4816g&usqp=CAU"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Staff</h5>
-                                    <p class="card-text">Manage your staff here. You can edit and
-                                        can add or remove a staff. All your changes will be reflected to them as well.
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a class="btn btn-primary">Add</a>
-                                        <a class="btn btn-primary">Modify</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                        <div class="container-fluid mt--7">
+                            <div class="row">
+                                <div class="col-xl-12 order-xl-1">
+                                    <div class="card bg-secondary shadow">
+                                        <div class="card-header bg-white border-0">
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h3 class="mb-0" style="color: brown;">ADD NEW DEPARTMENT</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
 
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://i.pinimg.com/originals/cb/a9/db/cba9db2b2e83ddaf77e44d69eb6f4b69.png"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Student</h5>
-                                    <p class="card-text">Manage your student's profile here (edit/add/remove). All your
-                                        changes will be reflected to them as well.
-                                    </p>
+                                            <form>
+                                                <h6 class="heading-small text-muted mb-4">Department Information</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label"
+                                                                    for="department">Department</label>
+                                                                <input type="text" id="department" name="department"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="Department Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a class="btn btn-primary">Add</a>
-                                        <a class="btn btn-primary">Modify</a>
+                                                </div>
+                                                <hr class="my-4">
+                                                <button type="submit" class="btn btn-primary btn-block">ADD
+                                                    DEPARTMENT</button>
+                                            </form>
+
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://stmarkcatholicparish.files.wordpress.com/2013/01/books.png"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Courses</h5>
-                                    <p class="card-text">Manage courses here (edit/add/remove). All your changes will be
-                                        reflected in the database.
-                                    </p>
 
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a class="btn btn-primary">Add</a>
-                                        <a class="btn btn-primary">Modify</a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+
+
+
 
                 </main>
             </section>
 
         </div>
-
-
 
     </div>
 

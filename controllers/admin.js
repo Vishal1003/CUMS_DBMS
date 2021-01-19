@@ -9,6 +9,53 @@ const db = mysql.createConnection({
   database: 'cumsdbms',
 });
 
+
+// ADMIN REGISTER ==> To be commented
+exports.getRegister = (req, res, next) => {
+  res.render('Admin/register');
+};
+
+exports.postRegister = async (req, res, next) => {
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  let errors = [];
+
+  if (password !== confirmPassword) {
+    errors.push({ msg: 'Passwords do not match' });
+    return res.render('Admin/register', { errors });
+  }
+  db.query(
+    'SELECT EMAIL FROM ADMIN WHERE EMAIL = ?',
+    [email],
+    async (error, results) => {
+      if (error) {
+        throw error;
+      }
+      if (results.length > 0) {
+        errors.push({ msg: 'That email is already in use' });
+        return res.render('Admin/register', { errors });
+      }
+      let hashedPassword = await bcrypt.hash(password, 8);
+      db.query(
+        'INSERT INTO ADMIN SET ?',
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          passwrd: hashedPassword,
+        },
+        async (error, results) => {
+          if (error) {
+            throw error;
+          }
+          req.flash('success_msg', 'You are now registered and can log in');
+          return res.redirect('/admin/login');
+        }
+      );
+    }
+  );
+};
+
 exports.getLogin = (req, res, next) => {
   res.render('Admin/login');
 };
@@ -58,55 +105,34 @@ exports.getDashboard = (req, res, next) => {
   });
 }
 
-exports.getRegister = (req, res, next) => {
-  res.render('Admin/register');
-};
-
-exports.postRegister = async (req, res, next) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
-
-  let errors = [];
-
-  if (password !== confirmPassword) {
-    errors.push({ msg: 'Passwords do not match' });
-    return res.render('Admin/register', { errors });
-  }
-  db.query(
-    'SELECT EMAIL FROM ADMIN WHERE EMAIL = ?',
-    [email],
-    async (error, results) => {
-      if (error) {
-        throw error;
-      }
-      if (results.length > 0) {
-        errors.push({ msg: 'That email is already in use' });
-        return res.render('Admin/register', { errors });
-      }
-      let hashedPassword = await bcrypt.hash(password, 8);
-      db.query(
-        'INSERT INTO ADMIN SET ?',
-        {
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          passwrd: hashedPassword,
-        },
-        async (error, results) => {
-          if (error) {
-            throw error;
-          }
-          req.flash('success_msg','You are now registered and can log in');
-          return res.redirect('/admin/login');
-        }
-      );
-    }
-  );
-};
-
-
-
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
   res.redirect('/admin/login');
-}
+};
+
+
+exports.getAddStaff = (req, res, next) => {
+  res.render('Admin/Staff/addStaff');
+};
+
+exports.getAddClass = (req, res, next) => {
+  res.render('Admin/Class/addClass');
+};
+
+exports.getAddStudent = (req, res, next) => {
+  res.render('Admin/Student/addStudent');
+};
+
+exports.getAddDept = (req, res, next) => {
+  res.render('Admin/Department/addDept');
+};
+
+exports.getAddCourse = (req, res, next) => {
+  res.render('Admin/Course/addCourse');
+};
+
+
+
+
+

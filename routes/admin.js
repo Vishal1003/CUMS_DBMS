@@ -16,9 +16,11 @@ router.get('/dashboard', requireAuth, controller.getDashboard);
 
 router.get('/logout', requireAuth, controller.getLogout);
 
-router.get('/addStaff', (req, res) => {
-    res.render('Admin/Staff/addStaff')
-})
+router.get('/addStaff', controller.getAddStaff);
+router.get('/addStudent', controller.getAddStudent);
+router.get('/addClass', controller.getAddClass);
+router.get('/addDept', controller.getAddDept);
+router.get('/addCourse', controller.getAddCourse);
 
 module.exports = router;
 
