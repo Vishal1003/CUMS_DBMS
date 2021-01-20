@@ -9,7 +9,6 @@ const db = mysql.createConnection({
   database: 'cumsdbms',
 });
 
-
 // ADMIN REGISTER ==> To be commented
 exports.getRegister = (req, res, next) => {
   res.render('Admin/register');
@@ -73,44 +72,45 @@ exports.postLogin = async (req, res, next) => {
 
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
     db.query(sql3, [email], async (err, results) => {
-
-      if (!results || !(await bcrypt.compare(password, results[0].passwrd))) {
-        console.log("Email or Password is Incorrect");
+      console.log(results);
+      if (
+        results.length === 0 ||
+        !(await bcrypt.compare(password, results[0].passwrd))
+      ) {
+        console.log('Email or Password is Incorrect');
         errors.push({ msg: 'Email or Password is Incorrect' });
         res.status(401).render('Admin/login', { errors });
-      }
-
-      else {
+      } else {
         const user = results[0];
         const token = jwt.sign({ id: user.personId }, process.env.JWT_SECRET, {
-          expiresIn: process.env.JWT_EXPIRE
+          expiresIn: process.env.JWT_EXPIRE,
         });
 
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', token, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+        });
         res.redirect('/admin/dashboard');
       }
     });
-
   } catch (err) {
     throw err;
   }
-}
+};
 
 exports.getDashboard = (req, res, next) => {
   let sql4 = 'SELECT * FROM admin WHERE personId = ?';
   db.query(sql4, [req.user], (err, result) => {
-    if (err)
-      throw err;
+    if (err) throw err;
     res.render('Admin/dashboard', { user: result[0] });
   });
-}
+};
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
   res.redirect('/admin/login');
 };
-
 
 exports.getAddStaff = (req, res, next) => {
   res.render('Admin/Staff/addStaff');
@@ -131,8 +131,3 @@ exports.getAddDept = (req, res, next) => {
 exports.getAddCourse = (req, res, next) => {
   res.render('Admin/Course/addCourse');
 };
-
-
-
-
-

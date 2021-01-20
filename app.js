@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 
-const errorController = require('./controllers/error');
 const sql = require('./database/mysql');
 
 env.config();
@@ -21,7 +20,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
   })
 );
 
@@ -34,7 +33,6 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
-
 
 const adminRoutes = require('./routes/admin');
 const staffRoutes = require('./routes/staff');
@@ -53,9 +51,6 @@ app.use('/student', studentRoutes);
 
 // Home Page
 app.use(homeRoutes);
-
-// If user try any other route
-app.use(errorController.get404);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
