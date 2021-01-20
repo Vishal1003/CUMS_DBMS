@@ -11,7 +11,6 @@ router.post('/login', controller.postLogin);
 router.get('/register', forwardAuth, controller.getRegister);
 router.post('/register', controller.postRegister);
 
-
 router.get('/dashboard', requireAuth, controller.getDashboard);
 
 router.get('/logout', requireAuth, controller.getLogout);
@@ -23,4 +22,3 @@ router.get('/addDept', controller.getAddDept);
 router.get('/addCourse', controller.getAddCourse);
 
 module.exports = router;
-
