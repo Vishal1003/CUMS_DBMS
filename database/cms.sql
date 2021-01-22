@@ -4,9 +4,9 @@ CREATE TABLE `course` (
 	`c_id` INT NOT NULL AUTO_INCREMENT,
 	`semester` INT NOT NULL,
 	`year` INT NOT NULL,
-	`name` VARCHAR(255),
+	`name` VARCHAR(255) not null,
 	`c_type` varchar(255) NOT NULL,
-	`credits` INT NOT NULL UNIQUE,
+	`credits` INT NOT NULL,
 	`dept_id` varchar(255) NOT NULL,
 	PRIMARY KEY (`c_id`,`semester`,`year`)
 );
@@ -25,7 +25,7 @@ CREATE TABLE `student` (
 	`email` varchar(255) NOT NULL UNIQUE,
 	`s_address` VARCHAR(255),
 	`contact` INT NOT NULL,
-	`class_id` INT NOT NULL,
+	`class_id` INT,
 	`password` varchar(255) NOT NULL,
 	PRIMARY KEY (`s_id`)
 );
@@ -69,8 +69,8 @@ CREATE TABLE `class` (
 	`class_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
 	`section` INT NOT NULL,
 	`semester` INT NOT NULL,
-	`c_id` INT NOT NULL,
-	`st_id` INT NOT NULL,
+	`c_id` INT,
+	`st_id` INT,
 	PRIMARY KEY (`class_id`)
 );
 

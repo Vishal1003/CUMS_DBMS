@@ -124,10 +124,43 @@ exports.getAddStudent = (req, res, next) => {
   res.render('Admin/Student/addStudent');
 };
 
+
+exports.getDept = (req, res, next) => {
+  const sql2 = "SELECT * FROM department";
+
+  db.query(sql2, (err, results) => {
+    if (err)
+      throw err;
+    else {
+      console.log(results)
+      res.render("Admin/Department/getDept", { data: results })
+    }
+  })
+
+
+}
+
 exports.getAddDept = (req, res, next) => {
   res.render('Admin/Department/addDept');
 };
 
+exports.postAddDept = async (req, res, next) => {
+  const deptName = req.body.department;
+  const deptId = req.body.deptId;
+
+  const sql1 = "INSERT INTO department SET ?";
+
+  db.query(sql1, { dept_id: deptId, d_name: deptName }, (err, results) => {
+    if (err)
+      throw err;
+    else {
+      res.redirect('/admin/getDept');
+    }
+  });
+}
+
 exports.getAddCourse = (req, res, next) => {
   res.render('Admin/Course/addCourse');
 };
+
+

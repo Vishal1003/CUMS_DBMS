@@ -18,7 +18,11 @@ router.get('/logout', requireAuth, controller.getLogout);
 router.get('/addStaff', controller.getAddStaff);
 router.get('/addStudent', controller.getAddStudent);
 router.get('/addClass', controller.getAddClass);
+
+router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);
+router.post('/addDept', controller.postAddDept);
+
 router.get('/addCourse', controller.getAddCourse);
 
 module.exports = router;

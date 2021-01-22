@@ -56,6 +56,7 @@
                     <li class="dropdown active">
                         <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
                         <div class="dropdown-content">
+                            <a href="/admin/getDept">See Departments</a>
                             <a href="/admin/addDept">Add New Department</a>
                             <a href="/admin/modifyDept">Modify Department</a>
                         </div>
@@ -98,41 +99,36 @@
                                         <div class="card-header bg-white border-0">
                                             <div class="row align-items-center">
                                                 <div class="col-8">
-                                                    <h3 class="mb-0" style="color: brown;">ADD NEW DEPARTMENT</h3>
+                                                    <h3 class="mb-0" style="color: brown;">ALL DEPARTMENTS</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <%- include('../../Includes/messages') %>
-                                            <form action="/admin/addDept" method="POST">
                                                 <h6 class="heading-small text-muted mb-4">Department Information</h6>
-                                                <div class="pl-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="department">Department</label>
-                                                                <input type="text" id="department" name="department"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Department Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="deptId">Department Short Name <span style="font-size: x-small;">(make sure to have a unique name!)</span></label>
-                                                                <input type="text" id="deptId" name="deptId"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Department Short Name">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Department ID</th>
+                                                                <th scope="col">Department Name</th>
+                                                                <th scope="col">Manage Dept</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% for(var i=0; i < data.length; i++) { %>
+                                                            <tr>
+                                                                <th scope="row"><%= i + 1 %></th>
+                                                                <td><%= data[i].dept_id %></td>
+                                                                <td><%= data[i].d_name %></td>
+                                                                <td><a href="/admin/settings/departments/<%= data[i].dept_id %>" class="btn btn-sm btn-primary">Settings</a></td>
+                                                            </tr>
+                                                            <% } %>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <hr class="my-4">
-                                                <button type="submit" class="btn btn-primary btn-block">ADD
-                                                    DEPARTMENT</button>
-                                            </form>
+                                                </form>
 
 
                                         </div>
