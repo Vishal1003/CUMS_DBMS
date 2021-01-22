@@ -124,6 +124,7 @@ exports.getAddStudent = (req, res, next) => {
   res.render('Admin/Student/addStudent');
 };
 
+// DEPARTMENTS
 
 exports.getDept = (req, res, next) => {
   const sql2 = "SELECT * FROM department";
@@ -159,6 +160,7 @@ exports.postAddDept = async (req, res, next) => {
   });
 }
 
+// COURSE
 exports.getAddCourse = (req, res, next) => {
   res.render('Admin/Course/addCourse');
 };
