@@ -67,8 +67,7 @@ exports.postLogin = async (req, res, next) => {
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
     db.query(sql3, [email], async (err, results) => {
       if (
-        results.length === 0 ||
-        !(await bcrypt.compare(password, results[0].password))
+        results.length === 0 || !(await bcrypt.compare(password, results[0].password))
       ) {
         errors.push({ msg: 'Email or Password is Incorrect' });
         res.status(401).render('Admin/login', { errors });
@@ -189,11 +188,10 @@ exports.getAddStudent = (req, res, next) => {
 };
 
 // DEPARTMENTS
-
 exports.getDept = (req, res, next) => {
-  const sql2 = 'SELECT * FROM department';
+  const sql1 = 'SELECT * FROM department';
 
-  db.query(sql2, (err, results) => {
+  db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
       res.render('Admin/Department/getDept', { data: results });
@@ -209,8 +207,8 @@ exports.postAddDept = async (req, res, next) => {
   const deptName = req.body.department;
   const deptId = req.body.deptId;
 
-  const sql1 = 'SELECT * from department where dept_id = ? or d_name = ?';
-  db.query(sql1, [deptId, deptName], (err, results) => {
+  const sql2 = 'SELECT * from department where dept_id = ? or d_name = ?';
+  db.query(sql2, [deptId, deptName], (err, results) => {
     if (err) {
       throw err;
     }
@@ -218,8 +216,8 @@ exports.postAddDept = async (req, res, next) => {
       req.flash('error', 'Department with that name or id already exists');
       return res.redirect('/admin/addDept');
     } else {
-      const sql2 = 'INSERT INTO department SET ?';
-      db.query(sql2, { dept_id: deptId, d_name: deptName }, (err, results) => {
+      const sql3 = 'INSERT INTO department SET ?';
+      db.query(sql3, { dept_id: deptId, d_name: deptName }, (err, results) => {
         if (err) throw err;
         else {
           req.flash('success_msg', 'Department added successfully');
@@ -229,6 +227,36 @@ exports.postAddDept = async (req, res, next) => {
     }
   });
 };
+
+exports.getDeptSettings = (req, res, next) => {
+  const deptId = req.params.id;
+  const sql1 = "SELECT * FROM department WHERE dept_id = ?";
+
+  db.query(sql1, [deptId], (err, results) => {
+    if (err)
+      throw err;
+    else {
+      // console.log(results);
+      res.render('Admin/Department/setDept', { name: results[0].d_name, id: results[0].dept_id });
+    }
+  });
+}
+
+exports.postDeptSettings = (req, res, next) => {
+
+  const { department, deptId } = req.body;
+
+  const sql1 = "UPDATE department SET d_name = ? WHERE dept_id = ?";
+  db.query(sql1, [department, deptId], (err, results) => {
+    if(err)
+      throw err;
+    else {
+      req.flash('success_msg', 'Department changed successfully!');
+      res.redirect('/admin/getDept');
+    }
+  })
+
+}
 
 // COURSE
 exports.getCourse = (req, res, next) => {
@@ -282,3 +310,5 @@ exports.postAddCourse = (req, res, next) => {
     }
   );
 };
+
+

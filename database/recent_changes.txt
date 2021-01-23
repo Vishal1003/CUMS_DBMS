@@ -4,4 +4,5 @@ RECENT CHANGES IN DATABASE RELATIONS
 contact datatype changed from int to varchar(12)
 primary key in course is changed to only c_id (NOTE: See if we can make name unique)
 admin attributes names changed to make more logic
-gender datatype changed from varchar(255) to varchar(6) (NOTE: see if any other datatype is taking unnecessary space)
+gender datatype changed from varchar(255) to varchar(6)
+(NOTE: see if any other datatype is taking unnecessary space)

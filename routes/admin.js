@@ -30,4 +30,9 @@ router.get('/getCourse', controller.getCourse);
 router.get('/addCourse', controller.getAddCourse);
 router.post('/addCourse', controller.postAddCourse);
 
+
+router.get('/settings/departments/:id', controller.getDeptSettings);
+router.post('/settings/departments', controller.postDeptSettings);
+
+
 module.exports = router;
