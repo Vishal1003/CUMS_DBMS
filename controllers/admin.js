@@ -163,7 +163,7 @@ exports.postAddStaff = (req, res, next) => {
           dob,
           email,
           address + '-' + city + '-' + postalCode,
-          parseInt(contact),
+          contact,
           department,
           email,
         ],
