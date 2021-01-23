@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `admin`(
 );
 
 CREATE TABLE IF NOT EXISTS `course` (
-	`c_id` INT NOT NULL AUTO_INCREMENT,
+	`c_id` VARCHAR(100) NOT NULL UNIQUE,
 	`semester` INT NOT NULL,
 	`year` INT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `course` (
 
 CREATE TABLE IF NOT EXISTS `StudentCourses` (
 	`s_id` INT NOT NULL,
-	`c_id` INT NOT NULL,
+	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`s_id`,`c_id`)
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 CREATE TABLE IF NOT EXISTS `staffCourse` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`st_id` INT NOT NULL,
-	`c_id` INT NOT NULL,
+	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `class` (
 	`class_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
 	`section` INT NOT NULL,
 	`semester` INT NOT NULL,
-	`c_id` INT,
+	`c_id` VARCHAR(100),
 	`st_id` INT,
 	PRIMARY KEY (`class_id`)
 );
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `assignment` (
 	`day` DATE NOT NULL ,
 	`time_slot` DATETIME NOT NULL,
 	`st_id` INT NOT NULL,
-	`c_id` INT NOT NULL,
+	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`asg_id`)
 );
 

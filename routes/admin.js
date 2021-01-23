@@ -26,13 +26,15 @@ router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);
 router.post('/addDept', controller.postAddDept);
 
-router.get('/getCourse', controller.getCourse);
+router.get('/settings/departments/:id', controller.getDeptSettings);
+router.post('/settings/departments', controller.postDeptSettings);
+
+router.get('/getCourse', controller.getRelevantCourse);
+router.post('/getCourse', controller.postRelevantCourse);
+router.get('/getAllCourses', controller.getAllCourse);
 router.get('/addCourse', controller.getAddCourse);
 router.post('/addCourse', controller.postAddCourse);
 
-
-router.get('/settings/departments/:id', controller.getDeptSettings);
-router.post('/settings/departments', controller.postDeptSettings);
 
 
 module.exports = router;

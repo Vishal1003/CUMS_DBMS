@@ -248,7 +248,7 @@ exports.postDeptSettings = (req, res, next) => {
 
   const sql1 = "UPDATE department SET d_name = ? WHERE dept_id = ?";
   db.query(sql1, [department, deptId], (err, results) => {
-    if(err)
+    if (err)
       throw err;
     else {
       req.flash('success_msg', 'Department changed successfully!');
@@ -259,15 +259,69 @@ exports.postDeptSettings = (req, res, next) => {
 }
 
 // COURSE
-exports.getCourse = (req, res, next) => {
-  const sql1 = 'SELECT * FROM course';
+exports.getRelevantCourse = (req, res, next) => {
+  const sql1 = 'SELECT * from department';
   db.query(sql1, (err, results) => {
-    if (err) throw err;
-    else {
-      res.render('Admin/Course/getCourse', { data: results });
+    if (err) {
+      throw err;
     }
+    let departments = [];
+    for (let i = 0; i < results.length; ++i) {
+      departments.push(results[i].dept_id);
+    }
+    res.render('Admin/Course/deptSelect', {
+      departments: departments,
+    });
   });
 };
+
+// === NOT WORKING ===
+exports.postRelevantCourse = (req, res, next) => {
+  let { semester, department } = req.body;
+
+  semester = parseInt(semester);
+
+  if (!semester && department === "None") {
+    const sql1 = 'SELECT * FROM course';
+    db.query(sql1, (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  }
+
+  else if (!semester) {
+    const sql2 = 'SELECT * FROM course WHERE dept_id = ?'
+    db.query(sql2, { department }, (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  }
+
+  else if (department === "None") {
+    const sql2 = 'SELECT * FROM course WHERE semester = ?'
+    db.query(sql2, { semester }, (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  }
+
+  else if (semester && department !== "None") {
+    const sql2 = 'SELECT * FROM course WHERE semester = ? AND dept_id = ? GROUP BY c_id'
+    db.query(sql2, { semester, department }, (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  }
+
+}
 
 exports.getAddCourse = (req, res, next) => {
   const sql1 = 'SELECT * from department';
@@ -285,30 +339,54 @@ exports.getAddCourse = (req, res, next) => {
   });
 };
 
-exports.postAddCourse = (req, res, next) => {
+exports.getAllCourse = (req, res, next) => {
+  const sql1 = 'SELECT * FROM course';
+  db.query(sql1, (err, results) => {
+    if (err) throw err;
+    else {
+      res.render('Admin/Course/getCourse', { data: results });
+    }
+  });
+}
+
+exports.postAddCourse = async (req, res, next) => {
   let { course, semester, department, credits, c_type } = req.body;
   semester = parseInt(semester);
   credits = parseInt(credits);
   let year = parseInt((semester + 1) / 2);
   let sql1 = 'INSERT INTO course SET ?';
-  db.query(
-    sql1,
-    {
-      semester: semester,
-      year: year,
-      name: course,
-      c_type: c_type,
-      credits: credits,
-      dept_id: department,
-    },
-    (err, results) => {
-      if (err) {
-        throw err;
-      }
-      req.flash('success_msg', 'Course added successfully');
-      return res.redirect('/admin/getCourse');
+
+  const sql2 = "SELECT COUNT(dept_id) AS size FROM department WHERE dept_id = ?";
+
+  db.query(sql2, (department), (err, results) => {
+    if (err)
+      throw err;
+    else {
+      console.log(results[0].size);
+      let size = results[0].size + 1;
+      const c_id = department + size;
+
+      db.query(
+        sql1,
+        {
+          c_id,
+          semester: semester,
+          year: year,
+          name: course,
+          c_type: c_type,
+          credits: credits,
+          dept_id: department,
+        },
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          req.flash('success_msg', 'Course added successfully');
+          return res.redirect('/admin/getAllCourses');
+        }
+      );
     }
-  );
+  });
 };
 
 
