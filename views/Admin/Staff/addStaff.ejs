@@ -1,269 +1,259 @@
 <%- include('../../Includes/begin.ejs') %>
 
-    <link rel="stylesheet" href="../../CSS/admin-dashboard.css">
+<link rel="stylesheet" href="../../CSS/admin-dashboard.css">
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        <div id="wrapper">
+    <div id="wrapper">
 
-            <aside id="sidebar-wrapper">
+        <aside id="sidebar-wrapper">
 
-                <div class="sidebar-brand">
-                    <h2>CMS NSIT</h2>
-                </div>
-
-                <ul class="sidebar-nav">
-                    <li>
-                        <a href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-id-card"></i>Profile</a>
-                    </li>
-
-                    <li class="dropdown active">
-                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addStaff">Add New Staff</a>
-                            <a href="/admin/modifyStaff">Modify Staff</a>
-                        </div>
-                    </li>
-
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addStudent">Add New Student</a>
-                            <a href="/admin/modifyStudent">Modify Student</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addCourse">Add New Course</a>
-                            <a href="/admin/modifyCourse">Modify Course</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard"></i>Manage Classes</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addClass">Add New Class</a>
-                            <a href="/admin/modifyClass">Modify Class</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addDept">Add New Department</a>
-                            <a href="/admin/modifyDept">Modify Department</a>
-                        </div>
-                    </li>
-
-
-
-                    <hr>
-                    <li>
-                        <a href="#"><i class="fa fa-cog"></i>Settings</a>
-                    </li>
-                    <li>
-                        <a href="/admin/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <div id="navbar-wrapper" style="position: fixed;">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-                    </div>
-                </nav>
+            <div class="sidebar-brand">
+                <h2>CMS NSIT</h2>
             </div>
 
-            <section id="content-wrapper">
-                <main role="main" class="pt-5 main">
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-id-card"></i>Profile</a>
+                </li>
 
-                    <div class="main-content">
-                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                            style="height: 100px; background-size: cover; background-position: center top;">
+                <li class="dropdown active">
+                    <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
+                    <div class="dropdown-content">
+                        <a href="/admin/getStaff">See Staffs</a>
+                        <a href="/admin/addStaff">Add New Staff</a>
+                        <a href="/admin/modifyStaff">Modify Staff</a>
+                    </div>
+                </li>
 
-                        </div>
-                        <div class="container-fluid mt--7">
-                            <div class="row">
-                                <div class="col-xl-12 order-xl-1">
-                                    <div class="card bg-secondary shadow">
-                                        <div class="card-header bg-white border-0">
-                                            <div class="row align-items-center">
-                                                <div class="col-8">
-                                                    <h3 class="mb-0" style="color: brown;">ADD NEW STAFF</h3>
-                                                </div>
+
+                <li class="dropdown">
+                    <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
+                    <div class="dropdown-content">
+                        <a href="/admin/addStudent">Add New Student</a>
+                        <a href="/admin/modifyStudent">Modify Student</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
+                    <div class="dropdown-content">
+                        <a href="/admin/addCourse">Add New Course</a>
+                        <a href="/admin/modifyCourse">Modify Course</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a class="ddbtn" href="#"><i class="fa fa-chalkboard"></i>Manage Classes</a>
+                    <div class="dropdown-content">
+                        <a href="/admin/addClass">Add New Class</a>
+                        <a href="/admin/modifyClass">Modify Class</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
+                    <div class="dropdown-content">
+                        <a href="/admin/getDept">See Departments</a>
+                        <a href="/admin/addDept">Add New Department</a>
+                        <a href="/admin/modifyDept">Modify Department</a>
+                    </div>
+                </li>
+
+
+
+                <hr>
+                <li>
+                    <a href="#"><i class="fa fa-cog"></i>Settings</a>
+                </li>
+                <li>
+                    <a href="/admin/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                </li>
+            </ul>
+        </aside>
+
+        <div id="navbar-wrapper" style="position: fixed;">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+
+                <div class="main-content">
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
+
+                    </div>
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0" style="color: brown;">ADD NEW STAFF</h3>
                                             </div>
                                         </div>
-                                        <div class="card-body">
+                                    </div>
+                                    <div class="card-body">
 
-                                            <form>
-                                                <h6 class="heading-small text-muted mb-4">User information</h6>
-                                                <div class="pl-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label" for="email">Email
-                                                                    address</label>
-                                                                <input type="email" id="email" name="email"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="jesse@example.com">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label" for="dob">DOB <span
-                                                                        style="font-size: x-small;">(will be temp.
-                                                                        passoword of the user)</span></label>
-                                                                <input type="text" id="dob" name="dob"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="DD/MM/YYYY">
-                                                            </div>
+                                        <form action="/admin/addStaff" method="POST">
+                                            <h6 class="heading-small text-muted mb-4">User information</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="email">Email
+                                                                address</label>
+                                                            <input type="email" id="email" name="email"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="jesse@example.com" required>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label" for="first-name">First
-                                                                    name</label>
-                                                                <input type="text" id="first-name" name="firstName"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="First name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label" for="last-name">Last
-                                                                    name</label>
-                                                                <input type="text" id="last-name" name="lastName"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Last name">
-                                                            </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="dob">DOB</label>
+                                                            <input type="text" id="dob" name="dob"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="YYYY-MM-DD" required>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr class="my-4">
-                                                <h6 class="heading-small text-muted mb-4">Course and Department</h6>
-                                                <div class="pl-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="input-address">Courses</label>
-                                                                <input id="course" name="course"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Course1, Course2..." type="text">
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="name">Name</label>
+                                                            <input type="text" id="name" name="name"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Name" required>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="input-city">Departments</label>
-                                                                <input type="text" id="department" name="department"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Department1, Department2...">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label for="gender">Gender:</label>
+                                                            <select class="form-control" id="gender" name="gender"
+                                                                required>
+                                                                <option>Male</option>
+                                                                <option>Female</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr class="my-4">
-                                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
-                                                <div class="pl-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="address">Address</label>
-                                                                <input id="address" name="address"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Home Address" type="text">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label"
-                                                                    for="city">City</label>
-                                                                <input type="text" id="city" name="city"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="City">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label" for="country">Postal
-                                                                    code</label>
-                                                                <input type="number" id="postal-code" name="postalCode"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Postal code">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group focused">
-                                                                <label class="form-control-label" for="contact">Contact
-                                                                    No. (+91)</label>
-                                                                <input type="text" id="contact" name="contact"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="0000000000">
-                                                            </div>
-                                                        </div>
-
+                                            </div>
+                                            <hr class="my-4">
+                                            <h6 class="heading-small text-muted mb-4">Department</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group focused">
+                                                        <label for="department">Departments:</label>
+                                                        <select class="form-control" id="department" name="department"
+                                                            required>
+                                                            <% for(const department of departments) { %>
+                                                            <option><%= department %></option>
+                                                            <% } %>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <hr class="my-4">
-                                                <button type="submit" class="btn btn-primary btn-block">REGISTER
-                                                    STAFF</button>
-                                            </form>
+                                            </div>
+                                            <hr class="my-4">
+                                            <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label"
+                                                                for="address">Address</label>
+                                                            <input id="address" name="address"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Home Address" type="text" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="city">City</label>
+                                                            <input type="text" id="city" name="city"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="City" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="country">Postal
+                                                                code</label>
+                                                            <input type="number" id="postal-code" name="postalCode"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Postal code" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label" for="contact">Contact
+                                                                No. (+91)</label>
+                                                            <input type="text" id="contact" name="contact"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="0000000000" required>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr class="my-4">
+                                            <button type="submit" class="btn btn-primary btn-block">REGISTER
+                                                STAFF</button>
+                                        </form>
 
 
-                                        </div>
                                     </div>
                                 </div>
-
-
                             </div>
+
+
                         </div>
                     </div>
+                </div>
 
 
 
 
-                </main>
-            </section>
-
-        </div>
+            </main>
+        </section>
 
     </div>
 
+</div>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 
-    <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
-    </script>
-    </body>
+<script>
+    const $button = document.querySelector('#sidebar-toggle');
+    const $wrapper = document.querySelector('#wrapper');
 
-    </html>
+    $button.addEventListener('click', (e) => {
+        e.preventDefault();
+        $wrapper.classList.toggle('toggled');
+    });
+</script>
+</body>
+
+</html>

@@ -1,71 +1,79 @@
 use cumsdbms;
 
-CREATE TABLE `course` (
+CREATE TABLE IF NOT EXISTS `admin`(
+	`admin_id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`admin_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `course` (
 	`c_id` INT NOT NULL AUTO_INCREMENT,
 	`semester` INT NOT NULL,
 	`year` INT NOT NULL,
-	`name` VARCHAR(255) not null,
-	`c_type` varchar(255) NOT NULL,
+	`name` VARCHAR(255) NOT NULL,
+	`c_type` VARCHAR(255) NOT NULL,
 	`credits` INT NOT NULL,
-	`dept_id` varchar(255) NOT NULL,
+	`dept_id` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`c_id`,`semester`,`year`)
 );
 
-CREATE TABLE `StudentCourses` (
+CREATE TABLE IF NOT EXISTS `StudentCourses` (
 	`s_id` INT NOT NULL,
 	`c_id` INT NOT NULL,
 	PRIMARY KEY (`s_id`,`c_id`)
 );
 
-CREATE TABLE `student` (
+CREATE TABLE IF NOT EXISTS `student` (
 	`s_id` INT NOT NULL AUTO_INCREMENT,
-	`s_name` varchar(255) NOT NULL,
-	`gender` varchar(255) NOT NULL,
-	`dob` DATETIME NOT NULL,
-	`email` varchar(255) NOT NULL UNIQUE,
-	`s_address` VARCHAR(255),
-	`contact` INT NOT NULL,
+	`s_name` VARCHAR(255) NOT NULL,
+	`gender` VARCHAR(6) NOT NULL,
+	`dob` DATE NOT NULL,
+	`email` VARCHAR(255) NOT NULL UNIQUE,
+	`s_address` VARCHAR(255) NOT NULL,
+	`contact` VARCHAR(12) NOT NULL,
 	`class_id` INT,
-	`password` varchar(255) NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`s_id`)
 );
 
-CREATE TABLE `staff` (
+CREATE TABLE IF NOT EXISTS `staff` (
 	`st_id` INT NOT NULL AUTO_INCREMENT,
-	`st_name` varchar(255) NOT NULL,
-	`gender` varchar(255) NOT NULL,
-	`dob` DATETIME NOT NULL,
-	`email` varchar(255) NOT NULL UNIQUE,
-	`st_address` VARCHAR(255),
-	`contact` INT NOT NULL,
-	`dept_id` varchar(255) NOT NULL,
-	`password` varchar(255) NOT NULL,
+	`st_name` VARCHAR(255) NOT NULL,
+	`gender` VARCHAR(6) NOT NULL,
+	`dob` DATE NOT NULL,
+	`email` VARCHAR(255) NOT NULL UNIQUE,
+	`st_address` VARCHAR(255) NOT NULL,
+	`contact` VARCHAR(12) NOT NULL,
+	`dept_id` VARCHAR(255) NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`st_id`)
 );
 
-CREATE TABLE `department` (
-	`dept_id` varchar(255) NOT NULL UNIQUE,
-	`d_name` varchar(255) NOT NULL UNIQUE,
+CREATE TABLE IF NOT EXISTS `department` (
+	`dept_id` VARCHAR(255) NOT NULL UNIQUE,
+	`d_name` VARCHAR(255) NOT NULL UNIQUE,
 	PRIMARY KEY (`dept_id`)
 );
 
-CREATE TABLE `staffCourse` (
+CREATE TABLE IF NOT EXISTS `staffCourse` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`st_id` INT NOT NULL,
 	`c_id` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `fee` (
-	`fee_id` int NOT NULL AUTO_INCREMENT UNIQUE,
-	`fee_type` varchar(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `fee` (
+	`fee_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	`fee_type` VARCHAR(255) NOT NULL,
 	`reciept_no` BINARY NOT NULL ,
 	`date` DATE NOT NULL UNIQUE,
 	`s_id` INT NOT NULL UNIQUE,
 	PRIMARY KEY (`fee_id`)
 );
 
-CREATE TABLE `class` (
+CREATE TABLE IF NOT EXISTS `class` (
 	`class_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
 	`section` INT NOT NULL,
 	`semester` INT NOT NULL,
@@ -74,7 +82,7 @@ CREATE TABLE `class` (
 	PRIMARY KEY (`class_id`)
 );
 
-CREATE TABLE `assignment` (
+CREATE TABLE IF NOT EXISTS `assignment` (
 	`asg_id` INT NOT NULL AUTO_INCREMENT,
 	`day` DATE NOT NULL ,
 	`time_slot` DATETIME NOT NULL,
@@ -83,14 +91,14 @@ CREATE TABLE `assignment` (
 	PRIMARY KEY (`asg_id`)
 );
 
-CREATE TABLE `attendance` (
+CREATE TABLE IF NOT EXISTS `attendance` (
 	`s_id` INT NOT NULL DEFAULT false,
 	`date` DATE NOT NULL,
 	`status` BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY (`s_id`,`date`)
 );
 
-CREATE TABLE `marks` (
+CREATE TABLE IF NOT EXISTS `marks` (
 	`test_id` INT NOT NULL AUTO_INCREMENT,
 	`tt_marks` INT,
 	`ob_marks` INT,
@@ -99,7 +107,7 @@ CREATE TABLE `marks` (
 	PRIMARY KEY (`test_id`)
 );
 
-CREATE TABLE `assignment_submission` (
+CREATE TABLE IF NOT EXISTS `assignment_submission` (
 	`s_id` INT NOT NULL,
 	`asg_id` INT NOT NULL,
 	PRIMARY KEY (`s_id`,`asg_id`)

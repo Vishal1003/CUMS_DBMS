@@ -38,7 +38,7 @@
                     </div>
                 </li>
 
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
                     <div class="dropdown-content">
                         <a href="/admin/addCourse">Add New Course</a>
@@ -54,7 +54,7 @@
                     </div>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
                     <div class="dropdown-content">
                         <a href="/admin/getDept">See Departments</a>
@@ -100,63 +100,36 @@
                                     <div class="card-header bg-white border-0">
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <h3 class="mb-0" style="color: brown;">ADD NEW COURSE</h3>
+                                                <h3 class="mb-0" style="color: brown;">ALL STAFFS</h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
-
-                                        <form>
-                                            <h6 class="heading-small text-muted mb-4">Course Information</h6>
-                                            <div class="pl-lg-4">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label" for="course">Course
-                                                                Name</label>
-                                                            <input type="text" id="course" name="course"
-                                                                class="form-control form-control-alternative"
-                                                                placeholder="Course Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label"
-                                                                for="semester">Semester</label>
-                                                            <input type="text" id="semester" name="semester"
-                                                                class="form-control form-control-alternative"
-                                                                placeholder="Semester">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label"
-                                                                for="department">Department</label>
-                                                            <select type="text" id="department" name="department"
-                                                                class="form-control form-control-alternative">
-                                                                <option value="ECE">Electronics and Communication
-                                                                    Engineering</option>
-                                                                <option value="COE">Computer Engineering</option>
-                                                                <option value="IT">Information Technology</option>
-                                                                <option value="ICE">Instrumentation and Control
-                                                                    Engineering</option>
-                                                                <option value="MPAE">Manfacturing Processes And
-                                                                    Automation Engineering And Instrumentation And
-                                                                    Control Department</option>
-                                                                <option value="ME">Mechanical Engineering</option>
-                                                                <option value="BT">Bio Technology</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <hr class="my-4">
-                                            <button type="submit" class="btn btn-primary btn-block">ADD
-                                                COURSE</button>
+                                        <%- include('../../Includes/messages') %>
+                                        <h6 class="heading-small text-muted mb-4">STAFF INFORMATION</h6>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Staff Email</th>
+                                                        <th scope="col">Staff Name</th>
+                                                        <th scope="col">Manage Staff</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% for(var i=0; i < data.length; i++) { %>
+                                                    <tr>
+                                                        <th scope="row"><%= i + 1 %></th>
+                                                        <td><%= data[i].email %></td>
+                                                        <td><%= data[i].st_name %></td>
+                                                        <td><a href="/admin/settings/staffs/<%= data[i].email %>"
+                                                                class="btn btn-sm btn-primary">Settings</a></td>
+                                                    </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         </form>
 
 

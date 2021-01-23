@@ -15,7 +15,10 @@ router.get('/dashboard', requireAuth, controller.getDashboard);
 
 router.get('/logout', requireAuth, controller.getLogout);
 
+router.get('/getStaff', controller.getStaff);
 router.get('/addStaff', controller.getAddStaff);
+router.post('/addStaff', controller.postAddStaff);
+
 router.get('/addStudent', controller.getAddStudent);
 router.get('/addClass', controller.getAddClass);
 

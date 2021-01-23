@@ -15,7 +15,7 @@ exports.getRegister = (req, res, next) => {
 };
 
 exports.postRegister = async (req, res, next) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
 
   let errors = [];
 
@@ -38,10 +38,9 @@ exports.postRegister = async (req, res, next) => {
       db.query(
         'INSERT INTO ADMIN SET ?',
         {
-          firstName: firstName,
-          lastName: lastName,
+          name: name,
           email: email,
-          passwrd: hashedPassword,
+          password: hashedPassword,
         },
         async (error, results) => {
           if (error) {
@@ -65,24 +64,17 @@ exports.postLogin = async (req, res, next) => {
 
     let errors = [];
 
-    if (!email || !password) {
-      errors.push({ msg: 'Please enter all fields' });
-      return res.status(400).render('Admin/login', { errors });
-    }
-
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
     db.query(sql3, [email], async (err, results) => {
-      console.log(results);
       if (
         results.length === 0 ||
-        !(await bcrypt.compare(password, results[0].passwrd))
+        !(await bcrypt.compare(password, results[0].password))
       ) {
-        console.log('Email or Password is Incorrect');
         errors.push({ msg: 'Email or Password is Incorrect' });
         res.status(401).render('Admin/login', { errors });
       } else {
         const user = results[0];
-        const token = jwt.sign({ id: user.personId }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: user.admin_id }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRE,
         });
 
@@ -99,7 +91,7 @@ exports.postLogin = async (req, res, next) => {
 };
 
 exports.getDashboard = (req, res, next) => {
-  let sql4 = 'SELECT * FROM admin WHERE personId = ?';
+  let sql4 = 'SELECT * FROM admin WHERE admin_id = ?';
   db.query(sql4, [req.user], (err, result) => {
     if (err) throw err;
     res.render('Admin/dashboard', { user: result[0] });
@@ -112,14 +104,87 @@ exports.getLogout = (req, res, next) => {
   res.redirect('/admin/login');
 };
 
-exports.getAddStaff = (req, res, next) => {
-  res.render('Admin/Staff/addStaff');
+// STAFFS
+exports.getStaff = (req, res, next) => {
+  const sql1 = 'SELECT * FROM staff';
+  db.query(sql1, (err, results) => {
+    if (err) throw err;
+    else {
+      res.render('Admin/Staff/getStaff', { data: results });
+    }
+  });
 };
 
+exports.getAddStaff = (req, res, next) => {
+  const sql1 = 'SELECT * from department';
+  db.query(sql1, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    let departments = [];
+    for (let i = 0; i < results.length; ++i) {
+      departments.push(results[i].dept_id);
+    }
+    res.render('Admin/Staff/addStaff', {
+      departments: departments,
+    });
+  });
+};
+
+exports.postAddStaff = (req, res, next) => {
+  const sql1 = 'SELECT * from staff where email = ?';
+  db.query(sql1, [req.body.email], (err, results) => {
+    if (err) {
+      console.log(err);
+    }
+    if (results.length !== 0) {
+      req.flash('error', 'Staff with that email already exists');
+      res.redirect('/admin/addStaff');
+    } else {
+      const {
+        email,
+        dob,
+        name,
+        gender,
+        department,
+        address,
+        city,
+        postalCode,
+        contact,
+      } = req.body;
+
+      const sql2 =
+        'INSERT INTO staff (st_name, gender, dob, email, st_address, contact, dept_id, password) values(?,?,?,?,?,?,?,?)';
+      db.query(
+        sql2,
+        [
+          name,
+          gender,
+          dob,
+          email,
+          address + '-' + city + '-' + postalCode,
+          parseInt(contact),
+          department,
+          email,
+        ],
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          req.flash('success_msg', 'Staff added successfully');
+          res.redirect('/admin/getStaff');
+        }
+      );
+    }
+  });
+};
+
+// CLASSES
 exports.getAddClass = (req, res, next) => {
   res.render('Admin/Class/addClass');
 };
 
+// STUDENTS
 exports.getAddStudent = (req, res, next) => {
   res.render('Admin/Student/addStudent');
 };
@@ -127,19 +192,15 @@ exports.getAddStudent = (req, res, next) => {
 // DEPARTMENTS
 
 exports.getDept = (req, res, next) => {
-  const sql2 = "SELECT * FROM department";
+  const sql2 = 'SELECT * FROM department';
 
   db.query(sql2, (err, results) => {
-    if (err)
-      throw err;
+    if (err) throw err;
     else {
-      console.log(results)
-      res.render("Admin/Department/getDept", { data: results })
+      res.render('Admin/Department/getDept', { data: results });
     }
-  })
-
-
-}
+  });
+};
 
 exports.getAddDept = (req, res, next) => {
   res.render('Admin/Department/addDept');
@@ -149,20 +210,28 @@ exports.postAddDept = async (req, res, next) => {
   const deptName = req.body.department;
   const deptId = req.body.deptId;
 
-  const sql1 = "INSERT INTO department SET ?";
-
-  db.query(sql1, { dept_id: deptId, d_name: deptName }, (err, results) => {
-    if (err)
+  const sql1 = 'SELECT * from department where dept_id = ? or d_name = ?';
+  db.query(sql1, [deptId, deptName], (err, results) => {
+    if (err) {
       throw err;
-    else {
-      res.redirect('/admin/getDept');
+    }
+    if (results.length !== 0) {
+      req.flash('error', 'Department with that name or id already exists');
+      return res.redirect('/admin/addDept');
+    } else {
+      const sql2 = 'INSERT INTO department SET ?';
+      db.query(sql2, { dept_id: deptId, d_name: deptName }, (err, results) => {
+        if (err) throw err;
+        else {
+          req.flash('success_msg', 'Department added successfully');
+          res.redirect('/admin/getDept');
+        }
+      });
     }
   });
-}
+};
 
 // COURSE
 exports.getAddCourse = (req, res, next) => {
   res.render('Admin/Course/addCourse');
 };
-
-
