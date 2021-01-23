@@ -153,20 +153,19 @@ exports.postAddStaff = (req, res, next) => {
         contact,
       } = req.body;
 
-      const sql2 =
-        'INSERT INTO staff (st_name, gender, dob, email, st_address, contact, dept_id, password) values(?,?,?,?,?,?,?,?)';
+      const sql2 = 'INSERT INTO staff SET ?';
       db.query(
         sql2,
-        [
-          name,
-          gender,
-          dob,
-          email,
-          address + '-' + city + '-' + postalCode,
-          parseInt(contact),
-          department,
-          email,
-        ],
+        {
+          st_name: name,
+          gender: gender,
+          dob: dob,
+          email: email,
+          st_address: address + '-' + city + '-' + postalCode,
+          contact: contact,
+          dept_id: department,
+          password: email,
+        },
         (err, results) => {
           if (err) {
             throw err;
@@ -232,6 +231,54 @@ exports.postAddDept = async (req, res, next) => {
 };
 
 // COURSE
+exports.getCourse = (req, res, next) => {
+  const sql1 = 'SELECT * FROM course';
+  db.query(sql1, (err, results) => {
+    if (err) throw err;
+    else {
+      res.render('Admin/Course/getCourse', { data: results });
+    }
+  });
+};
+
 exports.getAddCourse = (req, res, next) => {
-  res.render('Admin/Course/addCourse');
+  const sql1 = 'SELECT * from department';
+  db.query(sql1, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    let departments = [];
+    for (let i = 0; i < results.length; ++i) {
+      departments.push(results[i].dept_id);
+    }
+    res.render('Admin/Course/addCourse', {
+      departments: departments,
+    });
+  });
+};
+
+exports.postAddCourse = (req, res, next) => {
+  let { course, semester, department, credits, c_type } = req.body;
+  semester = parseInt(semester);
+  credits = parseInt(credits);
+  let year = parseInt((semester + 1) / 2);
+  let sql1 = 'INSERT INTO course SET ?';
+  db.query(
+    sql1,
+    {
+      semester: semester,
+      year: year,
+      name: course,
+      c_type: c_type,
+      credits: credits,
+      dept_id: department,
+    },
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      req.flash('success_msg', 'Course added successfully');
+      return res.redirect('/admin/getCourse');
+    }
+  );
 };

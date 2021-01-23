@@ -41,6 +41,7 @@
                 <li class="dropdown">
                     <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
                     <div class="dropdown-content">
+                        <a href="/admin/getCourse">See Courses</a>
                         <a href="/admin/addCourse">Add New Course</a>
                         <a href="/admin/modifyCourse">Modify Course</a>
                     </div>
@@ -139,7 +140,8 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group focused">
-                                                            <label for="gender">Gender:</label>
+                                                            <label class="form-control-label"
+                                                                for="gender">Gender</label>
                                                             <select class="form-control" id="gender" name="gender"
                                                                 required>
                                                                 <option>Male</option>
@@ -154,7 +156,8 @@
                                             <div class="pl-lg-4">
                                                 <div class="col-lg-12">
                                                     <div class="form-group focused">
-                                                        <label for="department">Departments:</label>
+                                                        <label class="form-control-label"
+                                                            for="department">Department</label>
                                                         <select class="form-control" id="department" name="department"
                                                             required>
                                                             <% for(const department of departments) { %>

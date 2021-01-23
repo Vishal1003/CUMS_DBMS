@@ -26,6 +26,8 @@ router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);
 router.post('/addDept', controller.postAddDept);
 
+router.get('/getCourse', controller.getCourse);
 router.get('/addCourse', controller.getAddCourse);
+router.post('/addCourse', controller.postAddCourse);
 
 module.exports = router;

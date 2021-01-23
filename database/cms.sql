@@ -1,3 +1,9 @@
+/*
+Important Queries
+1. Drop primary key and add new ones
+  alter table course drop primary key, add primary key(c_id);
+2.
+*/
 use cumsdbms;
 
 CREATE TABLE IF NOT EXISTS `admin`(
@@ -16,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `course` (
 	`c_type` VARCHAR(255) NOT NULL,
 	`credits` INT NOT NULL,
 	`dept_id` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`c_id`,`semester`,`year`)
+	PRIMARY KEY (`c_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `StudentCourses` (
