@@ -156,6 +156,7 @@ exports.postAddStaff = (req, res, next) => {
       const sql2 = 'INSERT INTO staff SET ?';
       db.query(
         sql2,
+<<<<<<< HEAD
         {
           st_name: name,
           gender: gender,
@@ -166,6 +167,18 @@ exports.postAddStaff = (req, res, next) => {
           dept_id: department,
           password: email,
         },
+=======
+        [
+          name,
+          gender,
+          dob,
+          email,
+          address + '-' + city + '-' + postalCode,
+          contact,
+          department,
+          email,
+        ],
+>>>>>>> d6a17916b78ba09cac9b6c8322942d73c77bc729
         (err, results) => {
           if (err) {
             throw err;
