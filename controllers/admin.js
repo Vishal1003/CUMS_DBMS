@@ -67,7 +67,8 @@ exports.postLogin = async (req, res, next) => {
     let sql3 = 'SELECT * FROM admin WHERE email = ?';
     db.query(sql3, [email], async (err, results) => {
       if (
-        results.length === 0 || !(await bcrypt.compare(password, results[0].password))
+        results.length === 0 ||
+        !(await bcrypt.compare(password, results[0].password))
       ) {
         errors.push({ msg: 'Email or Password is Incorrect' });
         res.status(401).render('Admin/login', { errors });
@@ -230,33 +231,32 @@ exports.postAddDept = async (req, res, next) => {
 
 exports.getDeptSettings = (req, res, next) => {
   const deptId = req.params.id;
-  const sql1 = "SELECT * FROM department WHERE dept_id = ?";
+  const sql1 = 'SELECT * FROM department WHERE dept_id = ?';
 
   db.query(sql1, [deptId], (err, results) => {
-    if (err)
-      throw err;
+    if (err) throw err;
     else {
       // console.log(results);
-      res.render('Admin/Department/setDept', { name: results[0].d_name, id: results[0].dept_id });
+      res.render('Admin/Department/setDept', {
+        name: results[0].d_name,
+        id: results[0].dept_id,
+      });
     }
   });
-}
+};
 
 exports.postDeptSettings = (req, res, next) => {
-
   const { department, deptId } = req.body;
 
-  const sql1 = "UPDATE department SET d_name = ? WHERE dept_id = ?";
+  const sql1 = 'UPDATE department SET d_name = ? WHERE dept_id = ?';
   db.query(sql1, [department, deptId], (err, results) => {
-    if (err)
-      throw err;
+    if (err) throw err;
     else {
       req.flash('success_msg', 'Department changed successfully!');
       res.redirect('/admin/getDept');
     }
-  })
-
-}
+  });
+};
 
 // COURSE
 exports.getRelevantCourse = (req, res, next) => {
@@ -275,13 +275,10 @@ exports.getRelevantCourse = (req, res, next) => {
   });
 };
 
-// === NOT WORKING ===
 exports.postRelevantCourse = (req, res, next) => {
   let { semester, department } = req.body;
-
   semester = parseInt(semester);
-
-  if (!semester && department === "None") {
+  if (!semester && department === 'None') {
     const sql1 = 'SELECT * FROM course';
     db.query(sql1, (err, results) => {
       if (err) throw err;
@@ -289,39 +286,33 @@ exports.postRelevantCourse = (req, res, next) => {
         res.render('Admin/Course/getCourse', { data: results });
       }
     });
-  }
-
-  else if (!semester) {
-    const sql2 = 'SELECT * FROM course WHERE dept_id = ?'
-    db.query(sql2, { department }, (err, results) => {
+  } else if (!semester) {
+    const sql2 = 'SELECT * FROM course WHERE dept_id = ?';
+    db.query(sql2, [department], (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  } else if (department === 'None') {
+    const sql2 = 'SELECT * FROM course WHERE semester = ?';
+    db.query(sql2, [semester], (err, results) => {
+      if (err) throw err;
+      else {
+        res.render('Admin/Course/getCourse', { data: results });
+      }
+    });
+  } else if (semester && department !== 'None') {
+    const sql2 =
+      'SELECT * FROM course WHERE semester = ? AND dept_id = ? GROUP BY c_id';
+    db.query(sql2, [semester, department], (err, results) => {
       if (err) throw err;
       else {
         res.render('Admin/Course/getCourse', { data: results });
       }
     });
   }
-
-  else if (department === "None") {
-    const sql2 = 'SELECT * FROM course WHERE semester = ?'
-    db.query(sql2, { semester }, (err, results) => {
-      if (err) throw err;
-      else {
-        res.render('Admin/Course/getCourse', { data: results });
-      }
-    });
-  }
-
-  else if (semester && department !== "None") {
-    const sql2 = 'SELECT * FROM course WHERE semester = ? AND dept_id = ? GROUP BY c_id'
-    db.query(sql2, { semester, department }, (err, results) => {
-      if (err) throw err;
-      else {
-        res.render('Admin/Course/getCourse', { data: results });
-      }
-    });
-  }
-
-}
+};
 
 exports.getAddCourse = (req, res, next) => {
   const sql1 = 'SELECT * from department';
@@ -347,7 +338,7 @@ exports.getAllCourse = (req, res, next) => {
       res.render('Admin/Course/getCourse', { data: results });
     }
   });
-}
+};
 
 exports.postAddCourse = async (req, res, next) => {
   let { course, semester, department, credits, c_type } = req.body;
@@ -356,16 +347,13 @@ exports.postAddCourse = async (req, res, next) => {
   let year = parseInt((semester + 1) / 2);
   let sql1 = 'INSERT INTO course SET ?';
 
-  const sql2 = "SELECT COUNT(dept_id) AS size FROM department WHERE dept_id = ?";
+  const sql2 = 'SELECT COUNT(dept_id) AS size FROM course WHERE dept_id = ?';
 
-  db.query(sql2, (department), (err, results) => {
-    if (err)
-      throw err;
+  db.query(sql2, department, (err, results) => {
+    if (err) throw err;
     else {
-      console.log(results[0].size);
       let size = results[0].size + 1;
       const c_id = department + size;
-
       db.query(
         sql1,
         {
@@ -388,5 +376,3 @@ exports.postAddCourse = async (req, res, next) => {
     }
   });
 };
-
-
