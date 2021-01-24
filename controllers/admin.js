@@ -94,7 +94,7 @@ exports.getDashboard = (req, res, next) => {
   let sql4 = 'SELECT * FROM admin WHERE admin_id = ?';
   db.query(sql4, [req.user], (err, result) => {
     if (err) throw err;
-    res.render('Admin/dashboard', { user: result[0] });
+    res.render('Admin/dashboard', { user: result[0], page_name: 'overview' });
   });
 };
 
@@ -110,7 +110,7 @@ exports.getStaff = (req, res, next) => {
   db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
-      res.render('Admin/Staff/getStaff', { data: results });
+      res.render('Admin/Staff/getStaff', { data: results, page_name: 'staff' });
     }
   });
 };
@@ -127,6 +127,7 @@ exports.getAddStaff = (req, res, next) => {
     }
     res.render('Admin/Staff/addStaff', {
       departments: departments,
+      page_name: 'staff'
     });
   });
 };
@@ -180,12 +181,12 @@ exports.postAddStaff = (req, res, next) => {
 
 // CLASSES
 exports.getAddClass = (req, res, next) => {
-  res.render('Admin/Class/addClass');
+  res.render('Admin/Class/addClass', { page_name: 'classes' });
 };
 
 // STUDENTS
 exports.getAddStudent = (req, res, next) => {
-  res.render('Admin/Student/addStudent');
+  res.render('Admin/Student/addStudent', { page_name: 'students' });
 };
 
 // DEPARTMENTS
@@ -195,13 +196,13 @@ exports.getDept = (req, res, next) => {
   db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
-      res.render('Admin/Department/getDept', { data: results });
+      res.render('Admin/Department/getDept', { data: results, page_name: 'depts' });
     }
   });
 };
 
 exports.getAddDept = (req, res, next) => {
-  res.render('Admin/Department/addDept');
+  res.render('Admin/Department/addDept', { page_name: 'depts' });
 };
 
 exports.postAddDept = async (req, res, next) => {
@@ -240,6 +241,7 @@ exports.getDeptSettings = (req, res, next) => {
       res.render('Admin/Department/setDept', {
         name: results[0].d_name,
         id: results[0].dept_id,
+        page_name: 'depts'
       });
     }
   });
@@ -271,6 +273,7 @@ exports.getRelevantCourse = (req, res, next) => {
     }
     res.render('Admin/Course/deptSelect', {
       departments: departments,
+      page_name: 'courses'
     });
   });
 };
@@ -283,7 +286,7 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql1, (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results });
+        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
       }
     });
   } else if (!semester) {
@@ -291,7 +294,7 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [department], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results });
+        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
       }
     });
   } else if (department === 'None') {
@@ -299,7 +302,7 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [semester], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results });
+        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
       }
     });
   } else if (semester && department !== 'None') {
@@ -308,7 +311,7 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [semester, department], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results });
+        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
       }
     });
   }
@@ -326,6 +329,7 @@ exports.getAddCourse = (req, res, next) => {
     }
     res.render('Admin/Course/addCourse', {
       departments: departments,
+      page_name: 'courses'
     });
   });
 };
@@ -335,7 +339,7 @@ exports.getAllCourse = (req, res, next) => {
   db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
-      res.render('Admin/Course/getCourse', { data: results });
+      res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
     }
   });
 };

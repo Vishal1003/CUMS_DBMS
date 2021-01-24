@@ -6,188 +6,113 @@
 
         <div id="wrapper">
 
-            <aside id="sidebar-wrapper">
+            <%- include('../../Includes/admin_nav.ejs') %>
 
-                <div class="sidebar-brand">
-                    <h2>CMS NSIT</h2>
-                </div>
+                <section id="content-wrapper">
+                    <main role="main" class="pt-5 main">
 
-                <ul class="sidebar-nav">
-                    <li>
-                        <a href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-id-card"></i>Profile</a>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/getStaff">See Staffs</a>
-                            <a href="/admin/addStaff">Add New Staff</a>
-                            <a href="/admin/modifyStaff">Modify Staff</a>
-                        </div>
-                    </li>
-
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addStudent">Add New Student</a>
-                            <a href="/admin/modifyStudent">Modify Student</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown active">
-                        <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addCourse">Add New Course</a>
-                            <a href="/admin/modifyCourse">Modify Course</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-chalkboard"></i>Manage Classes</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/getCourse">See Courses</a>
-                            <a href="/admin/addClass">Add New Class</a>
-                            <a href="/admin/modifyClass">Modify Class</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="ddbtn" href="#"><i class="fa fa-school"></i>Manage Dept.</a>
-                        <div class="dropdown-content">
-                            <a href="/admin/addDept">Add New Department</a>
-                            <a href="/admin/getDept">Department Settings</a>
-                        </div>
-                    </li>
-
-
-
-                    <hr>
-                    <li>
-                        <a href="#"><i class="fa fa-cog"></i>Settings</a>
-                    </li>
-                    <li>
-                        <a href="/admin/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <div id="navbar-wrapper" style="position: fixed;">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-            <section id="content-wrapper">
-                <main role="main" class="pt-5 main">
-
-                    <div class="main-content">
-                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                            style="height: 100px; background-size: cover; background-position: center top;">
-
-                        </div>
-                        <div class="container-fluid mt--7">
-                            <div class="row">
-                                <div class="col-xl-12 order-xl-1">
-                                    <div class="card bg-secondary shadow">
-                                        <div class="card-header bg-white border-0">
-                                            <div class="row align-items-center">
-                                                <div class="col-8">
-                                                    <h3 class="mb-0" style="color: brown;">ADD NEW COURSE</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-
-                                            <form action="/admin/addCourse" method="POST">
-                                                <h6 class="heading-small text-muted mb-4">Course Information</h6>
-                                                <div class="pl-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label" for="course">Course
-                                                                    Name</label>
-                                                                <input type="text" id="course" name="course"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Course Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="semester">Semester</label>
-                                                                <input type="text" id="semester" name="semester"
-                                                                    class="form-control form-control-alternative"
-                                                                    placeholder="Semester">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="department">Department</label>
-                                                                <select class="form-control" id="department"
-                                                                    name="department" required>
-                                                                    <% for(const department of departments) { %>
-                                                                        <option>
-                                                                            <%= department %>
-                                                                        </option>
-                                                                        <% } %>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label"
-                                                                    for="credits">Credits</label>
-                                                                <input type="number" class="form-control" id="credits"
-                                                                    name="credits" required>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label class="form-control-label" for="c_type">Course
-                                                                    Type</label>
-                                                                <select class="form-control" id="c_type" name="c_type"
-                                                                    required>
-                                                                    <option>Practical</option>
-                                                                    <option>Theory</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr class="my-4">
-                                                <button type="submit" class="btn btn-primary btn-block">ADD
-                                                    COURSE</button>
-                                            </form>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
+                        <div class="main-content">
+                            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                                style="height: 100px; background-size: cover; background-position: center top;">
 
                             </div>
+                            <div class="container-fluid mt--7">
+                                <div class="row">
+                                    <div class="col-xl-12 order-xl-1">
+                                        <div class="card bg-secondary shadow">
+                                            <div class="card-header bg-white border-0">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h3 class="mb-0" style="color: brown;">ADD NEW COURSE</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <form action="/admin/addCourse" method="POST">
+                                                    <h6 class="heading-small text-muted mb-4">Course Information</h6>
+                                                    <div class="pl-lg-4">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="course">Course
+                                                                        Name</label>
+                                                                    <input type="text" id="course" name="course"
+                                                                        class="form-control form-control-alternative"
+                                                                        placeholder="Course Name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="semester">Semester</label>
+                                                                    <input type="text" id="semester" name="semester"
+                                                                        class="form-control form-control-alternative"
+                                                                        placeholder="Semester">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="department">Department</label>
+                                                                    <select class="form-control" id="department"
+                                                                        name="department" required>
+                                                                        <% for(const department of departments) { %>
+                                                                            <option>
+                                                                                <%= department %>
+                                                                            </option>
+                                                                            <% } %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="credits">Credits</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="credits" name="credits" required>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="c_type">Course
+                                                                        Type</label>
+                                                                    <select class="form-control" id="c_type"
+                                                                        name="c_type" required>
+                                                                        <option>Practical</option>
+                                                                        <option>Theory</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="my-4">
+                                                    <button type="submit" class="btn btn-primary btn-block">ADD
+                                                        COURSE</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
 
 
 
-                </main>
-            </section>
+                    </main>
+                </section>
 
         </div>
 
@@ -195,25 +120,4 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-
-    <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
-
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
-    </script>
-    </body>
-
-    </html>
+    <%- include('../../Includes/admin_end.ejs') %>
