@@ -21,8 +21,12 @@ router.post('/addStaff', controller.postAddStaff);
 
 router.get('/addStudent', controller.getAddStudent);
 
+router.get('/getClass', controller.getClass);
 router.get('/addClass', controller.getAddClass);
 router.post('/addClass', controller.postAddClass);
+
+router.get('/settings/class/:id', controller.getClassSettings);
+router.post('/settings/class', controller.postClassSettings);
 
 router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);

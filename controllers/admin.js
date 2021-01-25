@@ -90,6 +90,7 @@ exports.postLogin = async (req, res, next) => {
   }
 };
 
+// DASHBOARD
 exports.getDashboard = (req, res, next) => {
   let sql4 = 'SELECT * FROM admin WHERE admin_id = ?';
   db.query(sql4, [req.user], (err, result) => {
@@ -98,6 +99,8 @@ exports.getDashboard = (req, res, next) => {
   });
 };
 
+
+// LOGOUT
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
@@ -179,7 +182,101 @@ exports.postAddStaff = (req, res, next) => {
   });
 };
 
+
 // CLASSES
+
+const coursePromise = () => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT c_id from course';
+    db.query(sql1, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  });
+};
+
+const staffPromise = () => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT st_id, st_name, email from staff';
+    db.query(sql1, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  });
+};
+
+const staffIdPromise = (st_id) => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT st_id, email FROM staff WHERE st_id = ?';
+    db.query(sql1, [st_id], (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  });
+};
+
+const setClassPromise = (classId) => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT * from class WHERE class_id = ?';
+    db.query(sql1, [classId], (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  })
+}
+
+exports.getClass = (req, res, next) => {
+  const sql1 = "SELECT * FROM class";
+
+  db.query(sql1, (err, results) => {
+    if (err) throw err;
+    else {
+      res.render('Admin/Class/getClass', {
+        data: results,
+        page_name: 'class'
+      })
+    }
+  })
+
+}
+
+exports.getClassSettings = async (req, res, next) => {
+  const classId = req.params.id;
+
+  try {
+    const classData = await setClassPromise(classId);
+    const courseData = await coursePromise();
+    const staffData = await staffPromise();
+    const staffEmail = await staffIdPromise(classData[0].st_id);
+
+    console.table(staffData);
+
+    res.render('Admin/Class/setClass', {
+      classData,
+      courseData,
+      staffData,
+      staffEmail: staffEmail[0],
+      page_name: 'classes',
+    });
+  } catch (e) {
+    throw e;
+  }
+}
+
+exports.postClassSettings = (req, res, next) => {
+  const { staff, course, section, classId } = req.body;
+
+  const sql1 = 'UPDATE class SET st_id = ?, c_id = ?, section = ? WHERE class_id = ?';
+  db.query(sql1, [staff, course, section, classId], (err, results) => {
+    if (err) throw err;
+    else {
+      req.flash('success_msg', 'Class changed successfully!');
+      res.redirect('/admin/getClass');
+    }
+  });
+}
+
+
 exports.getAddClass = (req, res, next) => {
   const sql1 = 'SELECT c_id from course';
   db.query(sql1, (err, results) => {
@@ -190,15 +287,12 @@ exports.getAddClass = (req, res, next) => {
     for (let i = 0; i < results.length; ++i) {
       courses.push(results[i].c_id);
     }
-    const sql2 = 'SELECT email from staff';
-    db.query(sql2, (err, results) => {
+    const sql2 = 'SELECT st_id, email from staff';
+    db.query(sql2, (err, staffs) => {
       if (err) {
         throw err;
       }
-      let staffs = [];
-      for (let i = 0; i < results.length; ++i) {
-        staffs.push(results[i].email);
-      }
+
       res.render('Admin/Class/addClass', {
         page_name: 'classes',
         courses: courses,
@@ -210,32 +304,27 @@ exports.getAddClass = (req, res, next) => {
 
 exports.postAddClass = (req, res, next) => {
   const { course, staff, section } = req.body;
-  const sql1 = 'SELECT st_id from staff where email = ?';
-  db.query(sql1, [staff], (err1, results1) => {
-    if (err1) {
-      throw err1;
+
+  const sql2 = 'SELECT semester from course where c_id = ?';
+  db.query(sql2, [course], (err2, results2) => {
+    if (err2) {
+      throw err2;
     }
-    const st_id = results1[0].st_id;
-    const sql2 = 'SELECT semester from course where c_id = ?';
-    db.query(sql2, [course], (err2, results2) => {
-      if (err2) {
-        throw err2;
-      }
-      const semester = results2[0].semester;
-      const sql3 = 'INSERT INTO class set ?';
-      db.query(
-        sql3,
-        { section: section, semester: semester, c_id: course, st_id: st_id },
-        (err3) => {
-          if (err3) {
-            throw err3;
-          }
-          res.redirect('/admin/addClass');
+    const semester = results2[0].semester;
+    const sql3 = 'INSERT INTO class set ?';
+    db.query(
+      sql3,
+      { section: section, semester: semester, c_id: course, st_id: staff.st_id },
+      (err3) => {
+        if (err3) {
+          throw err3;
         }
-      );
-    });
+        res.redirect('/admin/getClass');
+      }
+    );
   });
 };
+
 
 // STUDENTS
 exports.getAddStudent = (req, res, next) => {

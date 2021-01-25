@@ -13,7 +13,7 @@
             <a class="ddbtn" href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
         </li>
         <li>
-            <a href="#"><i class="fa fa-id-card"></i>Profile</a>
+            <a href="/admin/profile"><i class="fa fa-id-card"></i>Profile</a>
         </li>
 
         <li class="<% if (page_name === 'staff') { %>
@@ -23,9 +23,8 @@
             <% } %>">
             <a class="ddbtn" href="#"><i class="fa fa-chalkboard-teacher"></i>Manage Staffs</a>
             <div class="dropdown-content">
-                <a href="/admin/getStaff">See Staffs</a>
                 <a href="/admin/addStaff">Add New Staff</a>
-                <a href="/admin/modifyStaff">Modify Staff</a>
+                <a href="/admin/getStaff">Staff Settings</a>
             </div>
         </li>
 
@@ -38,7 +37,7 @@
             <a class="ddbtn" href="#"><i class="fa fa-book-reader"></i>Manage Students</a>
             <div class="dropdown-content">
                 <a href="/admin/addStudent">Add New Student</a>
-                <a href="/admin/modifyStudent">Modify Student</a>
+                <a href="/admin/getStudent">Student Settings</a>
             </div>
         </li>
 
@@ -49,9 +48,8 @@
             <% } %>">
             <a class="ddbtn" href="#"><i class="fa fa-award"></i>Manage Courses</a>
             <div class="dropdown-content">
-                <a href="/admin/getCourse">See Courses</a>
                 <a href="/admin/addCourse">Add New Course</a>
-                <a href="/admin/modifyCourse">Modify Course</a>
+                <a href="/admin/getCourse">Course Settings</a>
             </div>
         </li>
 
@@ -63,7 +61,7 @@
             <a class="ddbtn" href="#"><i class="fa fa-chalkboard"></i>Manage Classes</a>
             <div class="dropdown-content">
                 <a href="/admin/addClass">Add New Class</a>
-                <a href="/admin/modifyClass">Modify Class</a>
+                <a href="/admin/getClass">Class Settings</a>
             </div>
         </li>
 

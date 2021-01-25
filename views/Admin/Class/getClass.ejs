@@ -23,30 +23,32 @@
                                     <div class="card-header bg-white border-0">
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <h3 class="mb-0" style="color: brown;">ALL COURSES</h3>
+                                                <h3 class="mb-0" style="color: brown;">ALL CLASSES</h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <%- include('../../Includes/messages') %>
-                                        <h6 class="heading-small text-muted mb-4">COURSE INFORMATION</h6>
+                                        <h6 class="heading-small text-muted mb-4">Department Information</h6>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">COURSE NAME</th>
-                                                        <th scope="col">SEMESTER</th>
-                                                        <th scope="col">Manage Course</th>
+                                                        <th scope="col">Course</th>
+                                                        <th scope="col">Section</th>
+                                                        <th scope="col">Semester</th>
+                                                        <th scope="col">Manage Class</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <% for(var i=0; i < data.length; i++) { %>
+                                                    <% for(let i=0; i < data.length; i++) { %>
                                                     <tr>
-                                                        <th scope="row"><%= data[i].c_id %></th>
-                                                        <td><%= data[i].name %></td>
+                                                        <th scope="row"><%= data[i].class_id %></th>
+                                                        <td><%= data[i].c_id %></td>
+                                                        <td><%= data[i].section %></td>
                                                         <td><%= data[i].semester %></td>
-                                                        <td><a href="/admin/settings/staffs/<%= data[i].name %>"
+                                                        <td><a href="/admin/settings/class/<%= data[i].class_id %>"
                                                                 class="btn btn-sm btn-primary">Settings</a></td>
                                                     </tr>
                                                     <% } %>

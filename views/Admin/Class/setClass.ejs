@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS NSIT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../../CSS/main.css">
+    <link rel="stylesheet" href="../../../CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../../CSS/student-profile.css">
+
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="../../../CSS/admin-dashboard.css">
+
+    <div class="container-fluid">
+
+        <div id="wrapper">
+
+            <%- include('../../Includes/admin_nav.ejs') %>
+
+                <section id="content-wrapper">
+                    <main role="main" class="pt-5 main">
+
+                        <div class="main-content">
+                            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                                style="height: 100px; background-size: cover; background-position: center top;">
+
+                            </div>
+                            <div class="container-fluid mt--7">
+                                <div class="row">
+                                    <div class="col-xl-12 order-xl-1">
+                                        <div class="card bg-secondary shadow">
+                                            <div class="card-header bg-white border-0">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h3 class="mb-0" style="color: brown;">CLASS SETTINGS</h3>
+                                                    </div>
+                                                    <div class="col-4 text-right">
+                                                        <a href="/admin/getClass" class="btn btn-sm btn-primary">See All
+                                                            Classes</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="/admin/settings/class" method="POST">
+                                                    <h6 class="heading-small text-muted mb-4">Class Information</h6>
+                                                    <div class="pl-lg-4">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label" for="staff">Staff
+                                                                        <span style="font-size: x-small;">(mail id of
+                                                                            staff)</span></label>
+                                                                    <select class="form-control" id="staff" name="staff"
+                                                                        required>
+                                                                        <option value=" <%= staffEmail.st_id %>">
+                                                                            <%= staffEmail.email %>
+                                                                        </option>
+                                                                        <% for(const staff of staffData) { %>
+                                                                            <option class="<% if(staffEmail === staff.email) { %> 
+                                                                                hidden 
+                                                                                <% } %>" value="<%= staff.st_id %>">
+                                                                                <%= staff.email %>
+                                                                            </option>
+                                                                            <% } %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="course">Course</label>
+                                                                    <select class="form-control" id="course"
+                                                                        name="course" required>
+                                                                        <option>
+                                                                            <%= classData[0].c_id %>
+                                                                        </option>
+                                                                        <% for(const course of courseData) { %>
+                                                                            <option
+                                                                                class="<% if(classData[0].c_id === course.c_id) { %> 
+                                                                                    hidden 
+                                                                                    <% } %>">
+                                                                                <%= course.c_id %>
+                                                                            </option>
+                                                                            <% } %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group focused">
+                                                                    <label class="form-control-label"
+                                                                        for="section">Section</label>
+                                                                    <input type="number" id="section" name="section"
+                                                                        class="form-control form-control-alternative"
+                                                                        placeholder="Section" required
+                                                                        value="<%= classData[0].section%>">
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <input type="hidden" id="classId" name="classId"
+                                                                value="<%= classData[0].class_id %>">
+
+                                                            <hr class="my-4">
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-block">MODIFY
+                                                                CLASS</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+        </div>
+    </div>
+
+
+
+
+    </main>
+    </section>
+
+    </div>
+
+    </div>
+
+
+    <%- include('../../Includes/admin_end.ejs') %>

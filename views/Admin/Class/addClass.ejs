@@ -35,12 +35,12 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label class="form-control-label" for="staff">Staff</label>
+                                                            <label class="form-control-label" for="staff">Staff <span style="font-size: x-small;">(mail id of staff)</span></label>
                                                             <select class="form-control" id="staff" name="staff"
                                                                 required>
                                                                 <% for(const staff of staffs) { %>
-                                                                <option>
-                                                                    <%= staff %>
+                                                                <option value="staff.st_id">
+                                                                    <%= staff.email %>
                                                                 </option>
                                                                 <% } %>
                                                             </select>
