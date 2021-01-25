@@ -1,123 +1,121 @@
 <%- include('../../Includes/begin.ejs') %>
 
-    <link rel="stylesheet" href="../../CSS/admin-dashboard.css">
+<link rel="stylesheet" href="../../CSS/admin-dashboard.css">
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        <div id="wrapper">
+    <div id="wrapper">
 
-            <%- include('../../Includes/admin_nav.ejs') %>
+        <%- include('../../Includes/admin_nav.ejs') %>
 
-                <section id="content-wrapper">
-                    <main role="main" class="pt-5 main">
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
 
-                        <div class="main-content">
-                            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                                style="height: 100px; background-size: cover; background-position: center top;">
+                <div class="main-content">
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
 
-                            </div>
-                            <div class="container-fluid mt--7">
-                                <div class="row">
-                                    <div class="col-xl-12 order-xl-1">
-                                        <div class="card bg-secondary shadow">
-                                            <div class="card-header bg-white border-0">
-                                                <div class="row align-items-center">
-                                                    <div class="col-8">
-                                                        <h3 class="mb-0" style="color: brown;">ADD NEW COURSE</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                                <form action="/admin/addCourse" method="POST">
-                                                    <h6 class="heading-small text-muted mb-4">Course Information</h6>
-                                                    <div class="pl-lg-4">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="course">Course
-                                                                        Name</label>
-                                                                    <input type="text" id="course" name="course"
-                                                                        class="form-control form-control-alternative"
-                                                                        placeholder="Course Name">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="semester">Semester</label>
-                                                                    <input type="text" id="semester" name="semester"
-                                                                        class="form-control form-control-alternative"
-                                                                        placeholder="Semester">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="department">Department</label>
-                                                                    <select class="form-control" id="department"
-                                                                        name="department" required>
-                                                                        <% for(const department of departments) { %>
-                                                                            <option>
-                                                                                <%= department %>
-                                                                            </option>
-                                                                            <% } %>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="credits">Credits</label>
-                                                                    <input type="number" class="form-control"
-                                                                        id="credits" name="credits" required>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="c_type">Course
-                                                                        Type</label>
-                                                                    <select class="form-control" id="c_type"
-                                                                        name="c_type" required>
-                                                                        <option>Practical</option>
-                                                                        <option>Theory</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr class="my-4">
-                                                    <button type="submit" class="btn btn-primary btn-block">ADD
-                                                        COURSE</button>
-                                                </form>
-
-
+                    </div>
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0" style="color: brown;">ADD NEW COURSE</h3>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card-body">
+
+                                        <form action="/admin/addCourse" method="POST">
+                                            <h6 class="heading-small text-muted mb-4">Course Information</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="course">Course
+                                                                Name</label>
+                                                            <input type="text" id="course" name="course"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Course Name" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="semester">Semester</label>
+                                                            <input type="text" id="semester" name="semester"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Semester" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="department">Department</label>
+                                                            <select class="form-control" id="department"
+                                                                name="department" required>
+                                                                <% for(const department of departments) { %>
+                                                                <option>
+                                                                    <%= department %>
+                                                                </option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="credits">Credits</label>
+                                                            <input type="number" class="form-control" id="credits"
+                                                                name="credits" required>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="c_type">Course
+                                                                Type</label>
+                                                            <select class="form-control" id="c_type" name="c_type"
+                                                                required>
+                                                                <option>Practical</option>
+                                                                <option>Theory</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="my-4">
+                                            <button type="submit" class="btn btn-primary btn-block">ADD
+                                                COURSE</button>
+                                        </form>
 
 
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
+                    </div>
+                </div>
 
 
 
 
-                    </main>
-                </section>
-
-        </div>
+            </main>
+        </section>
 
     </div>
 
+</div>
 
 
-    <%- include('../../Includes/admin_end.ejs') %>
+
+<%- include('../../Includes/admin_end.ejs') %>

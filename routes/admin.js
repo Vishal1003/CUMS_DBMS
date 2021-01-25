@@ -20,7 +20,9 @@ router.get('/addStaff', controller.getAddStaff);
 router.post('/addStaff', controller.postAddStaff);
 
 router.get('/addStudent', controller.getAddStudent);
+
 router.get('/addClass', controller.getAddClass);
+router.post('/addClass', controller.postAddClass);
 
 router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);
@@ -34,7 +36,5 @@ router.post('/getCourse', controller.postRelevantCourse);
 router.get('/getAllCourses', controller.getAllCourse);
 router.get('/addCourse', controller.getAddCourse);
 router.post('/addCourse', controller.postAddCourse);
-
-
 
 module.exports = router;

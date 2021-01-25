@@ -127,7 +127,7 @@ exports.getAddStaff = (req, res, next) => {
     }
     res.render('Admin/Staff/addStaff', {
       departments: departments,
-      page_name: 'staff'
+      page_name: 'staff',
     });
   });
 };
@@ -181,7 +181,60 @@ exports.postAddStaff = (req, res, next) => {
 
 // CLASSES
 exports.getAddClass = (req, res, next) => {
-  res.render('Admin/Class/addClass', { page_name: 'classes' });
+  const sql1 = 'SELECT c_id from course';
+  db.query(sql1, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    let courses = [];
+    for (let i = 0; i < results.length; ++i) {
+      courses.push(results[i].c_id);
+    }
+    const sql2 = 'SELECT email from staff';
+    db.query(sql2, (err, results) => {
+      if (err) {
+        throw err;
+      }
+      let staffs = [];
+      for (let i = 0; i < results.length; ++i) {
+        staffs.push(results[i].email);
+      }
+      res.render('Admin/Class/addClass', {
+        page_name: 'classes',
+        courses: courses,
+        staffs: staffs,
+      });
+    });
+  });
+};
+
+exports.postAddClass = (req, res, next) => {
+  const { course, staff, section } = req.body;
+  const sql1 = 'SELECT st_id from staff where email = ?';
+  db.query(sql1, [staff], (err1, results1) => {
+    if (err1) {
+      throw err1;
+    }
+    const st_id = results1[0].st_id;
+    const sql2 = 'SELECT semester from course where c_id = ?';
+    db.query(sql2, [course], (err2, results2) => {
+      if (err2) {
+        throw err2;
+      }
+      const semester = results2[0].semester;
+      const sql3 = 'INSERT INTO class set ?';
+      db.query(
+        sql3,
+        { section: section, semester: semester, c_id: course, st_id: st_id },
+        (err3) => {
+          if (err3) {
+            throw err3;
+          }
+          res.redirect('/admin/addClass');
+        }
+      );
+    });
+  });
 };
 
 // STUDENTS
@@ -196,7 +249,10 @@ exports.getDept = (req, res, next) => {
   db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
-      res.render('Admin/Department/getDept', { data: results, page_name: 'depts' });
+      res.render('Admin/Department/getDept', {
+        data: results,
+        page_name: 'depts',
+      });
     }
   });
 };
@@ -237,11 +293,10 @@ exports.getDeptSettings = (req, res, next) => {
   db.query(sql1, [deptId], (err, results) => {
     if (err) throw err;
     else {
-      // console.log(results);
       res.render('Admin/Department/setDept', {
         name: results[0].d_name,
         id: results[0].dept_id,
-        page_name: 'depts'
+        page_name: 'depts',
       });
     }
   });
@@ -273,7 +328,7 @@ exports.getRelevantCourse = (req, res, next) => {
     }
     res.render('Admin/Course/deptSelect', {
       departments: departments,
-      page_name: 'courses'
+      page_name: 'courses',
     });
   });
 };
@@ -286,7 +341,10 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql1, (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
+        res.render('Admin/Course/getCourse', {
+          data: results,
+          page_name: 'courses',
+        });
       }
     });
   } else if (!semester) {
@@ -294,7 +352,10 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [department], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
+        res.render('Admin/Course/getCourse', {
+          data: results,
+          page_name: 'courses',
+        });
       }
     });
   } else if (department === 'None') {
@@ -302,7 +363,10 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [semester], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
+        res.render('Admin/Course/getCourse', {
+          data: results,
+          page_name: 'courses',
+        });
       }
     });
   } else if (semester && department !== 'None') {
@@ -311,7 +375,10 @@ exports.postRelevantCourse = (req, res, next) => {
     db.query(sql2, [semester, department], (err, results) => {
       if (err) throw err;
       else {
-        res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
+        res.render('Admin/Course/getCourse', {
+          data: results,
+          page_name: 'courses',
+        });
       }
     });
   }
@@ -329,7 +396,7 @@ exports.getAddCourse = (req, res, next) => {
     }
     res.render('Admin/Course/addCourse', {
       departments: departments,
-      page_name: 'courses'
+      page_name: 'courses',
     });
   });
 };
@@ -339,7 +406,10 @@ exports.getAllCourse = (req, res, next) => {
   db.query(sql1, (err, results) => {
     if (err) throw err;
     else {
-      res.render('Admin/Course/getCourse', { data: results, page_name: 'courses' });
+      res.render('Admin/Course/getCourse', {
+        data: results,
+        page_name: 'courses',
+      });
     }
   });
 };

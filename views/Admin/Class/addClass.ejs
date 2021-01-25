@@ -1,112 +1,104 @@
 <%- include('../../Includes/begin.ejs') %>
 
-    <link rel="stylesheet" href="../../CSS/admin-dashboard.css">
+<link rel="stylesheet" href="../../CSS/admin-dashboard.css">
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        <div id="wrapper">
+    <div id="wrapper">
 
-            <%- include('../../Includes/admin_nav.ejs') %>
+        <%- include('../../Includes/admin_nav.ejs') %>
 
-                <section id="content-wrapper">
-                    <main role="main" class="pt-5 main">
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
 
-                        <div class="main-content">
-                            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                                style="height: 100px; background-size: cover; background-position: center top;">
+                <div class="main-content">
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
 
-                            </div>
-                            <div class="container-fluid mt--7">
-                                <div class="row">
-                                    <div class="col-xl-12 order-xl-1">
-                                        <div class="card bg-secondary shadow">
-                                            <div class="card-header bg-white border-0">
-                                                <div class="row align-items-center">
-                                                    <div class="col-8">
-                                                        <h3 class="mb-0" style="color: brown;">ADD NEW CLASS</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                                <form>
-                                                    <h6 class="heading-small text-muted mb-4">Class information</h6>
-                                                    <div class="pl-lg-4">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="department">Department</label>
-                                                                    <select type="text" id="department"
-                                                                        name="department"
-                                                                        class="form-control form-control-alternative">
-                                                                        <option value="ECE">Electronics and
-                                                                            Communication
-                                                                            Engineering</option>
-                                                                        <option value="COE">Computer Engineering
-                                                                        </option>
-                                                                        <option value="IT">Information Technology
-                                                                        </option>
-                                                                        <option value="ICE">Instrumentation and Control
-                                                                            Engineering</option>
-                                                                        <option value="MPAE">Manfacturing Processes And
-                                                                            Automation Engineering And Instrumentation
-                                                                            And
-                                                                            Control Department</option>
-                                                                        <option value="ME">Mechanical Engineering
-                                                                        </option>
-                                                                        <option value="BT">Bio Technology</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group focused">
-                                                                    <label class="form-control-label"
-                                                                        for="semester">Semester</label>
-                                                                    <input type="number" id="semester" name="semester"
-                                                                        class="form-control form-control-alternative"
-                                                                        placeholder="1-8">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group focused">
-                                                                    <label class="form-control-label"
-                                                                        for="section">Section</label>
-                                                                    <input type="number" id="section" name="section"
-                                                                        class="form-control form-control-alternative"
-                                                                        placeholder="Section">
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <hr class="my-4">
-                                                    <button type="submit" class="btn btn-primary btn-block">ADD
-                                                        CLASS</button>
-                                                </form>
-
-
+                    </div>
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0" style="color: brown;">ADD NEW CLASS</h3>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card-body">
+
+                                        <form action="/admin/addClass" method="POST">
+                                            <h6 class="heading-small text-muted mb-4">Class information</h6>
+                                            <div class="pl-lg-4">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="staff">Staff</label>
+                                                            <select class="form-control" id="staff" name="staff"
+                                                                required>
+                                                                <% for(const staff of staffs) { %>
+                                                                <option>
+                                                                    <%= staff %>
+                                                                </option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label"
+                                                                for="course">Course</label>
+                                                            <select class="form-control" id="course" name="course"
+                                                                required>
+                                                                <% for(const course of courses) { %>
+                                                                <option>
+                                                                    <%= course %>
+                                                                </option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label"
+                                                                for="section">Section</label>
+                                                            <input type="number" id="section" name="section"
+                                                                class="form-control form-control-alternative"
+                                                                placeholder="Section" required>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr class="my-4">
+                                            <button type="submit" class="btn btn-primary btn-block">ADD
+                                                CLASS</button>
+                                        </form>
 
 
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
+                    </div>
+                </div>
 
 
 
 
-                    </main>
-                </section>
-
-        </div>
+            </main>
+        </section>
 
     </div>
 
+</div>
 
-    <%- include('../../Includes/admin_end.ejs') %>
+
+<%- include('../../Includes/admin_end.ejs') %>
