@@ -42,7 +42,7 @@ exports.postRegister = async (req, res, next) => {
           email: email,
           password: hashedPassword,
         },
-        async (error, results) => {
+        (error, results) => {
           if (error) {
             throw error;
           }
@@ -134,9 +134,10 @@ exports.getAddStaff = (req, res, next) => {
   });
 };
 
-exports.postAddStaff = (req, res, next) => {
+
+exports.postAddStaff = async (req, res, next) => {
   const sql1 = 'SELECT * from staff where email = ?';
-  db.query(sql1, [req.body.email], (err, results) => {
+  db.query(sql1, [req.body.email], async (err, results) => {
     if (err) {
       console.log(err);
     }
@@ -156,6 +157,11 @@ exports.postAddStaff = (req, res, next) => {
         contact,
       } = req.body;
 
+      const password = dob.toString().split("-").join('');
+      // console.log(password);
+
+      let hashedPassword = await bcrypt.hash(password, 8);
+
       const sql2 = 'INSERT INTO staff SET ?';
       db.query(
         sql2,
@@ -167,7 +173,7 @@ exports.postAddStaff = (req, res, next) => {
           st_address: address + '-' + city + '-' + postalCode,
           contact: contact,
           dept_id: department,
-          password: email,
+          password: hashedPassword,
         },
         (err, results) => {
           if (err) {
@@ -537,7 +543,6 @@ exports.postAddCourse = async (req, res, next) => {
   });
 };
 
-
 const getCoursePromise = (cId) => {
   return new Promise((resolve, reject) => {
     const sql1 = 'SELECT * FROM course WHERE c_id = ?';
@@ -580,7 +585,7 @@ exports.postCourseSettings = (req, res, next) => {
 
   const sql1 = 'UPDATE course SET name = ?, semester = ?, credits = ?, year = ?, c_type = ?, dept_id = ? WHERE c_id = ?';
   db.query(sql1, [course, semester, credits, year, c_type, department, courseId], (err, results) => {
-    if(err) throw err;
+    if (err) throw err;
     else {
       req.flash('success_msg', 'Course changed successfully!');
       res.redirect('/admin/getAllCourses');
