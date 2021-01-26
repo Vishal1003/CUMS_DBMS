@@ -39,8 +39,10 @@ CREATE TABLE IF NOT EXISTS `student` (
 	`email` VARCHAR(255) NOT NULL UNIQUE,
 	`s_address` VARCHAR(255) NOT NULL,
 	`contact` VARCHAR(12) NOT NULL,
-	`class_id` INT,
 	`password` VARCHAR(255) NOT NULL,
+	`section` INT NOT NULL,
+	`joining_date` DATE DEFAULT(CURRENT_DATE),
+	`dept_id` VARCHAR(255),	
 	PRIMARY KEY (`s_id`)
 );
 
@@ -125,7 +127,7 @@ ALTER TABLE `StudentCourses` ADD CONSTRAINT `StudentCourses_fk0` FOREIGN KEY (`s
 
 ALTER TABLE `StudentCourses` ADD CONSTRAINT `StudentCourses_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
 
-ALTER TABLE `student` ADD CONSTRAINT `student_fk0` FOREIGN KEY (`class_id`) REFERENCES `class`(`class_id`) on update cascade on delete restrict;
+ALTER TABLE `student` ADD CONSTRAINT `student_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
 ALTER TABLE `staff` ADD CONSTRAINT `staff_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
