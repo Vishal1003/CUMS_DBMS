@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS NSIT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../../CSS/main.css">
+    <link rel="stylesheet" href="../../../CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../../CSS/student-profile.css">
+
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="../../../CSS/admin-dashboard.css">
+
+    <div class="container-fluid">
+
+        <div id="wrapper">
+
+            <%- include('../../Includes/admin_nav.ejs') %>
+
+                <section id="content-wrapper">
+                    <main role="main" class="pt-5 main">
+
+                        <div class="main-content">
+                            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                                style="height: 100px; background-size: cover; background-position: center top;">
+
+                            </div>
+                            <div class="container-fluid mt--7">
+                                <div class="row">
+                                    <div class="col-xl-12 order-xl-1">
+                                        <div class="card bg-secondary shadow">
+                                            <div class="card-header bg-white border-0">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h3 class="mb-0" style="color: brown;">MODIFY COURSE</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <form action="/admin/settings/course" method="POST">
+                                                    <h6 class="heading-small text-muted mb-4">Course Information</h6>
+                                                    <div class="pl-lg-4">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="course">Course
+                                                                        Name</label>
+                                                                    <input type="text" id="course" name="course"
+                                                                        class="form-control form-control-alternative"
+                                                                        placeholder="Course Name" required
+                                                                        value="<%= courseData[0].name %>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="semester">Semester</label>
+                                                                    <input type="text" id="semester" name="semester"
+                                                                        class="form-control form-control-alternative"
+                                                                        placeholder="Semester" required
+                                                                        value="<%= courseData[0].semester %>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="department">Department</label>
+                                                                    <select class="form-control" id="department"
+                                                                        name="department" required>
+                                                                        <option>
+                                                                            <%= courseData[0].dept_id %>
+                                                                        </option>
+                                                                        <% for(const department of departments) { %>
+                                                                            <option class="<% if(department.dept_id === courseData[0].dept_id) { %>
+                                                                    hidden
+                                                                    <% } %>">
+                                                                                <%= department.dept_id %>
+                                                                            </option>
+                                                                            <% } %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="credits">Credits</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="credits" name="credits" required
+                                                                        value="<%= courseData[0].credits %>">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label"
+                                                                        for="c_type">Course
+                                                                        Type</label>
+                                                                    <select class="form-control" id="c_type"
+                                                                        name="c_type" required>
+                                                                        <option>
+                                                                            <%= courseData[0].c_type %>
+                                                                        </option>
+                                                                        <option class="<% if(courseData[0].c_type === 'Practical') { %>
+                                                                            hidden
+                                                                            <% } %>">Practical</option>
+                                                                        <option class="<% if(courseData[0].c_type === 'Theory') { %>
+                                                                            hidden
+                                                                            <% } %>">Theory</option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="courseId" name="courseId"
+                                                        value="<%= courseData[0].c_id %>">
+                                                    <hr class="my-4">
+                                                    <button type="submit" class="btn btn-primary btn-block">MODIFY
+                                                        COURSE</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </main>
+                </section>
+
+        </div>
+
+    </div>
+
+
+
+    <%- include('../../Includes/admin_end.ejs') %>

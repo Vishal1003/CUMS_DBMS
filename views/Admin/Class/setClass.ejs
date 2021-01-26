@@ -66,7 +66,7 @@
                                                                             <%= staffEmail.email %>
                                                                         </option>
                                                                         <% for(const staff of staffData) { %>
-                                                                            <option class="<% if(staffEmail === staff.email) { %> 
+                                                                            <option class="<% if(staffEmail.email === staff.email) { %> 
                                                                                 hidden 
                                                                                 <% } %>" value="<%= staff.st_id %>">
                                                                                 <%= staff.email %>

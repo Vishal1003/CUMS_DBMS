@@ -99,7 +99,6 @@ exports.getDashboard = (req, res, next) => {
   });
 };
 
-
 // LOGOUT
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
@@ -249,8 +248,7 @@ exports.getClassSettings = async (req, res, next) => {
     const staffData = await staffPromise();
     const staffEmail = await staffIdPromise(classData[0].st_id);
 
-    console.table(staffData);
-
+    // console.table(staffEmail);
     res.render('Admin/Class/setClass', {
       classData,
       courseData,
@@ -275,7 +273,6 @@ exports.postClassSettings = (req, res, next) => {
     }
   });
 }
-
 
 exports.getAddClass = (req, res, next) => {
   const sql1 = 'SELECT c_id from course';
@@ -484,7 +481,7 @@ exports.getAddCourse = (req, res, next) => {
       departments.push(results[i].dept_id);
     }
     res.render('Admin/Course/addCourse', {
-      departments: departments,
+      departments,
       page_name: 'courses',
     });
   });
@@ -539,3 +536,55 @@ exports.postAddCourse = async (req, res, next) => {
     }
   });
 };
+
+
+const getCoursePromise = (cId) => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT * FROM course WHERE c_id = ?';
+    db.query(sql1, [cId], (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
+  });
+}
+
+const getDeptPromise = () => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'SELECT * from department';
+    db.query(sql1, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    })
+  })
+}
+
+exports.getCourseSettings = async (req, res, next) => {
+  const cId = req.params.id;
+
+  try {
+    const courseData = await getCoursePromise(cId);
+    const deptData = await getDeptPromise();
+    console.table(courseData);
+    console.table(deptData);
+    res.render('Admin/Course/setCourse', { courseData, page_name: 'courses', departments: deptData });
+  } catch (e) {
+    throw e;
+  }
+}
+
+exports.postCourseSettings = (req, res, next) => {
+  let { course, semester, department, credits, c_type, courseId } = req.body;
+  semester = parseInt(semester);
+  credits = parseInt(credits);
+  let year = parseInt((semester + 1) / 2);
+
+  const sql1 = 'UPDATE course SET name = ?, semester = ?, credits = ?, year = ?, c_type = ?, dept_id = ? WHERE c_id = ?';
+  db.query(sql1, [course, semester, credits, year, c_type, department, courseId], (err, results) => {
+    if(err) throw err;
+    else {
+      req.flash('success_msg', 'Course changed successfully!');
+      res.redirect('/admin/getAllCourses');
+    }
+  })
+
+}
