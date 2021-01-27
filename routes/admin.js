@@ -17,6 +17,13 @@ router.get('/addStaff', controller.getAddStaff);
 router.post('/addStaff', controller.postAddStaff);
 
 router.get('/addStudent', controller.getAddStudent);
+router.post('/addStudent', controller.postAddStudent);
+router.get('/getStudent', controller.getRelevantStudent);
+router.post('/getStudent', controller.postRelevantStudent);
+router.get('/getAllStudents', controller.getAllStudent);
+
+router.get('/settings/student/:id', controller.getStudentSettings);
+router.post('/settings/student', controller.postStudentSettings);
 
 router.get('/getClass', controller.getClass);
 router.get('/addClass', controller.getAddClass);
