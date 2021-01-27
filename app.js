@@ -5,11 +5,17 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const cors = require('cors');
+const methodOverride = require('method-override');
 
 const sql = require('./database/mysql');
 
 env.config();
 const app = express();
+
+
+app.use(cors());
+app.use(methodOverride('_method'))
 
 sql.connect();
 

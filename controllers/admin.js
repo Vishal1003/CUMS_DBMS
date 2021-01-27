@@ -2,6 +2,10 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const mailgun = require('mailgun-js');
+const DOMAIN = process.env.DOMAIN_NAME;
+const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
+
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -592,4 +596,109 @@ exports.postCourseSettings = (req, res, next) => {
     }
   })
 
+}
+
+
+exports.getForgotPassword = (req, res, next) => {
+  res.render('Admin/forgotPassword');
+}
+
+exports.forgotPassword = (req, res, next) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).render('Admin/forgotPassword')
+  }
+
+  let errors = [];
+
+  const sql1 = 'SELECT * from admin WHERE email = ?';
+  db.query(sql1, [email], async (err, results) => {
+    if (err) throw err;
+    else {
+      if (!results || results.length === 0) {
+        errors.push({ msg: 'That email is not registered!' });
+        res.status(401).render('Admin/forgotPassword', {
+          errors
+        });
+      }
+
+      const token = jwt.sign({ _id: results[0].uid }, process.env.RESET_PASSWORD_KEY, { expiresIn: '20m' });
+      const data = {
+        from: 'noreplyCMS@mail.com',
+        to: email,
+        subject: 'Reset Password Link',
+        html: `<h2>Please click on given link to reset your password</h2>
+                <p><a href="${process.env.URL}/admin/resetpassword/${token}">Reset Password</a></p>
+                <hr>
+                <p><b>The link will expire in 20m!</b></p>
+              `
+      };
+
+      const sql2 = 'UPDATE admin SET resetLink = ? WHERE email = ?';
+      db.query(sql2, [token, email], (err, success) => {
+        if (err) {
+          errors.push({ msg: 'Error In ResetLink' })
+          res.render('Admin/forgotPassword', { errors });
+        }
+        else {
+          mg.messages().send(data, (err, body) => {
+            if (err) throw err;
+            else {
+              console.log(body);
+              req.flash('success_msg', 'Reset Link Sent Successfully!');
+              res.redirect('/admin/forgot-password');
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+exports.getResetPassword = (req, res, next) => {
+  const resetLink = req.params.id;
+  res.render('Admin/resetPassword', { resetLink })
+}
+
+exports.resetPassword = (req, res, next) => {
+  const { resetLink, password, confirmPass } = req.body;
+
+  let errors = [];
+
+  if (password !== confirmPass) {
+    req.flash('error_msg', 'Passwords do not match!');
+    res.redirect(`/admin/resetpassword/${resetLink}`);
+  } else {
+    if (resetLink) {
+      jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, (err, data) => {
+        if (err) {
+          errors.push({ msg: 'Token Expired!' });
+          res.render('Admin/resetPassword', { errors });
+        } else {
+          const sql1 = 'SELECT * FROM admin WHERE resetLink = ?';
+          db.query(sql1, [resetLink], async (err, results) => {
+            if (err || results.length === 0) {
+              throw err;
+            } else {
+              let hashed = await bcrypt.hash(password, 8);
+
+              const sql2 = 'UPDATE admin SET password = ? WHERE resetLink = ?';
+              db.query(sql2, [hashed, resetLink], (errorData, retData) => {
+                if (errorData) {
+                  throw errorData
+                } else {
+                  req.flash('success_msg', 'Password Changed Successfully! Login Now');
+                  res.redirect('/admin/login');
+                }
+              })
+            }
+          });
+        }
+
+      })
+    } else {
+      errors.push({ msg: 'Authentication Error' })
+      res.render('Admin/resetPassword', { errors });
+    }
+  }
 }

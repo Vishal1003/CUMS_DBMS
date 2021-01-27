@@ -4,16 +4,13 @@ const { requireAuth, forwardAuth } = require('../middlewares/adminAuth');
 
 const router = express.Router();
 
-// get login page
+// LOGIN
 router.get('/login', forwardAuth, controller.getLogin);
 router.post('/login', controller.postLogin);
 
+// REGISTER
 router.get('/register', forwardAuth, controller.getRegister);
 router.post('/register', controller.postRegister);
-
-router.get('/dashboard', requireAuth, controller.getDashboard);
-
-router.get('/logout', requireAuth, controller.getLogout);
 
 router.get('/getStaff', controller.getStaff);
 router.get('/addStaff', controller.getAddStaff);
@@ -43,5 +40,15 @@ router.post('/addCourse', controller.postAddCourse);
 
 router.get('/settings/course/:id', controller.getCourseSettings);
 router.post('/settings/course', controller.postCourseSettings);
+
+router.get('/dashboard', requireAuth, controller.getDashboard);
+router.get('/logout', requireAuth, controller.getLogout);
+
+router.get('/forgot-password', controller.getForgotPassword);
+router.put('/forgot-password', controller.forgotPassword);
+
+router.get('/resetpassword/:id', controller.getResetPassword);
+router.put('/resetpassword', controller.resetPassword);
+
 
 module.exports = router;

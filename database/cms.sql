@@ -150,3 +150,15 @@ ALTER TABLE `marks` ADD CONSTRAINT `marks_fk0` FOREIGN KEY (`s_id`) REFERENCES `
 ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`);
 
 ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk1` FOREIGN KEY (`asg_id`) REFERENCES `assignment`(`asg_id`);
+
+
+use cumsdbms;
+
+alter table admin
+add resetLink varchar(255) default '';
+
+alter table student 
+add resetLink varchar(255) default '';
+
+alter table staff
+add resetLink varchar(255) default '';
