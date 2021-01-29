@@ -352,6 +352,7 @@ exports.getAddStudent = (req, res, next) => {
     });
   });
 };
+
 exports.postAddStudent = (req, res, next) => {
   const {
     email,
@@ -853,7 +854,7 @@ exports.forgotPassword = (req, res, next) => {
         });
       }
 
-      const token = jwt.sign({ _id: results[0].uid }, process.env.RESET_PASSWORD_KEY, { expiresIn: '20m' });
+      const token = jwt.sign({ id: results[0].admin_id }, process.env.RESET_PASSWORD_KEY, { expiresIn: '20m' });
       const data = {
         from: 'noreplyCMS@mail.com',
         to: email,
