@@ -9,53 +9,61 @@ const db = mysql.createConnection({
   database: 'cumsdbms',
 });
 
-// LOGIN
-exports.getLogin = (req, res, next) => {
-  res.render('Staff/login', {
-    pageTitle: 'Staff Login',
-    path: '/Staff/login',
+
+
+// Database query promises
+const zeroParamPromise = (sql) => {
+  return new Promise((resolve, reject) => {
+    db.query(sql, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
+    });
   });
 };
 
-exports.postLogin = (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-
-    let errors = [];
-
-    const sql1 = 'SELECT * FROM staff WHERE email = ?';
-    db.query(sql1, [email], async (err, results) => {
-      if (
-        results.length === 0 ||
-        !(await bcrypt.compare(password, results[0].password))
-      ) {
-        errors.push({ msg: 'Email or Password is Incorrect' });
-        res.status(401).render('Staff/login', { errors });
-      } else {
-        const user = results[0];
-        const token = jwt.sign({ id: user.st_id }, process.env.JWT_SECRET, {
-          expiresIn: process.env.JWT_EXPIRE,
-        });
-
-        res.cookie('jwt', token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
-        res.redirect('/staff/dashboard');
-      }
+const queryParamPromise = (sql, queryParam) => {
+  return new Promise((resolve, reject) => {
+    db.query(sql, queryParam, (err, results) => {
+      if (err) return reject(err);
+      return resolve(results);
     });
-  } catch (err) {
-    throw err;
-  }
-}
-
-
-exports.getDashboard = (req, res, next) => {
-  const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
-  db.query(sql1, [req.user], (err, result) => {
-    if (err) throw err;
-    res.render('Staff/dashboard', { user: result[0] });
   });
+};
+
+// LOGIN
+exports.getLogin = (req, res, next) => {
+  res.render('Staff/login');
+};
+
+exports.postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  let errors = [];
+  const sql1 = 'SELECT * FROM staff WHERE email = ?';
+  const users = await queryParamPromise(sql1, [email]);
+  if (
+    users.length === 0 ||
+    !(await bcrypt.compare(password, users[0].password))
+  ) {
+    errors.push({ msg: 'Email or Password is Incorrect' });
+    res.status(401).render('Staff/login', { errors });
+  } else {
+    const token = jwt.sign({ id: users[0].st_id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.redirect('/staff/dashboard');
+  }
+};
+
+
+exports.getDashboard = async (req, res, next) => {
+  const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
+  const user = req.user;
+  const data = await queryParamPromise(sql1, [user]);
+  res.render('Staff/dashboard', { user: data[0], page_name: "dashboard" });
 }
 
 exports.getLogout = (req, res, next) => {
@@ -63,3 +71,4 @@ exports.getLogout = (req, res, next) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/staff/login');
 };
+

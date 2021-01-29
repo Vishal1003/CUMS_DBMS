@@ -66,8 +66,8 @@ router.post('/settings/class', controller.postClassSettings);
 router.get('/getDept', controller.getDept);
 router.get('/addDept', controller.getAddDept);
 router.post('/addDept', controller.postAddDept);
-router.get('/settings/departments/:id', controller.getDeptSettings);
-router.post('/settings/departments', controller.postDeptSettings);
+router.get('/settings/department/:id', controller.getDeptSettings);
+router.post('/settings/department', controller.postDeptSettings);
 
 // 6.COURSES
 router.get('/getCourse', controller.getRelevantCourse);

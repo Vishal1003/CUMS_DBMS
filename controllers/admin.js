@@ -177,7 +177,7 @@ exports.postAddStaff = async (req, res, next) => {
       password: hashedPassword,
     });
     req.flash('success_msg', 'Staff added successfully');
-    res.redirect('/admin/getStaff');
+    res.redirect('/admin/getAllStaffs');
   }
 };
 // 2.2 Get Staffs on Query
@@ -319,7 +319,7 @@ exports.getClass = async (req, res, next) => {
   const results = await zeroParamPromise(sql);
   res.render('Admin/Class/getClass', {
     data: results,
-    page_name: 'class',
+    page_name: 'classes',
   });
 };
 
@@ -516,7 +516,7 @@ exports.getStudentSettings = async (req, res, next) => {
   res.render('Admin/Student/setStudent', {
     studentData: studentData,
     departments: departments,
-    page_name: 'classes',
+    page_name: 'students',
   });
 };
 
