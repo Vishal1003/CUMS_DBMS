@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS NSIT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../../CSS/main.css">
+    <link rel="stylesheet" href="../../../CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../../CSS/student-profile.css">
+
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="../../../CSS/admin-dashboard.css">
+
+    <div class="container-fluid">
+
+        <div id="wrapper">
+            <%- include('../../Includes/admin_nav.ejs') %>
+
+            <section id="content-wrapper">
+                <main role="main" class="pt-5 main">
+
+                    <div class="main-content">
+                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                            style="height: 100px; background-size: cover; background-position: center top;">
+
+                        </div>
+                        <div class="container-fluid mt--7">
+                            <div class="row">
+                                <div class="col-xl-12 order-xl-1">
+                                    <div class="card bg-secondary shadow">
+                                        <div class="card-header bg-white border-0">
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h3 class="mb-0" style="color: brown;">MODIFY STAFF</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <%- include('../../Includes/messages') %>
+                                            <form action="/admin/settings/staff" method="POST">
+                                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <input hidden value="<%= staffData[0].email %>"
+                                                            name="old_email" />
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label" for="email">Email
+                                                                    address</label>
+                                                                <input type="email" id="email" name="email"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].email %>"
+                                                                    placeholder="jesse@example.com" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label" for="dob">DOB</label>
+                                                                <input type="text" id="dob" name="dob"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].dob %>"
+                                                                    placeholder="YYYY-MM-DD" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="name">Name</label>
+                                                                <input type="text" id="name" name="name"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].st_name %>"
+                                                                    placeholder="Name" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="gender">Gender</label>
+                                                                <select class="form-control" id="gender" name="gender"
+                                                                    value="<%= staffData[0].gender %>" required>
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <h6 class="heading-small text-muted mb-4">Department</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group focused">
+                                                            <label class="form-control-label"
+                                                                for="department">Department</label>
+                                                            <select class="form-control" id="department"
+                                                                name="department" value="<%= staffData[0].dept_id %>"
+                                                                required>
+                                                                <% for(const department of departments) { %>
+                                                                <option><%= department %></option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                                <div class="pl-lg-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="address">Address</label>
+                                                                <input id="address" name="address"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].address[0] %>"
+                                                                    placeholder="Home Address" type="text" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label"
+                                                                    for="city">City</label>
+                                                                <input type="text" id="city" name="city"
+                                                                    value="<%= staffData[0].address[1] %>"
+                                                                    class="form-control form-control-alternative"
+                                                                    placeholder="City" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label" for="country">Postal
+                                                                    code</label>
+                                                                <input type="number" id="postal-code" name="postalCode"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].address[2] %>"
+                                                                    placeholder="Postal code" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group focused">
+                                                                <label class="form-control-label" for="contact">Contact
+                                                                    No. (+91)</label>
+                                                                <input type="text" id="contact" name="contact"
+                                                                    class="form-control form-control-alternative"
+                                                                    value="<%= staffData[0].contact %>"
+                                                                    placeholder="0000000000" required>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <hr class="my-4">
+                                                <button type="submit" class="btn btn-primary btn-block">MODIFY
+                                                    STAFF</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </section>
+        </div>
+    </div>
+
+    <%- include('../../Includes/admin_end.ejs') %>
