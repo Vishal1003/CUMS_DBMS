@@ -729,6 +729,8 @@ exports.postCourseSettings = async (req, res, next) => {
   res.redirect('/admin/getAllCourses');
 };
 
+
+// FORGOT PASSWORD
 exports.getForgotPassword = (req, res, next) => {
   res.render('Admin/forgotPassword');
 };
