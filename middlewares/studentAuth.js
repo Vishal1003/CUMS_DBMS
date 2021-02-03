@@ -29,7 +29,7 @@ const requireAuth = (req, res, next) => {
         console.log(err);
         req.flash(
           'error_msg',
-          'You need to login as STUDENT in order to view that source!'
+          'You need to login as STUDENT in order to view that source! ==> '
         );
         res.redirect('/student/login');
       } else {
@@ -37,7 +37,7 @@ const requireAuth = (req, res, next) => {
         if (data.length === 0) {
           req.flash(
             'error_msg',
-            'You need to login as STUDENT in order to view that source!'
+            'You need to login as STUDENT in order to view that source! abc k'
           );
           res.redirect('/error');
         }
@@ -50,7 +50,7 @@ const requireAuth = (req, res, next) => {
   } else {
     req.flash(
       'error_msg',
-      'You need to login as STUDENT in order to view that source!'
+      'You need to login as STUDENT in order to view that source! kkk'
     );
     res.redirect('/student/login');
   }

@@ -81,28 +81,17 @@ exports.getProfile = async (req, res, next) => {
   const sql2 = 'SELECT d_name FROM department WHERE dept_id = ?';
   const deptData = await queryParamPromise(sql2, [data[0].dept_id]);
 
-  const sql3 = 'SELECT * FROM class WHERE st_id = ?'
+  const sql3 = 'select cl.class_id, cl.section, cl.semester, cl.c_id, co.name from class as cl, course as co where st_id = ? and co.c_id = cl.c_id;'
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
-  // console.table(classData);
-
-  const sql4 = 'SELECT * FROM course WHERE c_id = ?'
-
-  const courseData = [];
-  for (let i = 0; i < classData.length; i++) {
-    const tdata = await queryParamPromise(sql4, [classData[i].c_id]);
-    courseData.push(tdata[0]);
-  }
-
   // courseData and classData are arrays;
-  // console.table(courseData);
+  console.table(classData);
 
   res.render('Staff/profile', {
     user: data[0],
     userDOB,
     deptData,
     classData,
-    courseData,
     page_name: "profile"
   });
 }
