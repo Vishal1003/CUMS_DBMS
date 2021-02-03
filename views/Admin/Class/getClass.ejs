@@ -36,8 +36,8 @@
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">Course</th>
+                                                        <th scope="col">Staff</th>
                                                         <th scope="col">Section</th>
-                                                        <th scope="col">Semester</th>
                                                         <th scope="col">Manage Class</th>
                                                     </tr>
                                                 </thead>
@@ -46,8 +46,8 @@
                                                     <tr>
                                                         <th scope="row"><%= data[i].class_id %></th>
                                                         <td><%= data[i].c_id %></td>
+                                                        <td><%= staffData[i] %></td>
                                                         <td><%= data[i].section %></td>
-                                                        <td><%= data[i].semester %></td>
                                                         <td><a href="/admin/settings/class/<%= data[i].class_id %>"
                                                                 class="btn btn-sm btn-primary">Settings</a></td>
                                                     </tr>
