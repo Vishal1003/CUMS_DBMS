@@ -66,7 +66,7 @@ exports.getDashboard = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
-  res.render('Staff/dashboard', { user: data[0], page_name: "dashboard" });
+  res.render('Staff/dashboard', { user: data[0], page_name: "overview" });
 }
 
 exports.getLogout = (req, res, next) => {

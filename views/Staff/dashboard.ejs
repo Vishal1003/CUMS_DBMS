@@ -1,195 +1,80 @@
 <%- include('../Includes/begin.ejs') %>
+    <%- include('../Includes/staff_nav.ejs') %>
 
-    <link rel="stylesheet" href="../CSS/admin-dashboard.css">
-
-    <div class="container-fluid">
-
-        <div id="wrapper">
-
-            <aside id="sidebar-wrapper">
-
-                <div class="sidebar-brand">
-                    <h2>CMS NSIT</h2>
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+                <div class="header pb-4 pb-sm-8 pt-5 pt-lg-4 d-flex align-items-center"
+                    style="max-height: 100px; background-size: cover; background-position: center top;">
+                    <h1>Hello <%= user.st_name %>
+                    </h1>
                 </div>
 
-                <ul class="sidebar-nav">
-                    <li class="<% if (page_name === 'overview') { %>
-                        dropdown active
-                        <%} else { %>
-                        dropdown
-                        <% } %>">
-                        <a class="ddbtn" href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
-                    </li>
-                    <li>
-                        <a href="/admin/profile"><i class="fa fa-id-card"></i>Profile</a>
-                    </li>
+                <hr>
 
-                    <li class="<% if (page_name === 'staff') { %>
-                        dropdown active
-                        <%} else { %>
-                        dropdown
-                        <% } %>">
-                        <a href="#"><i class="fa fa-chalkboard-teacher"></i>Mark Attendance</a>
-                    </li>
-
-
-                    <li class="<% if (page_name === 'students') { %>
-                        dropdown active
-                        <%} else { %>
-                        dropdown
-                        <% } %>">
-                        <a href="#"><i class="fa fa-book-reader"></i>Student Report</a>
-                    </li>
-
-                    <li class="<% if (page_name === 'courses') { %>
-                        dropdown active
-                        <%} else { %>
-                        dropdown
-                        <% } %>">
-                        <a href="#"><i class="fa fa-award"></i>Class Report</a>
-                    </li>
-
-                    <li class="<% if (page_name === 'classes') { %>
-                        dropdown active
-                        <%} else { %>
-                        dropdown
-                        <% } %>">
-                        <a href="#"><i class="fa fa-chalkboard"></i>Check TimeTable</a>
-                    </li>
-
-                    <hr>
-                    <li>
-                        <a href="#"><i class="fa fa-cog"></i>Settings</a>
-                    </li>
-                    <li>
-                        <a href="/staff/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <div id="navbar-wrapper" style="position: fixed;">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-            <section id="content-wrapper">
-                <main role="main" class="pt-5 main">
-                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-4 d-flex align-items-center"
-                        style="max-height: 100px; background-size: cover; background-position: center top;">
-                        <h1>Hello <%= user.st_name %>
-                        </h1>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtfZsqPh0G49g8UzrQT71pBaBLrErQx4816g&usqp=CAU"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Staff</h5>
-                                    <p class="card-text">Manage your staff here. You can edit and
-                                        can add or remove a staff. All your changes will be reflected to them as
-                                        well.
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a href="/admin/addStaff" class="btn btn-primary">Add</a>
-                                        <a href="/admin/getStaff" class="btn btn-primary">Modify</a>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <img height="250" class="card-img-top"
+                                src="http://faqs.web-school.in/wp-content/uploads/2017/05/Attendance_2-640x480.jpg"
+                                alt="image">
+                            <div class="card-body">
+                                <h5 class="card-title">Mark Attendance</h5>
+                                <p class="card-text">Record Daily Attendace of your students here! You cannot edit/update
+                                    the records after one month.
+                                </p>
                             </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://i.pinimg.com/originals/cb/a9/db/cba9db2b2e83ddaf77e44d69eb6f4b69.png"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Student</h5>
-                                    <p class="card-text">Manage your student's profile here (edit/add/remove). All
-                                        your
-                                        changes will be reflected to them as well.
-                                    </p>
-
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a href="/admin/addStudent" class="btn btn-primary">Add</a>
-                                        <a href="/admin/getStudent" class="btn btn-primary">Modify</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="card mb-5"
-                                style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
-                                <img height="250" class="card-img-top"
-                                    src="https://stmarkcatholicparish.files.wordpress.com/2013/01/books.png"
-                                    alt="image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Manage Courses</h5>
-                                    <p class="card-text">Manage courses here (edit/add/remove). All your changes
-                                        will be
-                                        reflected in the database.
-                                    </p>
-
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btn-wrapper text-center d-flex justify-content-between"
-                                        style="color: #fff;">
-                                        <a href="/admin/addCourse" class="btn btn-primary">Add</a>
-                                        <a href="/admin/getCourse" class="btn btn-primary">Modify</a>
-                                    </div>
+                            <div class="card-footer">
+                                <div class="btn-wrapper text-center d-flex justify-content-between"
+                                    style="color: #fff;">
+                                    <a href="/admin/addStaff" class="btn btn-primary">Mark Attendance</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                </main>
-            </section>
+                    <div class="col-sm-4">
+                        <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <img height="250" class="card-img-top"
+                                src="http://1.bp.blogspot.com/-nzm908Pfunw/VqXgeRNp4LI/AAAAAAAACJI/wgeVntLSIT8/w1200-h630-p-k-no-nu/status-report.png"
+                                alt="image">
+                            <div class="card-body">
+                                <h5 class="card-title">Student Report</h5>
+                                <p class="card-text">Manage your student's report here (marks). All
+                                    your
+                                    changes will be reflected to them as well.
+                                </p>
 
-        </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="btn-wrapper text-center d-flex justify-content-between"
+                                    style="color: #fff;">
+                                    <a href="/admin/addStaff" class="btn btn-primary">Student Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-4">
+                        <div class="card mb-5" style="box-shadow: 0 1rem 2rem 0 rgba(136, 152, 170, .15) !important;">
+                            <img height="250" class="card-img-top"
+                                src="https://venngage-wordpress.s3.amazonaws.com/uploads/2018/10/report-design-header.png" alt="image">
+                            <div class="card-body">
+                                <h5 class="card-title">Generate Class Report</h5>
+                                <p class="card-text">See how well your class is performing! Generate the overall class report (Attendace/Marks) here.
+                                </p>
 
+                            </div>
+                            <div class="card-footer">
+                                <div class="btn-wrapper text-center d-flex justify-content-between"
+                                    style="color: #fff;">
+                                    <a href="/admin/addStaff" class="btn btn-primary">Class Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    </div>
+            </main>
+        </section>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-
-    <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
-
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
-    </script>
-    </body>
-
-    </html>
+        <%- include('../Includes/staff_end.ejs') %>
