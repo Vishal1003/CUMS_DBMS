@@ -17,7 +17,7 @@ const selectID = (id) => {
       return resolve(results);
     });
   });
-}
+};
 
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;

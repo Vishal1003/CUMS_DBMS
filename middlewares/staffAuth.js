@@ -16,10 +16,9 @@ const selectID = (id) => {
     db.query(sql1, [id], (err, results) => {
       if (err) return reject(err);
       return resolve(results);
-    })
-  })
+    });
+  });
 }
-
 
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;

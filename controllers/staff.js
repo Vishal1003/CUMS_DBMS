@@ -69,6 +69,44 @@ exports.getDashboard = async (req, res, next) => {
   res.render('Staff/dashboard', { user: data[0], page_name: "overview" });
 }
 
+
+exports.getProfile = async (req, res, next) => {
+  const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
+  const user = req.user;
+  const data = await queryParamPromise(sql1, [user]);
+  const DOB = data[0].dob + "";
+  const userDOB = DOB.split(" ")[2] + " " + DOB.split(" ")[1] + " " + DOB.split(" ")[3];
+  // console.log(userDOB);
+
+  const sql2 = 'SELECT d_name FROM department WHERE dept_id = ?';
+  const deptData = await queryParamPromise(sql2, [data[0].dept_id]);
+
+  const sql3 = 'SELECT * FROM class WHERE st_id = ?'
+  const classData = await queryParamPromise(sql3, [data[0].st_id]);
+
+  // console.table(classData);
+
+  const sql4 = 'SELECT * FROM course WHERE c_id = ?'
+
+  const courseData = [];
+  for (let i = 0; i < classData.length; i++) {
+    const tdata = await queryParamPromise(sql4, [classData[i].c_id]);
+    courseData.push(tdata[0]);
+  }
+
+  // courseData and classData are arrays;
+  // console.table(courseData);
+
+  res.render('Staff/profile', {
+    user: data[0],
+    userDOB,
+    deptData,
+    classData,
+    courseData,
+    page_name: "profile"
+  });
+}
+
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
@@ -167,7 +205,7 @@ exports.resetPassword = (req, res, next) => {
                   throw errorData;
                 } else {
                   req.flash(
-                    'success_msg','Password Changed Successfully! Login Now'
+                    'success_msg', 'Password Changed Successfully! Login Now'
                   );
                   res.redirect('/staff/login');
                 }
