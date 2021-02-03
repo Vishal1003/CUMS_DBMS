@@ -45,13 +45,13 @@ router.get('/settings/staff/:id', requireAuth, controller.getStaffSettings);
 router.post('/settings/staff', requireAuth, controller.postStaffSettings);
 
 // 3.STUDENTS
-// 3.1 Add student
+// 3.1 Add Student
 router.get('/addStudent', requireAuth, controller.getAddStudent);
 router.post('/addStudent', requireAuth, controller.postAddStudent);
-// 3.2 Get students on query
+// 3.2 Get Students on query
 router.get('/getStudent', requireAuth, controller.getRelevantStudent);
 router.post('/getStudent', requireAuth, controller.postRelevantStudent);
-// 3.3 Get all students
+// 3.3 Get all Students
 router.get('/getAllStudents', requireAuth, controller.getAllStudent);
 // 3.4 Modify existing students
 router.get('/settings/student/:id', requireAuth, controller.getStudentSettings);
