@@ -15,8 +15,8 @@ const selectID = (id) => {
     db.query(sql1, [id], (err, results) => {
       if (err) return reject(err);
       return resolve(results);
-    })
-  })
+    });
+  });
 }
 
 const requireAuth = (req, res, next) => {
@@ -31,7 +31,6 @@ const requireAuth = (req, res, next) => {
         );
         res.redirect('/admin/login');
       } else {
-
         const data = await selectID(result.id);
         if (data.length === 0) {
           req.flash(

@@ -38,7 +38,7 @@ const requireAuth = (req, res, next) => {
         if (data.length === 0) {
           req.flash(
             'error_msg',
-            'You need to login as ADMIN in order to view that source!'
+            'You need to login as STAFF in order to view that source!'
           );
           res.redirect('/error');
         }
