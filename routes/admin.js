@@ -6,76 +6,88 @@ const router = express.Router();
 
 // 1. ADMIN
 
-// 1.1 LOGIN
+// 1.1 Login
 router.get('/login', forwardAuth, controller.getLogin);
 router.post('/login', controller.postLogin);
 
-// 1.2 REGISTER
+// 1.2 Register
 router.get('/register', forwardAuth, controller.getRegister);
 router.post('/register', controller.postRegister);
 
-// 1.3 DASHBOARD
+// 1.3 Dashboard
 router.get('/dashboard', requireAuth, controller.getDashboard);
+
+// 1.4 Logout
 router.get('/logout', requireAuth, controller.getLogout);
 
-// 1.4 Profile
+// 1.5 Profile
 router.get('/profile', requireAuth, controller.getProfile);
 
-// 1.5 FORGET PASSWORD
+// 1.6 Forgot password
 router.get('/forgot-password', controller.getForgotPassword);
 router.put('/forgot-password', controller.forgotPassword);
 
-// 1.6 RESET PASSWORD
+// 1.7 Reset Password
 router.get('/resetpassword/:id', controller.getResetPassword);
 router.put('/resetpassword', controller.resetPassword);
 
 // 2.STAFFS
-// 2.1 Add Staff
-router.get('/addStaff', controller.getAddStaff);
-router.post('/addStaff', controller.postAddStaff);
-// 2.2 Get Staffs on Query
-router.get('/getStaff', controller.getRelevantStaff);
-router.post('/getStaff', controller.postRelevantStaff);
-// 2.3 Get all Staffs
-router.get('/getAllStaffs', controller.getAllStaff);
-// 2.4 Modify existing Staffs
-router.get('/settings/staff/:id', controller.getStaffSettings);
-router.post('/settings/staff', controller.postStaffSettings);
+// 2.1 Add staff
+router.get('/addStaff', requireAuth, controller.getAddStaff);
+router.post('/addStaff', requireAuth, controller.postAddStaff);
+// 2.2 Get staffs on query
+router.get('/getStaff', requireAuth, controller.getRelevantStaff);
+router.post('/getStaff', requireAuth, controller.postRelevantStaff);
+// 2.3 Get all staffs
+router.get('/getAllStaffs', requireAuth, controller.getAllStaff);
+// 2.4 Modify existing staffs
+router.get('/settings/staff/:id', requireAuth, controller.getStaffSettings);
+router.post('/settings/staff', requireAuth, controller.postStaffSettings);
 
 // 3.STUDENTS
-// 3.1 Add Student
-router.get('/addStudent', controller.getAddStudent);
-router.post('/addStudent', controller.postAddStudent);
-// 3.2 Get Students on query
-router.get('/getStudent', controller.getRelevantStudent);
-router.post('/getStudent', controller.postRelevantStudent);
-// 3.3 Get all Students
-router.get('/getAllStudents', controller.getAllStudent);
+// 3.1 Add student
+router.get('/addStudent', requireAuth, controller.getAddStudent);
+router.post('/addStudent', requireAuth, controller.postAddStudent);
+// 3.2 Get students on query
+router.get('/getStudent', requireAuth, controller.getRelevantStudent);
+router.post('/getStudent', requireAuth, controller.postRelevantStudent);
+// 3.3 Get all students
+router.get('/getAllStudents', requireAuth, controller.getAllStudent);
 // 3.4 Modify existing students
-router.get('/settings/student/:id', controller.getStudentSettings);
-router.post('/settings/student', controller.postStudentSettings);
+router.get('/settings/student/:id', requireAuth, controller.getStudentSettings);
+router.post('/settings/student', requireAuth, controller.postStudentSettings);
 
-// 4.CLASSES
-router.get('/getClass', controller.getClass);
-router.get('/addClass', controller.getAddClass);
+// 4.CLASSES (subjects mapping courses ,staffs and section)
+// 4.1 Select class
+router.get('/getClass', requireAuth, controller.getClass);
+// 4.2 Add class
+router.get('/addClass', requireAuth, controller.getAddClass);
 router.post('/addClass', controller.postAddClass);
-router.get('/settings/class/:id', controller.getClassSettings);
-router.post('/settings/class', controller.postClassSettings);
+// 4.3 Modify existing classes
+router.get('/settings/class/:id', requireAuth, controller.getClassSettings);
+router.post('/settings/class', requireAuth, controller.postClassSettings);
 
 // 5.DEPARTMENTS
-router.get('/getDept', controller.getDept);
-router.get('/addDept', controller.getAddDept);
-router.post('/addDept', controller.postAddDept);
-router.get('/settings/department/:id', controller.getDeptSettings);
-router.post('/settings/department', controller.postDeptSettings);
+// 5.1 Select department
+router.get('/getDept', requireAuth, controller.getDept);
+// 5.2 Add department
+router.get('/addDept', requireAuth, controller.getAddDept);
+router.post('/addDept', requireAuth, controller.postAddDept);
+// 5.3 Modify existing department
+router.get('/settings/department/:id', requireAuth, controller.getDeptSettings);
+router.post('/settings/department', requireAuth, controller.postDeptSettings);
 
 // 6.COURSES
-router.get('/getCourse', controller.getRelevantCourse);
-router.post('/getCourse', controller.postRelevantCourse);
-router.get('/getAllCourses', controller.getAllCourse);
-router.get('/addCourse', controller.getAddCourse);
-router.post('/addCourse', controller.postAddCourse);
-router.get('/settings/course/:id', controller.getCourseSettings);
-router.post('/settings/course', controller.postCourseSettings);
+// 6.1 Get all courses
+router.get('/getAllCourses', requireAuth, controller.getAllCourse);
+// 6.2 Get courses on query
+router.get('/getCourse', requireAuth, controller.getRelevantCourse);
+router.post('/getCourse', requireAuth, controller.postRelevantCourse);
+// 6.3 Add course
+router.get('/addCourse', requireAuth, controller.getAddCourse);
+router.post('/addCourse', requireAuth, controller.postAddCourse);
+// 6.4 Modify existing courses
+router.get('/settings/course/:id', requireAuth, controller.getCourseSettings);
+router.post('/settings/course', requireAuth, controller.postCourseSettings);
 
 module.exports = router;
