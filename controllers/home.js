@@ -6,3 +6,8 @@ exports.getIndex = (req, res, next) => {
     path: '/',
   });
 };
+
+
+exports.getError = (req, res, next) => {
+  res.render('error');
+}
