@@ -145,9 +145,27 @@
                                                                         <th scope="col">COURSE</th>
                                                                         <th scope="col">SEMESTER</th>
                                                                         <th scope="col">SECTION</th>
-                                                                        <th scope="col">REPORT</th>
                                                                     </tr>
                                                                 </thead>
+                                                                <tbody>
+                                                                    <% for(let i=0; i < classData.length; i++) { %>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <%= i + 1 %>
+                                                                        </th>
+                                                                        <td>
+                                                                            <%= classData[i].name %> (<%= classData[i].c_id %>)
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= classData[i].semester %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= user.dept_id %>-<%= classData[i].section %>
+                                                                        </td>
+                                                                        
+                                                                    </tr>
+                                                                    <% } %>
+                                                                </tbody>
                                                                 
                                                             </table>
                                                         </div>
@@ -155,16 +173,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Description -->
-                                        <h6 class="heading-small text-muted mb-4">About me</h6>
-                                        <div class="pl-lg-4">
-                                            <div class="form-group focused">
-                                                <label>About Me</label>
-                                                <textarea rows="4" class="form-control form-control-alternative"
-                                                    placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
