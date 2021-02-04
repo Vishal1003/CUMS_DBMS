@@ -12,7 +12,7 @@
             <% } %>">
             <a class="ddbtn" href="/admin/dashboard"><i class="fa fa-home"></i>Overview</a>
         </li>
-        <li>
+        <li class="<% if (page_name === 'profile') { %>active<% } %>">
             <a href="/admin/profile"><i class="fa fa-id-card"></i>Profile</a>
         </li>
 
@@ -81,12 +81,12 @@
 
         <hr>
         <li class="<% if (page_name === 'settings') { %>
-            dropdown active
+            dropup active
             <%} else { %>
-            dropdown
+                dropup
             <% } %>">
             <a class="ddbtn" href="#"><i class="fa fa-cog"></i>Settings</a>
-            <div class="dropdown-content">
+            <div class="dropup-content">
                 <a href="/admin/info_settings">Information Settings</a>
                 <a href="/admin/password_settings">Password Settings</a>
             </div>

@@ -3,6 +3,89 @@
 <div class="container-fluid">
     <div id="wrapper">
         <%- include('../Includes/admin_nav.ejs') %>
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+                <div class="main-content">
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
+                    </div>
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0" style="color: brown;">ADMIN PROFILE</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="piechart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
     </div>
 </div>
-<%- include('../Includes/admin_end.ejs') %>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script>
+    google.charts.load('current', {
+        packages: ['corechart'],
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        const numStudents = parseInt('<%- students.length %>');
+        const numStaffs = parseInt('<%- staffs.length %>');
+        const numCourses = parseInt('<%- courses.length %>');
+        const numDepartments = parseInt('<%- departments.length %>');
+        const numClasses = parseInt('<%- classes.length %>');
+        var data = google.visualization.arrayToDataTable([
+            ['Title', 'Count'],
+            ['Student', numStudents],
+            ['Staff', numStaffs],
+            ['Course', numCourses],
+            ['Department', numDepartments],
+            ['Class', numClasses]
+        ]);
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            title: 'College Overview',
+            width: 550,
+            height: 400,
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(
+            document.querySelector('#piechart')
+        );
+        chart.draw(data, options);
+    }
+</script>
+<script>
+    const $button = document.querySelector('#sidebar-toggle');
+    const $wrapper = document.querySelector('#wrapper');
+
+    $button.addEventListener('click', (e) => {
+        e.preventDefault();
+        $wrapper.classList.toggle('toggled');
+    });
+</script>
+</body>
+
+</html>

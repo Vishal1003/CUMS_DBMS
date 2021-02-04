@@ -129,12 +129,14 @@ exports.getProfile = async (req, res, next) => {
   const staffs = await zeroParamPromise('SELECT * FROM staff');
   const departments = await zeroParamPromise('SELECT * FROM department');
   const courses = await zeroParamPromise('SELECT * FROM course');
+  const classes = await zeroParamPromise('SELECT * FROM class');
   res.render('Admin/profile', {
     user,
     students,
     staffs,
     departments,
     courses,
+    classes,
     page_name: 'profile',
   });
 };
