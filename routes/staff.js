@@ -15,11 +15,11 @@ router.get('/logout', requireAuth, controller.getLogout);
 
 
 // 1.5 FORGET PASSWORD
-router.get('/forgot-password', controller.getForgotPassword);
+router.get('/forgot-password', forwardAuth, controller.getForgotPassword);
 router.put('/forgot-password', controller.forgotPassword);
 
 // 1.6 RESET PASSWORD
-router.get('/resetpassword/:id', controller.getResetPassword);
+router.get('/resetpassword/:id', forwardAuth, controller.getResetPassword);
 router.put('/resetpassword', controller.resetPassword);
 
 module.exports = router;

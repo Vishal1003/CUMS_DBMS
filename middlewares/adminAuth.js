@@ -29,7 +29,7 @@ const requireAuth = (req, res, next) => {
           'error_msg',
           'You need to login as ADMIN in order to view that source!'
         );
-        res.redirect('/admin/login');
+        res.redirect('/unauthorized');
       } else {
         const data = await selectID(result.id);
         if (data.length === 0) {
@@ -37,7 +37,7 @@ const requireAuth = (req, res, next) => {
             'error_msg',
             'You need to login as ADMIN in order to view that source!'
           );
-          res.redirect('/error');
+          res.redirect('/unauthorized');
         }
         else {
           req.user = result.id;
@@ -50,7 +50,7 @@ const requireAuth = (req, res, next) => {
       'error_msg',
       'You need to login as ADMIN in order to view that source!'
     );
-    res.redirect('/admin/login');
+    res.redirect('/unauthorized');
   }
 };
 

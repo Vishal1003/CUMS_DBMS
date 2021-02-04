@@ -54,6 +54,7 @@ app.use(cookieParser());
 app.use('/admin', adminRoutes);
 app.use('/staff', staffRoutes);
 app.use('/student', studentRoutes);
+app.use('/', homeRoutes);
 
 // Home Page
 app.use(homeRoutes);

@@ -30,7 +30,7 @@ const requireAuth = (req, res, next) => {
           'error_msg',
           'You need to login as STAFF in order to view that source!'
         );
-        res.redirect('/staff/login');
+        res.redirect('/unauthorized');
       } else {
 
         const data = await selectID(result.id);
@@ -39,7 +39,7 @@ const requireAuth = (req, res, next) => {
             'error_msg',
             'You need to login as STAFF in order to view that source!'
           );
-          res.redirect('/error');
+          res.redirect('/unauthorized');
         }
         else {
           req.user = result.id;
@@ -52,7 +52,7 @@ const requireAuth = (req, res, next) => {
       'error_msg',
       'You need to login as STAFF in order to view that source!'
     );
-    res.redirect('/staff/login');
+    res.redirect('/unauthorized');
   }
 };
 

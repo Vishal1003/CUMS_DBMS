@@ -81,10 +81,10 @@ exports.getProfile = async (req, res, next) => {
   const sql2 = 'SELECT d_name FROM department WHERE dept_id = ?';
   const deptData = await queryParamPromise(sql2, [data[0].dept_id]);
 
-  const sql3 = 'select cl.class_id, cl.section, cl.semester, cl.c_id, co.name from class as cl, course as co where st_id = ? and co.c_id = cl.c_id;'
+  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id;'
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
-  // courseData and classData are arrays;
+  // classData is an array
   console.table(classData);
 
   res.render('Staff/profile', {

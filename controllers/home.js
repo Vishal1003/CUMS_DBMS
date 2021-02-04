@@ -1,13 +1,12 @@
 exports.getIndex = (req, res, next) => {
-  res.render('index', {
-    error: false,
-    errorMessage: '',
-    pageTitle: 'CUMS LOGIN',
-    path: '/',
-  });
+  res.render('index');
 };
 
 
-exports.getError = (req, res, next) => {
-  res.render('error');
+exports.getError403 = (req, res, next) => {
+  res.render('error403');
+}
+
+exports.getError404 = (req, res, next) => {
+  res.render('error404');
 }

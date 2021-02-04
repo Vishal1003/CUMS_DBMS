@@ -1,0 +1,29 @@
+body {
+    font-family: Trocchi;
+    font-size: 50px;
+    color: steelblue;
+    text-align: center;
+  }
+  
+  #container {
+    margin: 100px;
+    display: align-self;
+    flex-flow: row wrap;  
+    align-items: center;
+  }
+  
+  
+  #middle {
+    margin-top: -90px;
+    font-size: 250px;
+    font-weight: bold;
+  }
+  
+  #bottom {
+    font-size: 30px;
+  }
+
+  #errormsg {
+    font-size: small;
+    display: block;
+  }
