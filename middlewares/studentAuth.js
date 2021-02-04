@@ -31,7 +31,7 @@ const requireAuth = (req, res, next) => {
           'error_msg',
           'You need to login as STUDENT in order to view that source! ==> '
         );
-        res.redirect('/student/login');
+        res.redirect('/unauthorized');
       } else {
         const data = await selectID(result.id);
         if (data.length === 0) {
@@ -39,7 +39,7 @@ const requireAuth = (req, res, next) => {
             'error_msg',
             'You need to login as STUDENT in order to view that source! abc k'
           );
-          res.redirect('/error');
+          res.redirect('/unauthorized');
         }
         else {
           req.user = result.id;
@@ -52,7 +52,7 @@ const requireAuth = (req, res, next) => {
       'error_msg',
       'You need to login as STUDENT in order to view that source! kkk'
     );
-    res.redirect('/student/login');
+    res.redirect('/unauthorized');
   }
 };
 
