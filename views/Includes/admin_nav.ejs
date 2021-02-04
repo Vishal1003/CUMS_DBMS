@@ -80,8 +80,16 @@
 
 
         <hr>
-        <li>
-            <a href="#"><i class="fa fa-cog"></i>Settings</a>
+        <li class="<% if (page_name === 'settings') { %>
+            dropdown active
+            <%} else { %>
+            dropdown
+            <% } %>">
+            <a class="ddbtn" href="#"><i class="fa fa-cog"></i>Settings</a>
+            <div class="dropdown-content">
+                <a href="/admin/info_settings">Information Settings</a>
+                <a href="/admin/password_settings">Password Settings</a>
+            </div>
         </li>
         <li>
             <a href="/admin/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>

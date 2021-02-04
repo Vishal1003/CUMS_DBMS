@@ -24,12 +24,18 @@ router.get('/logout', requireAuth, controller.getLogout);
 router.get('/profile', requireAuth, controller.getProfile);
 
 // 1.6 Forgot password
-router.get('/forgot-password', controller.getForgotPassword);
-router.put('/forgot-password', controller.forgotPassword);
+router.get('/forgot-password', forwardAuth, controller.getForgotPassword);
+router.put('/forgot-password', forwardAuth, controller.forgotPassword);
 
 // 1.7 Reset Password
-router.get('/resetpassword/:id', controller.getResetPassword);
-router.put('/resetpassword', controller.resetPassword);
+router.get('/resetpassword/:id', forwardAuth, controller.getResetPassword);
+router.put('/resetpassword', forwardAuth, controller.resetPassword);
+
+// 1.8 Settings
+router.get('/info_settings', requireAuth, controller.getInfoSettings);
+router.post('/info_settings', requireAuth, controller.postInfoSettings);
+router.get('/password_settings', requireAuth, controller.getPasswordSettings);
+router.post('/password_settings', requireAuth, controller.postPasswordSettings);
 
 // 2.STAFFS
 // 2.1 Add staff

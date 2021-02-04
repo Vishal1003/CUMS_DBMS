@@ -247,6 +247,57 @@ exports.resetPassword = (req, res, next) => {
   }
 };
 
+// 1.8 Settings
+exports.getInfoSettings = async (req, res, next) => {
+  const sql = 'SELECT * FROM admin WHERE admin_id = ?';
+  const user = (await queryParamPromise(sql, [req.user]))[0];
+  return res.render('Admin/infoSettings', {
+    user: user,
+    page_name: 'settings',
+  });
+};
+
+exports.postInfoSettings = async (req, res, next) => {
+  const { old_email, email, name, password } = req.body;
+  const sql1 = 'SELECT * FROM admin WHERE email = ?';
+  const user = (await queryParamPromise(sql1, [old_email]))[0];
+  if (!(await bcrypt.compare(password, user.password))) {
+    req.flash('error_msg', 'Incorrect password');
+    return res.redirect('/admin/info_settings');
+  } else {
+    const sql2 = 'update admin set name = ?,email = ? where email = ?';
+    await queryParamPromise(sql2, [name, email, old_email]);
+    req.flash('success_msg', 'Information Updated Successfully');
+    return res.redirect('/admin/info_settings');
+  }
+};
+
+exports.getPasswordSettings = async (req, res, next) => {
+  return res.render('Admin/passwordSettings', {
+    page_name: 'settings',
+  });
+};
+
+exports.postPasswordSettings = async (req, res, next) => {
+  const { old_password, new_password, confirm_new_password } = req.body;
+  if (new_password !== confirm_new_password) {
+    req.flash('error_msg', 'Passwords does not match');
+    return res.redirect('/admin/password_settings');
+  }
+  const sql1 = 'SELECT * FROM admin WHERE admin_id = ?';
+  const user = (await queryParamPromise(sql1, [req.user]))[0];
+  if (!(await bcrypt.compare(old_password, user.password))) {
+    req.flash('error_msg', 'Incorrect password');
+    return res.redirect('/admin/password_settings');
+  } else {
+    const hashedPassword = await hashing(new_password);
+    const sql2 = 'update admin set password = ? where admin_id = ?';
+    await queryParamPromise(sql2, [hashedPassword, req.user]);
+    req.flash('success_msg', 'Password Changed Successfully');
+    return res.redirect('/admin/password_settings');
+  }
+};
+
 // 2. STAFFS
 // 2.1 Add staff
 exports.getAddStaff = async (req, res, next) => {
@@ -459,6 +510,7 @@ exports.postAddStudent = async (req, res, next) => {
     contact,
   } = req.body;
   const password = dob.toString().split('-').join('');
+  console.log(password);
   const hashedPassword = await hashing(password);
   const sql1 =
     'select count(*) as `count`, section from student where section = (select max(section) from student where dept_id = ?) AND dept_id = ?';
