@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS `admin`(
 CREATE TABLE IF NOT EXISTS `course` (
 	`c_id` VARCHAR(100) NOT NULL UNIQUE,
 	`semester` INT NOT NULL,
-	`year` INT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
 	`c_type` VARCHAR(255) NOT NULL,
 	`credits` INT NOT NULL,
