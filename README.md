@@ -9,7 +9,7 @@ assignments and grades for a particular college.It uses Node.js for backend and 
 
 ![documents/cms_db.png](documents/cms_db.png)
 
-__Note: All attributes with :key: (key) are primary keys. We can update the db in future (final will be updated)
+__Note: All attributes with :key: (key) are primary keys. We can update the db in future (final will be updated)__
 
 
 ## Functionalities Of Our Project
