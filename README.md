@@ -27,7 +27,7 @@ Use cases have been divided based on the end user i.e. Admin, Staffs and Student
 3. Can update the marks of a student. 
 4. Can create assignments for other students.
 
-**User can perform the above operations without writing any database query by using our simple and convenient User Interface.
+**User can perform the above operations without writing any database query by using our simple and convenient User Interface.**
 
 
 ## NOTE
