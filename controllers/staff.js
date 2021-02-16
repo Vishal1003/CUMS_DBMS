@@ -69,7 +69,6 @@ exports.getDashboard = async (req, res, next) => {
   res.render('Staff/dashboard', { user: data[0], page_name: "overview" });
 }
 
-
 exports.getProfile = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
@@ -95,6 +94,26 @@ exports.getProfile = async (req, res, next) => {
     page_name: "profile"
   });
 }
+
+exports.getAttendance = async (req, res, next) => {
+  const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
+  const user = req.user;
+  const data = await queryParamPromise(sql1, [user]);
+
+  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;'
+  const classData = await queryParamPromise(sql3, [data[0].st_id]);
+
+  res.render('Staff/attendance', {
+    user: data[0],
+    classData,
+    page_name: "attendance"
+  });
+}
+
+exports.markAttendance = async (req, res, next) => {
+   
+}
+
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
