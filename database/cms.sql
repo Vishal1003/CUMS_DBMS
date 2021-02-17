@@ -101,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `assignment` (
 CREATE TABLE IF NOT EXISTS `attendance` (
 	`s_id` INT NOT NULL DEFAULT false,
 	`date` DATE NOT NULL,
+	`c_id` VARCHAR(100) NOT NULL,
 	`status` BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY (`s_id`,`date`)
 );
