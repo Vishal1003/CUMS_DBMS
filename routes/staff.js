@@ -17,6 +17,12 @@ router.get('/logout', requireAuth, controller.getLogout);
 router.get('/student-attendance', requireAuth, controller.getAttendance);
 router.get('/student-attendance/class/:id', requireAuth, controller.markAttendance);
 
+router.get('/student-report', requireAuth, controller.getStudentReport);
+
+
+router.get('/class-report', requireAuth, controller.getClassReport);
+
+
 // 1.5 FORGET PASSWORD
 router.get('/forgot-password', forwardAuth, controller.getForgotPassword);
 router.put('/forgot-password', controller.forgotPassword);
