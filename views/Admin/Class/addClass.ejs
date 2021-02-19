@@ -42,7 +42,7 @@
                                                                 required>
                                                                 <% for(const staff of staffs) { %>
                                                                 <option>
-                                                                    <%= staff.email %>
+                                                                    <%= staff.email + " [" + staff.dept_id + "]"%>
                                                                 </option>
                                                                 <% } %>
                                                             </select>
