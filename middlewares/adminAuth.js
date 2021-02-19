@@ -24,7 +24,6 @@ const requireAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
       if (err) {
-        console.log(err);
         req.flash(
           'error_msg',
           'You need to login as ADMIN in order to view that source!'
@@ -38,8 +37,7 @@ const requireAuth = (req, res, next) => {
             'You need to login as ADMIN in order to view that source!'
           );
           res.redirect('/unauthorized');
-        }
-        else {
+        } else {
           req.user = result.id;
           next();
         }
@@ -59,14 +57,12 @@ const forwardAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
       if (err) {
-        console.log(err);
         next();
       } else {
         const data = await selectID(result.id);
         if (data.length === 0) {
           next();
-        }
-        else {
+        } else {
           req.user = result.id;
           res.redirect('/admin/dashboard');
         }

@@ -29,7 +29,6 @@ exports.postLogin = (req, res, next) => {
         results.length === 0 ||
         !(await bcrypt.compare(password, results[0].password))
       ) {
-        console.log('Email or Password is Incorrect');
         errors.push({ msg: 'Email or Password is Incorrect' });
         res.status(401).render('Student/login', { errors });
       } else {

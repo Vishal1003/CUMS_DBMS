@@ -9,7 +9,6 @@ const db = mysql.createConnection({
   database: 'cumsdbms',
 });
 
-
 const selectID = (id) => {
   return new Promise((resolve, reject) => {
     const sql1 = 'SELECT s_name FROM student WHERE s_id = ?';
@@ -18,15 +17,13 @@ const selectID = (id) => {
       return resolve(results);
     });
   });
-}
-
+};
 
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
       if (err) {
-        console.log(err);
         req.flash(
           'error_msg',
           'You need to login as STUDENT in order to view that source! ==> '
@@ -40,8 +37,7 @@ const requireAuth = (req, res, next) => {
             'You need to login as STUDENT in order to view that source! abc k'
           );
           res.redirect('/unauthorized');
-        }
-        else {
+        } else {
           req.user = result.id;
           next();
         }
@@ -61,14 +57,12 @@ const forwardAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
       if (err) {
-        console.log(err);
         next();
       } else {
         const data = await selectID(result.id);
         if (data.length === 0) {
           next();
-        }
-        else {
+        } else {
           req.user = result.id;
           res.redirect('/student/dashboard');
         }

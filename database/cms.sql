@@ -1,13 +1,7 @@
-/*
-Important Queries
-1. Drop primary key and add new ones
-  alter table course drop primary key, add primary key(c_id);
-2.
-*/
 use cumsdbms;
 
 CREATE TABLE IF NOT EXISTS `admin`(
-	`admin_id` INT NOT NULL AUTO_INCREMENT,
+	`admin_id` VARCHAR(36) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
@@ -25,13 +19,13 @@ CREATE TABLE IF NOT EXISTS `course` (
 );
 
 CREATE TABLE IF NOT EXISTS `StudentCourses` (
-	`s_id` INT NOT NULL,
+	`s_id` VARCHAR(36) NOT NULL,
 	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`s_id`,`c_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `student` (
-	`s_id` INT NOT NULL AUTO_INCREMENT,
+	`s_id` VARCHAR(36) NOT NULL,
 	`s_name` VARCHAR(255) NOT NULL,
 	`gender` VARCHAR(6) NOT NULL,
 	`dob` DATE NOT NULL,
@@ -46,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 );
 
 CREATE TABLE IF NOT EXISTS `staff` (
-	`st_id` INT NOT NULL AUTO_INCREMENT,
+	`st_id` VARCHAR(36) NOT NULL,
 	`st_name` VARCHAR(255) NOT NULL,
 	`gender` VARCHAR(6) NOT NULL,
 	`dob` DATE NOT NULL,
@@ -66,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 
 CREATE TABLE IF NOT EXISTS `staffCourse` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`st_id` INT NOT NULL,
+	`st_id` VARCHAR(36) NOT NULL,
 	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -76,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `fee` (
 	`fee_type` VARCHAR(255) NOT NULL,
 	`reciept_no` BINARY NOT NULL ,
 	`date` DATE NOT NULL UNIQUE,
-	`s_id` INT NOT NULL UNIQUE,
+	`s_id` VARCHAR(36) NOT NULL,
 	PRIMARY KEY (`fee_id`)
 );
 
@@ -85,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `class` (
 	`section` INT NOT NULL,
 	`semester` INT NOT NULL,
 	`c_id` VARCHAR(100),
-	`st_id` INT,
+	`st_id` VARCHAR(36) NOT NULL,
 	PRIMARY KEY (`class_id`)
 );
 
@@ -93,13 +87,13 @@ CREATE TABLE IF NOT EXISTS `assignment` (
 	`asg_id` INT NOT NULL AUTO_INCREMENT,
 	`day` DATE NOT NULL ,
 	`time_slot` DATETIME NOT NULL,
-	`st_id` INT NOT NULL,
+	`st_id` VARCHAR(36) NOT NULL,
 	`c_id` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`asg_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `attendance` (
-	`s_id` INT NOT NULL DEFAULT false,
+	`s_id` VARCHAR(36) NOT NULL,
 	`date` DATE NOT NULL,
 	`c_id` VARCHAR(100) NOT NULL,
 	`status` BOOLEAN NOT NULL DEFAULT false,
@@ -111,12 +105,12 @@ CREATE TABLE IF NOT EXISTS `marks` (
 	`tt_marks` INT,
 	`ob_marks` INT,
 	`test_type` INT,
-	`s_id` INT NOT NULL,
+	`s_id` VARCHAR(36) NOT NULL,
 	PRIMARY KEY (`test_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `assignment_submission` (
-	`s_id` INT NOT NULL,
+	`s_id` VARCHAR(36) NOT NULL,
 	`asg_id` INT NOT NULL,
 	PRIMARY KEY (`s_id`,`asg_id`)
 );

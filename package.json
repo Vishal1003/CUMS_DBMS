@@ -30,6 +30,7 @@
     "mailgun-js": "^0.22.0",
     "method-override": "^3.0.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
   }
 }

@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+const uuidv4 = require('uuid').v4;
 const mailgun = require('mailgun-js');
 const DOMAIN = process.env.DOMAIN_NAME;
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
@@ -15,7 +15,7 @@ const db = mysql.createConnection({
 });
 
 // Students limit per section
-const SECTION_LIMIT = 5;
+const SECTION_LIMIT = 30;
 
 // Database query promises
 const zeroParamPromise = (sql) => {
@@ -97,6 +97,7 @@ exports.postRegister = async (req, res, next) => {
       const hashedPassword = await bcrypt.hash(password, 8);
       const sql2 = 'INSERT INTO ADMIN SET ?';
       await queryParamPromise(sql2, {
+        admin_id: uuidv4(),
         name: name,
         email: email,
         password: hashedPassword,
@@ -189,7 +190,6 @@ exports.forgotPassword = async (req, res, next) => {
       mg.messages().send(data, (err, body) => {
         if (err) throw err;
         else {
-          console.log(body);
           req.flash('success_msg', 'Reset Link Sent Successfully!');
           res.redirect('/admin/forgot-password');
         }
@@ -339,6 +339,7 @@ exports.postAddStaff = async (req, res, next) => {
 
     const sql2 = 'INSERT INTO staff SET ?';
     await queryParamPromise(sql2, {
+      st_id: uuidv4(),
       st_name: name,
       gender: gender,
       dob: dob,
@@ -512,7 +513,6 @@ exports.postAddStudent = async (req, res, next) => {
     contact,
   } = req.body;
   const password = dob.toString().split('-').join('');
-  console.log(password);
   const hashedPassword = await hashing(password);
   const sql1 =
     'select count(*) as `count`, section from student where section = (select max(section) from student where dept_id = ?) AND dept_id = ?';
@@ -527,6 +527,7 @@ exports.postAddStudent = async (req, res, next) => {
   }
   const sql2 = 'INSERT INTO STUDENT SET ?';
   await queryParamPromise(sql2, {
+    s_id: uuidv4(),
     s_name: name,
     gender: gender,
     dob: dob,
@@ -877,7 +878,6 @@ exports.getAddCourse = async (req, res, next) => {
 };
 exports.postAddCourse = async (req, res, next) => {
   let { course, semester, department, credits, c_type } = req.body;
-  let year = parseInt((semester + 1) / 2);
   const sql1 = 'SELECT COUNT(dept_id) AS size FROM course WHERE dept_id = ?';
   const results = await queryParamPromise(sql1, [department]);
   let size = results[0].size + 1;
@@ -886,7 +886,6 @@ exports.postAddCourse = async (req, res, next) => {
   await queryParamPromise(sql2, {
     c_id,
     semester: semester,
-    year: year,
     name: course,
     c_type: c_type,
     credits: credits,
@@ -911,14 +910,12 @@ exports.getCourseSettings = async (req, res, next) => {
 
 exports.postCourseSettings = async (req, res, next) => {
   let { course, semester, department, credits, c_type, courseId } = req.body;
-  let year = parseInt((semester + 1) / 2);
   const sql =
-    'UPDATE course SET name = ?, semester = ?, credits = ?, year = ?, c_type = ?, dept_id = ? WHERE c_id = ?';
+    'UPDATE course SET name = ?, semester = ?, credits = ?, c_type = ?, dept_id = ? WHERE c_id = ?';
   await queryParamPromise(sql, [
     course,
     semester,
     credits,
-    year,
     c_type,
     department,
     courseId,

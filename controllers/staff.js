@@ -13,7 +13,6 @@ const db = mysql.createConnection({
   database: 'cumsdbms',
 });
 
-
 // Database query promises
 const zeroParamPromise = (sql) => {
   return new Promise((resolve, reject) => {
@@ -61,102 +60,94 @@ exports.postLogin = async (req, res, next) => {
   }
 };
 
-
 exports.getDashboard = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
-  res.render('Staff/dashboard', { user: data[0], page_name: "overview" });
-}
+  res.render('Staff/dashboard', { user: data[0], page_name: 'overview' });
+};
 
 exports.getProfile = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
-  const DOB = data[0].dob + "";
-  const userDOB = DOB.split(" ")[2] + " " + DOB.split(" ")[1] + " " + DOB.split(" ")[3];
-  // console.log(userDOB);
-
+  const DOB = data[0].dob + '';
+  const userDOB =
+    DOB.split(' ')[2] + ' ' + DOB.split(' ')[1] + ' ' + DOB.split(' ')[3];
   const sql2 = 'SELECT d_name FROM department WHERE dept_id = ?';
   const deptData = await queryParamPromise(sql2, [data[0].dept_id]);
 
-  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id;'
+  const sql3 =
+    'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
-
-  // classData is an array
-  console.table(classData);
 
   res.render('Staff/profile', {
     user: data[0],
     userDOB,
     deptData,
     classData,
-    page_name: "profile"
+    page_name: 'profile',
   });
-}
+};
 
 exports.getAttendance = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
 
-  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;'
+  const sql3 =
+    'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
   res.render('Staff/selectClass', {
     user: data[0],
     classData,
-    btnInfo: "Attendance",
-    page_name: "attendance"
+    btnInfo: 'Attendance',
+    page_name: 'attendance',
   });
-}
+};
 
-exports.markAttendance = async (req, res, next) => {
-
-}
-
+exports.markAttendance = async (req, res, next) => {};
 
 exports.getStudentReport = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
 
-  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;'
+  const sql3 =
+    'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
   res.render('Staff/selectClass', {
     user: data[0],
     classData,
-    btnInfo: "Students",
-    page_name: "stu-report"
+    btnInfo: 'Students',
+    page_name: 'stu-report',
   });
-}
-
+};
 
 exports.getClassReport = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
 
-  const sql3 = 'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;'
+  const sql3 =
+    'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
   res.render('Staff/selectClass', {
     user: data[0],
     classData,
-    btnInfo: "Generate",
-    page_name: "cls-report"
+    btnInfo: 'Generate',
+    page_name: 'cls-report',
   });
-}
-
+};
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
   res.redirect('/staff/login');
 };
-
-
 
 // FORGOT PASSWORD
 exports.getForgotPassword = (req, res, next) => {
@@ -206,7 +197,6 @@ exports.forgotPassword = async (req, res, next) => {
       mg.messages().send(data, (err, body) => {
         if (err) throw err;
         else {
-          console.log(body);
           req.flash('success_msg', 'Reset Link Sent Successfully!');
           res.redirect('/staff/forgot-password');
         }
@@ -248,7 +238,8 @@ exports.resetPassword = (req, res, next) => {
                   throw errorData;
                 } else {
                   req.flash(
-                    'success_msg', 'Password Changed Successfully! Login Now'
+                    'success_msg',
+                    'Password Changed Successfully! Login Now'
                   );
                   res.redirect('/staff/login');
                 }
