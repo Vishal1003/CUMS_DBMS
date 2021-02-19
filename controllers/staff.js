@@ -102,12 +102,49 @@ exports.getAttendance = async (req, res, next) => {
   res.render('Staff/selectClass', {
     user: data[0],
     classData,
-    btnInfo: 'Attendance',
+    btnInfo: 'Students List',
     page_name: 'attendance',
   });
 };
 
-exports.markAttendance = async (req, res, next) => {};
+exports.markAttendance = async (req, res, next) => {
+
+  const courseId = req.params.id;
+  const staffId = req.user;
+
+  const sql = `
+    select student.s_name, student.email, student.s_id, class.class_id, student.section
+    from student
+    join staff
+    on student.dept_id = staff.dept_id
+    join class
+    on class.st_id = staff.st_id
+    where student.section = class.section and staff.st_id = ? and class.c_id = ?;
+`
+
+  const studentData = await queryParamPromise(sql, [staffId, courseId]);
+
+  // console.table(studentData);
+
+  res.render('Staff/attendance', {
+    studentData,
+    courseId,
+    page_name: 'attendance'
+  });
+
+};
+
+
+exports.postAttendance = async (req, res, next) => {
+  const presents = req.body;
+  console.log(presents);
+  // res.send(presents);
+
+  const { courseId } = req.body;
+
+  res.status(200).send(presents);
+
+}
 
 exports.getStudentReport = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';

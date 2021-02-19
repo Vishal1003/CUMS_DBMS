@@ -334,6 +334,11 @@ exports.postAddStaff = async (req, res, next) => {
       contact,
     } = req.body;
 
+    if(contact.length >= 11){
+      req.flash('error', 'Enter a valid phone number');
+      return res.redirect('/admin/addStaff');
+    }
+
     const password = dob.toString().split('-').join('');
     const hashedPassword = await bcrypt.hash(password, 8);
 
