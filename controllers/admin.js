@@ -881,7 +881,7 @@ exports.postAddCourse = async (req, res, next) => {
   const sql1 = 'SELECT COUNT(dept_id) AS size FROM course WHERE dept_id = ?';
   const results = await queryParamPromise(sql1, [department]);
   let size = results[0].size + 1;
-  const c_id = department + size;
+  const c_id = department + (size <= 9 ? '0' : '') + size.toString();
   const sql2 = 'INSERT INTO course SET ?';
   await queryParamPromise(sql2, {
     c_id,
