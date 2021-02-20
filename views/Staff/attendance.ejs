@@ -20,97 +20,101 @@
 <body>
     <%- include('../Includes/staff_nav.ejs') %>
 
-    <section id="content-wrapper">
-        <main role="main" class="pt-5 main">
-            <div class="main-content">
-                <!-- Header -->
-                <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                    style="height: 100px; background-size: cover; background-position: center top;">
-                    <!-- Header container -->
-                </div>
-                <!-- Page content -->
-                <div class="container-fluid mt--7">
-                    <div class="row">
-                        <div class="col-xl-12 order-xl-1">
-                            <div class="card bg-secondary shadow">
-                                <div class="card-header bg-white border-0">
-                                    <div class="row align-items-center">
-                                        <div class="col-8">
-                                            <h3 class="mb-0">Mark Attendance</h3>
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
+                <div class="main-content">
+                    <!-- Header -->
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
+                        <!-- Header container -->
+                    </div>
+                    <!-- Page content -->
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0">Mark Attendance</h3>
+                                            </div>
+
                                         </div>
-
                                     </div>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="form-control-label mb-5"><b>COURSE : </b>
-                                        <%= courseId %> || <b>SECTION : </b>
-                                        <%= studentData[0].section %>
-                                    </h6>
-                                    <div class="pl-lg-4">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group focused">
-                                                    <div class="table-responsive" style="overflow-x: hidden;">
-                                                        <form method="POST"
-                                                            action="/staff/student-attendance/class/<%= courseId %>">
-                                                            <div class="form-group row">
-                                                                <label for="date-input" class="col-2 col-form-label">
-                                                                    <h3 class="mb-0">Date:</h3>
-                                                                </label>
-                                                                <div class="col-3">
-                                                                    <input class="form-control" type="date" name="date"
-                                                                        id="date-input">
+                                    <div class="card-body">
+                                        <h6 class="form-control-label mb-5"><b>COURSE : </b>
+                                            <%= courseId %> || <b>SECTION : </b>
+                                                <%= studentData[0].section %>
+                                        </h6>
+                                        <div class="pl-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group focused">
+                                                        <div class="table-responsive" style="overflow-x: hidden;">
+                                                            <form method="POST"
+                                                                action="/staff/student-attendance/class/<%= courseId %>">
+                                                                <div class="form-group row">
+                                                                    <label for="date-input"
+                                                                        class="col-lg-2 col-sm-4 col-form-label">
+                                                                        <h3 class="mb-0">Date:</h3>
+                                                                    </label>
+                                                                    <div class="col-lg-3 col-sm-4 pb-4">
+                                                                        <input class="form-control" type="date"
+                                                                            name="date" id="date-input">
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-4">
+                                                                        <a id="mark-all-present" style="color: white;"
+                                                                            class="btn btn-primary">Mark
+                                                                            All
+                                                                            Present</a>
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-4">
+                                                                        <a id="mark-all-absent" style="color: white;"
+                                                                            class="btn btn-primary">Mark
+                                                                            All
+                                                                            Absent</a>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-3">
-                                                                    <a id="mark-all-present" style="color: white;"
-                                                                        class="btn btn-primary">Mark
-                                                                        All
-                                                                        Present</a>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <a id="mark-all-absent" style="color: white;"
-                                                                        class="btn btn-primary">Mark
-                                                                        All
-                                                                        Absent</a>
-                                                                </div>
-                                                            </div>
-                                                            <table class="table" >
-                                                                <thead class="thead-dark">
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Name</th>
-                                                                        <th scope="col">Mark Present</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
+                                                                <table class="table">
+                                                                    <thead class="thead-dark">
+                                                                        <tr>
+                                                                            <th scope="col">#</th>
+                                                                            <th scope="col">Name</th>
+                                                                            <th scope="col">Mark Present</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-                                                                    <% for(let i=0; i < studentData.length; i++) {
+                                                                        <% for(let i=0; i < studentData.length; i++) {
                                                                             %>
-                                                                    <tr>
-                                                                        <th scope="row">
-                                                                            <%= i + 1 %>
-                                                                        </th>
-                                                                        <td>
-                                                                            <%= studentData[i].s_name %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <input id="<%= studentData[i].s_id %>"
-                                                                                type="checkbox">
-                                                                            <input name="<%= studentData[i].s_id %>"
-                                                                                value="False" hidden>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <% } %>
+                                                                            <tr>
+                                                                                <th scope="row">
+                                                                                    <%= i + 1 %>
+                                                                                </th>
+                                                                                <td>
+                                                                                    <%= studentData[i].s_name %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input
+                                                                                        id="<%= studentData[i].s_id %>"
+                                                                                        type="checkbox">
+                                                                                    <input
+                                                                                        name="<%= studentData[i].s_id %>"
+                                                                                        value="False" hidden>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <% } %>
 
-                                                                </tbody>
+                                                                    </tbody>
 
-                                                            </table>
-                                                            <input hidden name="courseId" value="<%= courseId %>">
+                                                                </table>
+                                                                <input hidden name="courseId" value="<%= courseId %>">
 
-                                                            <button id="submit" style="color: white;"
-                                                                class="btn btn-primary btn-block">Mark
-                                                                Attendance</>
-                                                        </form>
+                                                                <button id="submit" style="color: white;"
+                                                                    class="btn btn-primary btn-block">Mark
+                                                                    Attendance</>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,39 +122,41 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
-
-
                     </div>
                 </div>
-            </div>
-        </main>
-    </section>
-    </div>
+            </main>
+        </section>
+        </div>
 
 
 
-    </div>
+        </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-    <script src="../../../JS/attendance.js"></script>
-    <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+            </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+            </script>
+        <script src="../../../JS/attendance.js"></script>
+        <script>
+            const $button = document.querySelector('#sidebar-toggle');
+            const $wrapper = document.querySelector('#wrapper');
 
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
-    </script>
+            $button.addEventListener('click', (e) => {
+                e.preventDefault();
+                $wrapper.classList.toggle('toggled');
+            });
+
+            document.querySelector("#date-input").max = new Date().toISOString("en-US", { timeZone: "Asia/Kolkata" }).split("T")[0];
+
+        </script>
 </body>
 
 </html>

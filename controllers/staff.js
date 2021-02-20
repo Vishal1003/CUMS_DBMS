@@ -17,8 +17,7 @@ const db = mysql.createConnection({
 const zeroParamPromise = (sql) => {
   return new Promise((resolve, reject) => {
     db.query(sql, (err, results) => {
-      if (err) 
-        return reject(err);
+      if (err) return reject(err);
       return resolve(results);
     });
   });
@@ -27,8 +26,7 @@ const zeroParamPromise = (sql) => {
 const queryParamPromise = (sql, queryParam) => {
   return new Promise((resolve, reject) => {
     db.query(sql, queryParam, (err, results) => {
-      if (err) 
-        return reject(err);
+      if (err) return reject(err);
       return resolve(results);
     });
   });
@@ -114,13 +112,13 @@ exports.markAttendance = async (req, res, next) => {
   const staffId = req.user;
 
   const sql = `
-    SELECT student.s_name, student.email, student.s_id, class.class_id, student.section
-    FROM student
-    JOIN staff
-    ON student.dept_id = staff.dept_id
-    JOIN class
-    ON class.st_id = staff.st_id
-    WHERE student.section = class.section AND staff.st_id = ? AND class.c_id = ?;
+    select student.s_name, student.email, student.s_id, class.class_id, student.section
+    from student
+    join staff
+    on student.dept_id = staff.dept_id
+    join class
+    on class.st_id = staff.st_id
+    where student.section = class.section and staff.st_id = ? and class.c_id = ?;
 `;
 
   const studentData = await queryParamPromise(sql, [staffId, courseId]);
@@ -136,25 +134,14 @@ exports.postAttendance = async (req, res, next) => {
   const { date, courseId, ...students } = req.body;
   for (const s_id in students) {
     const isPresent = students[s_id];
-    const prev_data = await queryParamPromise(
-      'SELECT * FROM attendance WHERE s_id = ? AND date = ? AND c_id = ?',
-      [s_id, date, courseId]
-    );
-    if (prev_data.length !== 0) {
-      await queryParamPromise(
-        'update attendance set status = ? where s_id = ? and date = ? and c_id = ?',
-        [isPresent == 'True' ? 1 : 0, s_id, date, courseId]
-      );
-    } else {
-      await queryParamPromise('insert into attendance set ?', {
-        s_id: s_id,
-        date: date,
-        c_id: courseId,
-        status: isPresent == 'True' ? 1 : 0,
-      });
-    }
+    await queryParamPromise('insert into attendance set ?', {
+      s_id: s_id,
+      date: date,
+      c_id: courseId,
+      status: isPresent == 'True' ? 1 : 0,
+    });
   }
-  req.flash('success_msg', 'Attendance updated');
+  req.flash('success_msg', 'Attendance done successfully');
   res.redirect('/staff/student-attendance');
 };
 
@@ -211,7 +198,7 @@ exports.forgotPassword = async (req, res, next) => {
 
   let errors = [];
 
-  const sql1 = 'SELECT * FROM staff WHERE email = ?';
+  const sql1 = 'SELECT * from staff WHERE email = ?';
   const results = await queryParamPromise(sql1, [email]);
   if (!results || results.length === 0) {
     errors.push({ msg: 'That email is not registered!' });
