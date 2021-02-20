@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 	`date` DATE NOT NULL,
 	`c_id` VARCHAR(100) NOT NULL,
 	`status` BOOLEAN NOT NULL DEFAULT false,
-	PRIMARY KEY (`s_id`,`date`)
+	PRIMARY KEY (`s_id`,`c_id`,`date`)
 );
 
 CREATE TABLE IF NOT EXISTS `marks` (
