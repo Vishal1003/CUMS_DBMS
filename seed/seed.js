@@ -5478,8 +5478,8 @@ const reset = async () => {
     const hashedPassword = await bcrypt.hash('123456', 8);
     await queryParamPromise('insert into admin set ?', {
       admin_id: uuidv4(),
-      name: 'Admin Boy1',
-      email: 'admin1@gmail.com',
+      name: 'Vishal Jha',
+      email: 'vishaljha@gmail.com',
       password: hashedPassword,
     });
     console.log('admin added');
