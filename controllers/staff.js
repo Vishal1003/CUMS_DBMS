@@ -17,7 +17,8 @@ const db = mysql.createConnection({
 const zeroParamPromise = (sql) => {
   return new Promise((resolve, reject) => {
     db.query(sql, (err, results) => {
-      if (err) return reject(err);
+      if (err) 
+        return reject(err);
       return resolve(results);
     });
   });
@@ -26,7 +27,8 @@ const zeroParamPromise = (sql) => {
 const queryParamPromise = (sql, queryParam) => {
   return new Promise((resolve, reject) => {
     db.query(sql, queryParam, (err, results) => {
-      if (err) return reject(err);
+      if (err) 
+        return reject(err);
       return resolve(results);
     });
   });

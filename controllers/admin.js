@@ -334,7 +334,7 @@ exports.postAddStaff = async (req, res, next) => {
       contact,
     } = req.body;
 
-    if(contact.length >= 11){
+    if(contact.length > 11){
       req.flash('error', 'Enter a valid phone number');
       return res.redirect('/admin/addStaff');
     }
