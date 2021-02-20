@@ -108,7 +108,6 @@ exports.getAttendance = async (req, res, next) => {
 };
 
 exports.markAttendance = async (req, res, next) => {
-
   const courseId = req.params.id;
   const staffId = req.user;
 
@@ -120,31 +119,31 @@ exports.markAttendance = async (req, res, next) => {
     join class
     on class.st_id = staff.st_id
     where student.section = class.section and staff.st_id = ? and class.c_id = ?;
-`
+`;
 
   const studentData = await queryParamPromise(sql, [staffId, courseId]);
-
-  // console.table(studentData);
 
   res.render('Staff/attendance', {
     studentData,
     courseId,
-    page_name: 'attendance'
+    page_name: 'attendance',
   });
-
 };
 
-
 exports.postAttendance = async (req, res, next) => {
-  const presents = req.body;
-  console.log(presents);
-  // res.send(presents);
-
-  const { courseId } = req.body;
-
-  res.status(200).send(presents);
-
-}
+  const { date, courseId, ...students } = req.body;
+  for (const s_id in students) {
+    const isPresent = students[s_id];
+    await queryParamPromise('insert into attendance set ?', {
+      s_id: s_id,
+      date: date,
+      c_id: courseId,
+      status: isPresent == 'True' ? 1 : 0,
+    });
+  }
+  req.flash('success_msg', 'Attendance done successfully');
+  res.redirect('/staff/student-attendance');
+};
 
 exports.getStudentReport = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';

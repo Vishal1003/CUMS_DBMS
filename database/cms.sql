@@ -18,12 +18,6 @@ CREATE TABLE IF NOT EXISTS `course` (
 	PRIMARY KEY (`c_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `StudentCourses` (
-	`s_id` VARCHAR(36) NOT NULL,
-	`c_id` VARCHAR(100) NOT NULL,
-	PRIMARY KEY (`s_id`,`c_id`)
-);
-
 CREATE TABLE IF NOT EXISTS `student` (
 	`s_id` VARCHAR(36) NOT NULL,
 	`s_name` VARCHAR(255) NOT NULL,
@@ -56,13 +50,6 @@ CREATE TABLE IF NOT EXISTS `department` (
 	`dept_id` VARCHAR(255) NOT NULL UNIQUE,
 	`d_name` VARCHAR(255) NOT NULL UNIQUE,
 	PRIMARY KEY (`dept_id`)
-);
-
-CREATE TABLE IF NOT EXISTS `staffCourse` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`st_id` VARCHAR(36) NOT NULL,
-	`c_id` VARCHAR(100) NOT NULL,
-	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `fee` (
@@ -115,40 +102,29 @@ CREATE TABLE IF NOT EXISTS `assignment_submission` (
 	PRIMARY KEY (`s_id`,`asg_id`)
 );
 
-ALTER TABLE `course` ADD CONSTRAINT `course_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`);
-
-ALTER TABLE `StudentCourses` ADD CONSTRAINT `StudentCourses_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
-
-ALTER TABLE `StudentCourses` ADD CONSTRAINT `StudentCourses_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
+ALTER TABLE `course` ADD CONSTRAINT `course_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
 ALTER TABLE `student` ADD CONSTRAINT `student_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
 ALTER TABLE `staff` ADD CONSTRAINT `staff_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
-ALTER TABLE `staffCourse` ADD CONSTRAINT `staffCourse_fk0` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`);
+ALTER TABLE `fee` ADD CONSTRAINT `fee_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
 
-ALTER TABLE `staffCourse` ADD CONSTRAINT `staffCourse_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`);
+ALTER TABLE `attendance` ADD CONSTRAINT `attendance_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
 
-ALTER TABLE `fee` ADD CONSTRAINT `fee_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) ;
+ALTER TABLE `attendance` ADD CONSTRAINT `attendance_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
 
 ALTER TABLE `class` ADD CONSTRAINT `class_fk0` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
 
-ALTER TABLE `class` ADD CONSTRAINT `class_fk1` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`);
+ALTER TABLE `class` ADD CONSTRAINT `class_fk1` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`) on update cascade on delete restrict;
 
 ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk0` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`) on update cascade on delete restrict;
 
 ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
 
-ALTER TABLE `attendance` ADD CONSTRAINT `attendance_fk0` FOREIGN KEY (`s_id`) REFERENCES `StudentCourses`(`s_id`);
+ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
 
-ALTER TABLE `marks` ADD CONSTRAINT `marks_fk0` FOREIGN KEY (`s_id`) REFERENCES `StudentCourses`(`s_id`);
-
-ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`);
-
-ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk1` FOREIGN KEY (`asg_id`) REFERENCES `assignment`(`asg_id`);
-
-
-use cumsdbms;
+ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk1` FOREIGN KEY (`asg_id`) REFERENCES `assignment`(`asg_id`) on update cascade on delete restrict;
 
 alter table admin
 add resetLink varchar(255) default '';
