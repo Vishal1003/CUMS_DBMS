@@ -15,9 +15,10 @@ router.get('/logout', requireAuth, controller.getLogout);
 
 
 router.get('/student-attendance', requireAuth, controller.getAttendance);
-router.get('/student-attendance/class/:id', requireAuth, controller.markAttendance);
+// router.get('/student-attendance/class/:id', requireAuth, controller.markAttendance);
 
 router.post('/student-attendance/class/:id', requireAuth, controller.postAttendance);
+router.post('/student-attendance', requireAuth, controller.markAttendance);
 
 router.get('/student-report', requireAuth, controller.getStudentReport);
 

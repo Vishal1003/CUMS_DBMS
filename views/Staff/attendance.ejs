@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CMS NSIT</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="../../../CSS/main.css">
-    <link rel="stylesheet" href="../../../CSS/student-dashboard.css">
-    <link rel="stylesheet" href="../../../CSS/student-profile.css">
-
-</head>
-
-<body>
+<%- include('../Includes/begin.ejs') %>
     <%- include('../Includes/staff_nav.ejs') %>
 
         <section id="content-wrapper">
@@ -53,27 +34,32 @@
                                                         <div class="table-responsive" style="overflow-x: hidden;">
                                                             <form method="POST"
                                                                 action="/staff/student-attendance/class/<%= courseId %>">
-                                                                <div class="form-group row">
-                                                                    <label for="date-input"
-                                                                        class="col-lg-2 col-sm-4 col-form-label">
-                                                                        <h3 class="mb-0">Date:</h3>
-                                                                    </label>
-                                                                    <div class="col-lg-3 col-sm-4 pb-4">
-                                                                        <input class="form-control" type="date"
-                                                                            name="date" id="date-input">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group focused">
+                                                                            
+                                                                            <div
+                                                                                class="card form-control form-control-alternative">
+                                                                                <p>
+                                                                                   <b>DATE: </b> <%= date %>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-lg-3 col-sm-4">
+
+                                                                    <div class="col-md-4">
                                                                         <a id="mark-all-present" style="color: white;"
                                                                             class="btn btn-primary">Mark
                                                                             All
                                                                             Present</a>
                                                                     </div>
-                                                                    <div class="col-lg-3 col-sm-4">
+                                                                    <div class="col-md-4">
                                                                         <a id="mark-all-absent" style="color: white;"
                                                                             class="btn btn-primary">Mark
                                                                             All
                                                                             Absent</a>
                                                                     </div>
+
                                                                 </div>
                                                                 <table class="table">
                                                                     <thead class="thead-dark">
@@ -97,10 +83,12 @@
                                                                                 <td>
                                                                                     <input
                                                                                         id="<%= studentData[i].s_id %>"
-                                                                                        type="checkbox">
+                                                                                        type="checkbox" <%= studentData[i].status === 1 ? "checked" : "" %> >
                                                                                     <input
                                                                                         name="<%= studentData[i].s_id %>"
                                                                                         value="False" hidden>
+
+                                                                                    <input name="date" value="<%= date %>" hidden>
                                                                                 </td>
                                                                             </tr>
                                                                             <% } %>
@@ -129,34 +117,4 @@
                 </div>
             </main>
         </section>
-        </div>
-
-
-
-        </div>
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-            </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-            </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-            </script>
-        <script src="../../../JS/attendance.js"></script>
-        <script>
-            const $button = document.querySelector('#sidebar-toggle');
-            const $wrapper = document.querySelector('#wrapper');
-
-            $button.addEventListener('click', (e) => {
-                e.preventDefault();
-                $wrapper.classList.toggle('toggled');
-            });
-
-            document.querySelector("#date-input").max = new Date().toISOString("en-US", { timeZone: "Asia/Kolkata" }).split("T")[0];
-
-        </script>
-</body>
-
-</html>
+        <%- include('../Includes/staff_end.ejs') %>

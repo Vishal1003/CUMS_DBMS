@@ -99,7 +99,7 @@ exports.getAttendance = async (req, res, next) => {
     'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
-  res.render('Staff/selectClass', {
+  res.render('Staff/selectClassAttendance', {
     user: data[0],
     classData,
     btnInfo: 'Students List',
@@ -108,10 +108,39 @@ exports.getAttendance = async (req, res, next) => {
 };
 
 exports.markAttendance = async (req, res, next) => {
-  const courseId = req.params.id;
+  const { courseId, date } = req.body;
   const staffId = req.user;
 
+  console.log(date);
+
   const sql = `
+    select student.s_name, student.email, student.s_id, class.class_id, student.section, attendance.status
+    from student
+    join staff
+    on student.dept_id = staff.dept_id
+    join class
+    on class.st_id = staff.st_id
+    left join attendance
+    on attendance.c_id = class.c_id
+    where student.section = class.section and staff.st_id = ? and class.c_id = ? and date = ?;
+`;
+
+  let studentData = await queryParamPromise(sql, [staffId, courseId, date]);
+
+
+  // console.table(studentData);
+
+
+  if (studentData.length !== 0) {
+    return res.render('Staff/attendance', {
+      studentData,
+      courseId,
+      date,
+      page_name: 'attendance',
+    });
+  }
+
+  const sql2 = `
     select student.s_name, student.email, student.s_id, class.class_id, student.section
     from student
     join staff
@@ -121,28 +150,46 @@ exports.markAttendance = async (req, res, next) => {
     where student.section = class.section and staff.st_id = ? and class.c_id = ?;
 `;
 
-  const studentData = await queryParamPromise(sql, [staffId, courseId]);
+  studentData = await queryParamPromise(sql2, [staffId, courseId]);
 
-  res.render('Staff/attendance', {
+  studentData = [...studentData, { status: 0 }];
+
+  return res.render('Staff/attendance', {
     studentData,
     courseId,
-    page_name: 'attendance',
-  });
+    date,
+    page_name: 'attendance'
+  })
 };
 
 exports.postAttendance = async (req, res, next) => {
   const { date, courseId, ...students } = req.body;
-  for (const s_id in students) {
-    const isPresent = students[s_id];
-    await queryParamPromise('insert into attendance set ?', {
-      s_id: s_id,
-      date: date,
-      c_id: courseId,
-      status: isPresent == 'True' ? 1 : 0,
-    });
+
+  let attedData = await queryParamPromise('SELECT * FROM attendance WHERE date = ? and c_id = ?', [date, courseId]);
+
+  if (attedData.length === 0) {
+    for (const s_id in students) {
+      const isPresent = students[s_id];
+      await queryParamPromise('insert into attendance set ?', {
+        s_id: s_id,
+        date: date,
+        c_id: courseId,
+        status: isPresent == 'True' ? 1 : 0,
+      });
+    }
+    req.flash('success_msg', 'Attendance done successfully');
+    return res.redirect('/staff/student-attendance');
+
   }
-  req.flash('success_msg', 'Attendance done successfully');
-  res.redirect('/staff/student-attendance');
+
+  for (const s_id in students) {
+    const isPresent = students[s_id] === 'True' ? 1 : 0;
+    await queryParamPromise('update attendance set status = ? where s_id = ? and date = ? and c_id = ?', [isPresent, s_id, date, courseId]);
+  }
+
+  req.flash('success_msg', 'Attendance updated successfully');
+  return res.redirect('/staff/student-attendance');
+
 };
 
 exports.getStudentReport = async (req, res, next) => {
