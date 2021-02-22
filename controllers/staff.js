@@ -251,7 +251,7 @@ exports.forgotPassword = async (req, res, next) => {
   const results = await queryParamPromise(sql1, [email]);
   if (!results || results.length === 0) {
     errors.push({ msg: 'That email is not registered!' });
-    res.status(401).render('Staff/forgotPassword', {
+    return res.status(401).render('Staff/forgotPassword', {
       errors,
     });
   }
