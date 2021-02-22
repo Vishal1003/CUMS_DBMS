@@ -78,9 +78,32 @@ exports.getDashboard = (req, res, next) => {
   let sql6 = 'SELECT * FROM student WHERE s_id = ?';
   db.query(sql6, [req.user], (err, result) => {
     if (err) throw err;
-    res.render('Student/dashboard', { user: result[0] });
+    res.render('Student/dashboard', { name: result[0].s_name, page_name : "overview" });
   });
 };
+
+exports.getProfile = async (req, res, next) => {
+  const sql = 'SELECT * FROM student WHERE s_id = ?';
+  const sql2 = 'SELECT d_name FROM department WHERE dept_id = (SELECT dept_id FROM student WHERE s_id = ?)';
+
+  const profileData = await queryParamPromise(sql, [req.user]);
+  const deptName = await queryParamPromise(sql2, [req.user]);
+
+  const dobs = new Date(profileData[0].dob);
+  const jd = new Date(profileData[0].joining_date);
+
+  let dob = dobs.getFullYear() + dobs.getMonth() + dobs.getDate();
+  let jds = jd.getFullYear() + jd.getMonth() + jd.getDate();
+
+  return res.render('Student/profile', {
+    data : profileData,
+    page_name: 'profile',
+    dname : deptName,
+    dob,
+    jds
+  });
+}
+
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });

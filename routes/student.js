@@ -9,6 +9,7 @@ router.get('/login', forwardAuth, controller.getLogin);
 router.post('/login', controller.postLogin);
 
 router.get('/dashboard', requireAuth, controller.getDashboard);
+router.get('/profile', requireAuth, controller.getProfile);
 
 router.get('/logout', requireAuth, controller.getLogout);
 

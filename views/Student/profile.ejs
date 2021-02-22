@@ -1,294 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('../Includes/begin.ejs') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD STUDENT</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <%- include('../Includes/student_nav.ejs') %>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="CSS/main.css">
-    <link rel="stylesheet" href="CSS/student-dashboard.css">
-    <link rel="stylesheet" href="CSS/student-profile.css">
+        <section id="content-wrapper">
+            <main role="main" class="pt-5 main">
 
-</head>
+                <div class="main-content">
+                    <!-- Header -->
+                    <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                        style="height: 100px; background-size: cover; background-position: center top;">
+                        <!-- Header container -->
 
-<body>
-
-    <div class="container-fluid">
-
-        <div id="wrapper">
-
-            <aside id="sidebar-wrapper">
-
-                <div class="sidebar-brand">
-                    <h2>CMS NSIT</h2>
-                </div>
-
-                <ul class="sidebar-nav">
-                    <li>
-                        <a href="#"><i class="fa fa-home"></i>Overview</a>
-                    </li>
-                    <li class="active">
-                        <a href="#"><i class="fa fa-id-card"></i>Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-calendar-check"></i>Attendance</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-calendar"></i>TimeTable</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sticky-note"></i>Marks</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-credit-card"></i>Fee History</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-graduation-cap"></i>Scholarship</a>
-                    </li>
-                    <hr>
-                    <li>
-                        <a href="#"><i class="fa fa-cog"></i>Settings</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sign-out-alt"></i>Logout</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <div id="navbar-wrapper" style="position: fixed;">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                        </div>
                     </div>
-                </nav>
-            </div>
-
-            <section id="content-wrapper">
-                <main role="main" class="pt-5 main">
-
-                    <div class="main-content">
-                        <!-- Header -->
-                        <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
-                            style="height: 100px; background-size: cover; background-position: center top;">
-                            <!-- Header container -->
-
-                        </div>
-                        <!-- Page content -->
-                        <div class="container-fluid mt--7">
-                            <div class="row">
-                                <div class="col-xl-12 order-xl-1">
-                                    <div class="card bg-secondary shadow">
-                                        <div class="card-header bg-white border-0">
-                                            <div class="row align-items-center">
-                                                <div class="col-8">
-                                                    <h3 class="mb-0">My account</h3>
-                                                </div>
-                                                <div class="col-4 text-right">
-                                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                                                </div>
+                    <!-- Page content -->
+                    <div class="container-fluid mt--7">
+                        <div class="row">
+                            <div class="col-xl-12 order-xl-1">
+                                <div class="card bg-secondary shadow">
+                                    <div class="card-header bg-white border-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-8">
+                                                <h3 class="mb-0">My account</h3>
                                             </div>
-                                        </div>
-                                        <div class="card-body">
-
-                                            <h6 class="heading-small text-muted mb-4">User information</h6>
-                                            <div class="pl-lg-4">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Roll Number</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>2018UEC2160</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label">Email</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>mail@sample.com</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Student Name</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>@Full Name</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Father's Name</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>@Name</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="col-4 text-right">
+                                                <a href="#!" class="btn btn-sm btn-primary">Settings</a>
                                             </div>
-                                            <hr class="my-4">
-                                            <h6 class="heading-small text-muted mb-4">Course information</h6>
-                                            <div class="pl-lg-4">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Branch</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>Electronics and Communication Engineering</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Section</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>3</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Semester</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>6th</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label">Course Year</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>2018 - 2022</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="my-4">
-                                            <!-- Address -->
-                                            <h6 class="heading-small text-muted mb-4">Contact information</h6>
-                                            <div class="pl-lg-4">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Address</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>442/M3, Civil Lines, Delhi</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Contact Number (Student)</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>+91 88556644</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Contact Number (Father)</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>+91 88556644</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">City</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>Delhi</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group focused">
-                                                            <label class="form-control-label">Country</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>India</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label class="form-control-label">Postal Code</label>
-                                                            <div class="card form-control form-control-alternative">
-                                                                <p>110045</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="my-4">
-                                            <!-- Description -->
-                                            <h6 class="heading-small text-muted mb-4">Current Semester Registered Courses</h6>
-                                            <div class="pl-lg-4">
-                                                <div class="form-group focused">
-                                                    <label>About Me</label>
-                                                    <textarea rows="4" class="form-control form-control-alternative"
-                                                        placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
+                                    <div class="card-body">
+
+                                        <h6 class="heading-small text-muted mb-4">Student Information</h6>
+                                        <div class="pl-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Student Name</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p><%= data[0].s_name %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Email</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p><%= data[0].email %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Date of Birth</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p><%= dob %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Joining Date</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p><%= jds %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-4">
+                                        <h6 class="heading-small text-muted mb-4">Course information</h6>
+                                        <div class="pl-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Department</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>Electronics and Communication Engineering</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Section</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>3</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Semester</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>6th</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Course Year</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>2018 - 2022</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <!-- Address -->
+                                        <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                        <div class="pl-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Address</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>442/M3, Civil Lines, Delhi</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Contact Number
+                                                            (Student)</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>+91 88556644</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Contact Number
+                                                            (Father)</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>+91 88556644</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">City</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>Delhi</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group focused">
+                                                        <label class="form-control-label">Country</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>India</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Postal Code</label>
+                                                        <div class="card form-control form-control-alternative">
+                                                            <p>110045</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <!-- Description -->
+                                        <h6 class="heading-small text-muted mb-4">Current Semester Registered Courses
+                                        </h6>
+                                        <div class="pl-lg-4">
+                                            <div class="form-group focused">
+                                                <label>About Me</label>
+                                                <textarea rows="4" class="form-control form-control-alternative"
+                                                    placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-
-
                             </div>
+
+
                         </div>
                     </div>
+                </div>
 
 
 
 
-                </main>
-            </section>
+            </main>
+        </section>
 
-        </div>
-
-
-
-    </div>
-
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-    <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
-
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
-    </script>
-</body>
-
-</html>
+        <%- include('../Includes/student_end.ejs') %>

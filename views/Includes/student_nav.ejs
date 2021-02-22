@@ -1,0 +1,60 @@
+<div class="container-fluid">
+
+    <div id="wrapper">
+
+        <aside id="sidebar-wrapper">
+
+            <div class="sidebar-brand">
+                <h2>CMS NSIT</h2>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="<% if (page_name === 'overview') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/dashboard"><i class="fa fa-home"></i>Overview</a>
+                </li>
+                <li class="<% if (page_name === 'profile') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/profile"><i class="fa fa-id-card"></i>Profile</a>
+                </li>
+                <li class="<% if (page_name === 'attendance') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/attendance"><i class="fa fa-calendar-check"></i>Attendance</a>
+                </li>
+                <li class="<% if (page_name === 'timetable') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/timetable"><i class="fa fa-calendar"></i>TimeTable</a>
+                </li>
+                <li class="<% if (page_name === 'marks') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/marks"><i class="fa fa-sticky-note"></i>Marks</a>
+                </li>
+                <li class="<% if (page_name === 'fee') { %>
+                    active
+                   <%} %>">
+                    <a href="/student/fee-history"><i class="fa fa-credit-card"></i>Fee History</a>
+                </li>
+                <hr>
+                <li>
+                    <a href="#"><i class="fa fa-cog"></i>Settings</a>
+                </li>
+                <li>
+                    <a href="/student/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                </li>
+            </ul>
+        </aside>
+
+        <div id="navbar-wrapper" style="position: fixed;">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
