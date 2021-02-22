@@ -108,64 +108,47 @@ exports.getAttendance = async (req, res, next) => {
 };
 
 exports.markAttendance = async (req, res, next) => {
-  const { courseId, date } = req.body;
+  const { classdata, date } = req.body;
+  const regex1 = /[A-Z]+[0-9]+/g;
+  const regex2 = /[A-Z]+-[0-9]+/g;
+
+  const c_id = classdata.match(regex1)[0];
+  const class_sec = classdata.match(regex2)[0].split('-');
   const staffId = req.user;
 
   console.log(date);
 
   const sql = `
-    select student.s_name, student.email, student.s_id, class.class_id, student.section, attendance.status
-    from student
-    join staff
-    on student.dept_id = staff.dept_id
-    join class
-    on class.st_id = staff.st_id
-    left join attendance
-    on attendance.c_id = class.c_id
-    where student.section = class.section and staff.st_id = ? and class.c_id = ? and date = ?;
+    SELECT * FROM student WHERE dept_id = ? AND section = ?
 `;
 
-  let studentData = await queryParamPromise(sql, [staffId, courseId, date]);
-
-
-  // console.table(studentData);
-
-
-  if (studentData.length !== 0) {
-    return res.render('Staff/attendance', {
-      studentData,
-      courseId,
-      date,
-      page_name: 'attendance',
-    });
+  let students = await queryParamPromise(sql, [class_sec[0], class_sec[1]]);
+  for (student of students) {
+    const status = await queryParamPromise(
+      'SELECT status FROM attendance WHERE c_id = ? AND s_id = ? AND date = ?',
+      [c_id, student.s_id, date]
+    );
+    if (status.length !== 0) {
+      student.status = status[0].status;
+    } else {
+      student.status = 0;
+    }
   }
 
-  const sql2 = `
-    select student.s_name, student.email, student.s_id, class.class_id, student.section
-    from student
-    join staff
-    on student.dept_id = staff.dept_id
-    join class
-    on class.st_id = staff.st_id
-    where student.section = class.section and staff.st_id = ? and class.c_id = ?;
-`;
-
-  studentData = await queryParamPromise(sql2, [staffId, courseId]);
-
-  studentData = [...studentData, { status: 0 }];
-
   return res.render('Staff/attendance', {
-    studentData,
-    courseId,
+    studentData: students,
+    courseId: c_id,
     date,
-    page_name: 'attendance'
-  })
+    page_name: 'attendance',
+  });
 };
 
 exports.postAttendance = async (req, res, next) => {
   const { date, courseId, ...students } = req.body;
-
-  let attedData = await queryParamPromise('SELECT * FROM attendance WHERE date = ? and c_id = ?', [date, courseId]);
+  let attedData = await queryParamPromise(
+    'SELECT * FROM attendance WHERE date = ? AND c_id = ?',
+    [date, courseId]
+  );
 
   if (attedData.length === 0) {
     for (const s_id in students) {
@@ -179,17 +162,18 @@ exports.postAttendance = async (req, res, next) => {
     }
     req.flash('success_msg', 'Attendance done successfully');
     return res.redirect('/staff/student-attendance');
-
   }
 
   for (const s_id in students) {
     const isPresent = students[s_id] === 'True' ? 1 : 0;
-    await queryParamPromise('update attendance set status = ? where s_id = ? and date = ? and c_id = ?', [isPresent, s_id, date, courseId]);
+    await queryParamPromise(
+      'update attendance set status = ? WHERE s_id = ? AND date = ? AND c_id = ?',
+      [isPresent, s_id, date, courseId]
+    );
   }
 
   req.flash('success_msg', 'Attendance updated successfully');
   return res.redirect('/staff/student-attendance');
-
 };
 
 exports.getStudentReport = async (req, res, next) => {
@@ -209,7 +193,7 @@ exports.getStudentReport = async (req, res, next) => {
   });
 };
 
-exports.getClassReport = async (req, res, next) => {
+exports.selectClassReport = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
@@ -218,10 +202,28 @@ exports.getClassReport = async (req, res, next) => {
     'SELECT cl.class_id, cl.section, cl.semester, cl.c_id, co.name FROM class AS cl, course AS co WHERE st_id = ? AND co.c_id = cl.c_id ORDER BY cl.semester;';
   const classData = await queryParamPromise(sql3, [data[0].st_id]);
 
-  res.render('Staff/selectClass', {
+  res.render('Staff/selectClassReport', {
     user: data[0],
     classData,
-    btnInfo: 'Generate',
+    btnInfo: 'Check Status',
+    page_name: 'cls-report',
+  });
+};
+
+exports.getClassReport = async (req, res, next) => {
+  const courseId = req.params.id;
+  const staffId = req.user;
+  const section = req.query.section;
+  const classData = await queryParamPromise(
+    'SELECT * FROM class WHERE c_id = ? AND st_id = ? AND section = ?',
+    [courseId, staffId, section]
+  );
+  const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
+  const user = req.user;
+  const data = await queryParamPromise(sql1, [user]);
+  res.render('Staff/getClassReport', {
+    user: data[0],
+    classData,
     page_name: 'cls-report',
   });
 };
@@ -245,7 +247,7 @@ exports.forgotPassword = async (req, res, next) => {
 
   let errors = [];
 
-  const sql1 = 'SELECT * from staff WHERE email = ?';
+  const sql1 = 'SELECT * FROM staff WHERE email = ?';
   const results = await queryParamPromise(sql1, [email]);
   if (!results || results.length === 0) {
     errors.push({ msg: 'That email is not registered!' });

@@ -72,10 +72,9 @@ CREATE TABLE IF NOT EXISTS `class` (
 
 CREATE TABLE IF NOT EXISTS `assignment` (
 	`asg_id` INT NOT NULL AUTO_INCREMENT,
-	`day` DATE NOT NULL ,
-	`time_slot` DATETIME NOT NULL,
-	`st_id` VARCHAR(36) NOT NULL,
-	`c_id` VARCHAR(100) NOT NULL,
+	`day` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`deadline` DATETIME NOT NULL,
+	`class_id` INT NOT NULL,
 	PRIMARY KEY (`asg_id`)
 );
 
@@ -118,9 +117,7 @@ ALTER TABLE `class` ADD CONSTRAINT `class_fk0` FOREIGN KEY (`c_id`) REFERENCES `
 
 ALTER TABLE `class` ADD CONSTRAINT `class_fk1` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`) on update cascade on delete restrict;
 
-ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk0` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`) on update cascade on delete restrict;
-
-ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk1` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
+ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk0` FOREIGN KEY (`class_id`) REFERENCES `class`(`class_id`) on update cascade on delete restrict;
 
 ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
 

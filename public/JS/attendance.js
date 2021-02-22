@@ -50,10 +50,3 @@ $(document).ready(function () {
     $(`input[name=${s_id}]`).val(isPresent);
   });
 });
-
-
-
-
-
-
-

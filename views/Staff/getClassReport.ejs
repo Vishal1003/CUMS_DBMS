@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS NSIT</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../../CSS/main.css">
+    <link rel="stylesheet" href="../../../CSS/student-dashboard.css">
+    <link rel="stylesheet" href="../../../CSS/student-profile.css">
+
+</head>
+
+<body>
+    <%- include('../Includes/staff_nav.ejs') %>
+
+    <section id="content-wrapper">
+        <main role="main" class="pt-5 main">
+            <div class="main-content">
+                <!-- Header -->
+                <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                    style="height: 100px; background-size: cover; background-position: center top;">
+                    <!-- Header container -->
+                </div>
+                <!-- Page content -->
+                <div class="container-fluid mt--7">
+                    <div class="row">
+                        <div class="col-xl-12 order-xl-1">
+                            <div class="card bg-secondary shadow">
+                                <div class="card-header bg-white border-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-8">
+                                            <h3 class="mb-0">Class Report</h3>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="form-control-label mb-5"><b>COURSE : </b>
+                                        <%= classData[0].c_id %> || <b>SECTION : </b>
+                                        <%= classData[0].section %>
+                                    </h6>
+                                    <div class="pl-lg-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group focused">
+                                                    <div class="table-responsive" style="overflow-x: hidden;">
+                                                        <form method="POST"
+                                                            action="/staff/student-attendance/class/<%= classData[0].c_id %>">
+                                                            <div class="form-group row">
+                                                                <label for="date-input"
+                                                                    class="col-lg-3 col-sm-4 col-form-label">
+                                                                    <h3 class="mb-0">Add new assignment:</h3>
+                                                                </label>
+                                                                <div class="col-lg-4 col-sm-4 pb-4">
+                                                                    <input class="form-control" type="datetime-local"
+                                                                        name="date" id="date-input">
+                                                                </div>
+                                                                <div class="col-lg-4 col-sm-4">
+                                                                    <a id="mark-all-present" style="color: white;"
+                                                                        class="btn btn-primary">Mark
+                                                                        All
+                                                                        Present</a>
+                                                                </div>
+                                                            </div>
+                                                            <table class="table">
+                                                                <thead class="thead-dark">
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Name</th>
+                                                                        <th scope="col">Mark Present</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+
+                                                            </table>
+                                                            <button id="submit" style="color: white;"
+                                                                class="btn btn-primary btn-block">Mark
+                                                                Attendance</>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+    </div>
+
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="../../../JS/attendance.js"></script>
+    <script>
+        const $button = document.querySelector('#sidebar-toggle');
+        const $wrapper = document.querySelector('#wrapper');
+
+        $button.addEventListener('click', (e) => {
+            e.preventDefault();
+            $wrapper.classList.toggle('toggled');
+        });
+
+        document.querySelector("#date-input").max = new Date().toISOString("en-US", {
+            timeZone: "Asia/Kolkata"
+        }).split("T")[0];
+    </script>
+</body>
+
+</html>
