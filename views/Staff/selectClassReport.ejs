@@ -1,0 +1,92 @@
+<%- include('../Includes/begin.ejs') %>
+<%- include('../Includes/staff_nav.ejs') %>
+
+
+<section id="content-wrapper">
+    <main role="main" class="pt-5 main">
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header pb-4 pb-sm-8 pt-5 pt-lg-8 d-flex align-items-center"
+                style="height: 100px; background-size: cover; background-position: center top;">
+                <!-- Header container -->
+            </div>
+            <!-- Page content -->
+            <div class="container-fluid mt--7">
+                <div class="row">
+                    <div class="col-xl-12 order-xl-1">
+                        <div class="card bg-secondary shadow">
+                            <div class="card-header bg-white border-0">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <h3 class="mb-0">Class Report</h3>
+                                        <%- include('../Includes/messages') %>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="heading-small text-muted mb-4">Select Class</h6>
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group focused">
+                                                <label class="form-control-label">Class Information</label>
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">COURSE</th>
+                                                                <th scope="col">SEMESTER</th>
+                                                                <th scope="col">CLASS</th>
+                                                                <th scope="col">SETTINGS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% for(let i=0; i < classData.length; i++) { %>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <%= i + 1 %>
+                                                                </th>
+                                                                <td>
+                                                                    <%= classData[i].name %> (<%=
+                                                                                        classData[i].c_id %>)
+                                                                </td>
+                                                                <td>
+                                                                    <%= classData[i].semester %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= user.dept_id %>-<%=
+                                                                                        classData[i].section %>
+                                                                </td>
+                                                                <td><a href="/staff/class-report/class/<%= classData[i].c_id %>?section=<%=classData[i].section%>"
+                                                                        class="btn btn-sm btn-primary"><%= btnInfo %></a>
+                                                                </td>
+
+                                                            </tr>
+                                                            <% } %>
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+</section>
+
+
+<%- include('../Includes/staff_end.ejs') %>

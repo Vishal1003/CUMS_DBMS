@@ -29,6 +29,8 @@
                                     </div>
                                     <div class="card-body">
                                         <%- include('../../Includes/messages') %>
+                                        <input class="form-control mb-4" id="searchInput" type="text"
+                                            placeholder="Search Staff">
                                         <h6 class="heading-small text-muted mb-4">STAFF INFORMATION</h6>
                                         <div class="table-responsive">
                                             <table class="table">
@@ -41,7 +43,7 @@
                                                         <th scope="col">Manage Staff</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="staffTable">
                                                     <% for(var i=0; i < data.length; i++) { %>
                                                     <tr>
                                                         <th scope="row">
@@ -75,16 +77,41 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </main>
         </section>
-
     </div>
-
 </div>
 
 
-<%- include('../../Includes/admin_end.ejs') %>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+
+<script>
+    const $button = document.querySelector('#sidebar-toggle');
+    const $wrapper = document.querySelector('#wrapper');
+
+    $button.addEventListener('click', (e) => {
+        e.preventDefault();
+        $wrapper.classList.toggle('toggled');
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#staffTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+</body>
+
+</html>
