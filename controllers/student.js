@@ -92,13 +92,13 @@ exports.getProfile = async (req, res, next) => {
   const dobs = new Date(profileData[0].dob);
   const jd = new Date(profileData[0].joining_date);
 
-  let dob = dobs.getFullYear() + dobs.getMonth() + dobs.getDate();
-  let jds = jd.getFullYear() + jd.getMonth() + jd.getDate();
+  let dob = dobs.getDate() + "/" +  dobs.getMonth() + "/" + dobs.getFullYear();
+  let jds = jd.getDate() + "/" + jd.getMonth()  + "/" + jd.getFullYear() ;
 
   return res.render('Student/profile', {
     data : profileData,
     page_name: 'profile',
-    dname : deptName,
+    dname : deptName[0].d_name,
     dob,
     jds
   });
