@@ -92,8 +92,8 @@ exports.getProfile = async (req, res, next) => {
   const dobs = new Date(profileData[0].dob);
   const jd = new Date(profileData[0].joining_date);
 
-  let dob = dobs.getDate() + "/" +  dobs.getMonth() + "/" + dobs.getFullYear();
-  let jds = jd.getDate() + "/" + jd.getMonth()  + "/" + jd.getFullYear() ;
+  let dob = dobs.getDate() + "/" +  (dobs.getMonth() + 1) + "/" + dobs.getFullYear();
+  let jds = jd.getDate() + "/" + (jd.getMonth() + 1)  + "/" + jd.getFullYear() ;
 
   return res.render('Student/profile', {
     data : profileData,
