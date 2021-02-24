@@ -16,42 +16,6 @@ There are several types of end users for the CMS. They are broadly divided as St
 - **STUDENT** who can update profile/ add solution to assignments and see marks/attendance.
 
 
-The features that are available to administrator are :
-
-* An administrator can login into the system and perform any of the available operations :
-    * add/view/modify/delete a student
-    * add/view/modify/delete staff
-    * add/modify department
-    * add/modify courses
-    * add/modify classes
-    * can view the record of all the students and staff of a particular class/ course/ department.
-
-
-The features that are available to staffs are :
-
-* A staff can login into the system and perform any of the available operations :
-    * view his/her personal details (name, dob, age, address, joining date)
-    * edit his/her details 
-    * view the department (s)he belongs to.
-    * the classes they teach.
-    * generate class report 
-    * mark attendance of a particular student
-    * update the attendance
-    * see the time-table of a class.
-
-
-The features that are available to students are :
-
-* A student can login into the system and perform any of the following operations :
-    * view his/her personal details (name, dob, age, address, joining date)
-    * edit his/her details 
-    * view the department (s)he belongs to.
-    * the classes they belong
-    * view his/her attendance
-    * add solution to the assignment
-    * view his/her marks
-
-
 ## System Design
 
 
