@@ -1,4 +1,4 @@
-# CUMS_DBMS (WIP)
+# CUMS_DBMS
 🏰 A College Management Site (DBMS) using Node and Mysql.
 
 A college management system (web application) that provides complete funtionality to manage enrollment, students, faculty, attendance, fees, scheduling,
@@ -87,4 +87,4 @@ We are using MySQL as our database. The main objective of this project is to use
 
 -------------------------------------------------------------------------------
 
-**SEE THE COMPLETE REPORT HERE** ![docs/CMSNSIT_Report](docs/CMSNSIT_Report)
+**SEE THE COMPLETE REPORT HERE** [Report](docs/CMSNSIT_Report)
