@@ -15,7 +15,7 @@ const db = mysql.createConnection({
 });
 
 // Students limit per section
-const SECTION_LIMIT = 30;
+const SECTION_LIMIT = 20;
 
 // Database query promises
 const zeroParamPromise = (sql) => {
@@ -334,7 +334,7 @@ exports.postAddStaff = async (req, res, next) => {
       contact,
     } = req.body;
 
-    if(contact.length > 11){
+    if (contact.length > 11) {
       req.flash('error', 'Enter a valid phone number');
       return res.redirect('/admin/addStaff');
     }
@@ -697,7 +697,9 @@ exports.getAddClass = async (req, res, next) => {
   for (let i = 0; i < results.length; ++i) {
     courses.push(results[i].c_id);
   }
-  const staffs = await zeroParamPromise('SELECT st_id, email, dept_id from staff');
+  const staffs = await zeroParamPromise(
+    'SELECT st_id, email, dept_id from staff'
+  );
   res.render('Admin/Class/addClass', {
     page_name: 'classes',
     courses: courses,
@@ -707,8 +709,7 @@ exports.getAddClass = async (req, res, next) => {
 
 exports.postAddClass = async (req, res, next) => {
   let { course, staff, section } = req.body;
-  staff = staff.split(" ")[0];
-  console.log(staff);
+  staff = staff.split(' ')[0];
   const sql1 = 'SELECT st_id, dept_id from staff where email = ?';
   const staffData = (await queryParamPromise(sql1, [staff]))[0];
   const sql2 = 'SELECT semester, dept_id from course where c_id = ?';

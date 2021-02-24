@@ -10,6 +10,7 @@ const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
+  dateStrings: 'date',
   database: 'cumsdbms',
 });
 
@@ -115,8 +116,6 @@ exports.markAttendance = async (req, res, next) => {
   const c_id = classdata.match(regex1)[0];
   const class_sec = classdata.match(regex2)[0].split('-');
   const staffId = req.user;
-
-  console.log(date);
 
   const sql = `
     SELECT * FROM student WHERE dept_id = ? AND section = ?

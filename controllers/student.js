@@ -6,11 +6,11 @@ const mailgun = require('mailgun-js');
 const DOMAIN = process.env.DOMAIN_NAME;
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
 
-
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
+  dateStrings: 'date',
   database: 'cumsdbms',
 });
 
@@ -32,7 +32,6 @@ const queryParamPromise = (sql, queryParam) => {
     });
   });
 };
-
 
 exports.getLogin = (req, res, next) => {
   res.render('Student/login');
@@ -78,13 +77,17 @@ exports.getDashboard = (req, res, next) => {
   let sql6 = 'SELECT * FROM student WHERE s_id = ?';
   db.query(sql6, [req.user], (err, result) => {
     if (err) throw err;
-    res.render('Student/dashboard', { name: result[0].s_name, page_name : "overview" });
+    res.render('Student/dashboard', {
+      name: result[0].s_name,
+      page_name: 'overview',
+    });
   });
 };
 
 exports.getProfile = async (req, res, next) => {
   const sql = 'SELECT * FROM student WHERE s_id = ?';
-  const sql2 = 'SELECT d_name FROM department WHERE dept_id = (SELECT dept_id FROM student WHERE s_id = ?)';
+  const sql2 =
+    'SELECT d_name FROM department WHERE dept_id = (SELECT dept_id FROM student WHERE s_id = ?)';
 
   const profileData = await queryParamPromise(sql, [req.user]);
   const deptName = await queryParamPromise(sql2, [req.user]);
@@ -92,25 +95,116 @@ exports.getProfile = async (req, res, next) => {
   const dobs = new Date(profileData[0].dob);
   const jd = new Date(profileData[0].joining_date);
 
-  let dob = dobs.getDate() + "/" +  (dobs.getMonth() + 1) + "/" + dobs.getFullYear();
-  let jds = jd.getDate() + "/" + (jd.getMonth() + 1)  + "/" + jd.getFullYear() ;
+  let dob =
+    dobs.getDate() + '/' + (dobs.getMonth() + 1) + '/' + dobs.getFullYear();
+  let jds = jd.getDate() + '/' + (jd.getMonth() + 1) + '/' + jd.getFullYear();
 
   return res.render('Student/profile', {
-    data : profileData,
+    data: profileData,
     page_name: 'profile',
-    dname : deptName[0].d_name,
+    dname: deptName[0].d_name,
     dob,
-    jds
+    jds,
   });
-}
+};
 
+exports.getSelectAttendance = async (req, res, next) => {
+  res.render('Student/selectAttendance', {
+    page_name: 'attendance',
+    curYear: 2021,
+  });
+};
+
+const getAttendanceData = async (year, months, courseData, s_id) => {
+  let monthDates = [];
+  let isPresent = [];
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  for (month of months) {
+    let dayNumber = 1;
+    let date = new Date(year, month, dayNumber);
+    let days = [];
+    let outerStatus = [];
+    while (date.getMonth() === month) {
+      let status = [];
+      const sqlDate =
+        year +
+        '-' +
+        (month < 9 ? '0' + (month + 1) : month + 1) +
+        '-' +
+        (dayNumber <= 9 ? '0' + dayNumber : dayNumber);
+      const sql3 =
+        'SELECT status from attendance WHERE c_id = ? AND s_id = ? AND date = ?';
+      for (course of courseData) {
+        const attendanceData = (
+          await queryParamPromise(sql3, [course.c_id, s_id, sqlDate])
+        )[0];
+        status.push(attendanceData);
+      }
+      outerStatus.push(status);
+      const monthName = monthNames[month];
+      days.push({ monthName, dayNumber });
+      dayNumber++;
+      date.setDate(date.getDate() + 1);
+    }
+    isPresent.push(outerStatus);
+    monthDates.push(days);
+  }
+  return [monthDates, isPresent];
+};
+
+exports.postSelectAttendance = async (req, res, next) => {
+  const { year, semester } = req.body;
+  const sql1 = 'SELECT * FROM student WHERE s_id = ?';
+  const studentData = (await queryParamPromise(sql1, [req.user]))[0];
+  const sql2 = 'SELECT * from course WHERE dept_id = ? AND semester = ?';
+  const courseData = await queryParamPromise(sql2, [
+    studentData.dept_id,
+    semester,
+  ]);
+  var monthDates, isPresent;
+  if (semester % 2 === 0) {
+    [monthDates, isPresent] = await getAttendanceData(
+      parseInt(year),
+      [0, 1, 2, 3],
+      courseData,
+      req.user
+    );
+  } else {
+    [monthDates, isPresent] = await getAttendanceData(
+      parseInt(year),
+      [7, 8, 9, 10],
+      courseData,
+      req.user
+    );
+  }
+  res.render('Student/attendance', {
+    page_name: 'attendance',
+    curSemester: semester,
+    studentData,
+    courseData,
+    monthDates,
+    isPresent,
+  });
+};
 
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');
   res.redirect('/student/login');
 };
-
 
 // FORGOT PASSWORD
 exports.getForgotPassword = (req, res, next) => {
@@ -135,7 +229,7 @@ exports.forgotPassword = async (req, res, next) => {
   }
 
   const token = jwt.sign(
-    { _id: results[0].s_id},
+    { _id: results[0].s_id },
     process.env.RESET_PASSWORD_KEY,
     { expiresIn: '20m' }
   );
@@ -195,7 +289,8 @@ exports.resetPassword = (req, res, next) => {
             } else {
               let hashed = await bcrypt.hash(password, 8);
 
-              const sql2 = 'UPDATE student SET password = ? WHERE resetLink = ?';
+              const sql2 =
+                'UPDATE student SET password = ? WHERE resetLink = ?';
               db.query(sql2, [hashed, resetLink], (errorData, retData) => {
                 if (errorData) {
                   throw errorData;
@@ -217,5 +312,3 @@ exports.resetPassword = (req, res, next) => {
     }
   }
 };
-
-
