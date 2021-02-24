@@ -87,4 +87,4 @@ We are using MySQL as our database. The main objective of this project is to use
 
 -------------------------------------------------------------------------------
 
-**SEE THE COMPLETE REPORT HERE** [Report](docs/CMSNSIT_Report)
+**SEE THE COMPLETE REPORT HERE** [Report](docs/CMSNSIT_Report.pdf)
