@@ -59,12 +59,7 @@ The features that are available to students are :
 
 This is the use case diagram which depicts the user’s interaction with the system. It also shows the relationship between the user and the different use cases in which the user is involved.
 
-![docs/usecase.png](docs/usecase.png)
-
-
-### 3-tier Architecture
-
-![docs/architecture.png](docs/architecture.png)
+![docs/usecase.jpg](docs/usecase.jpg)
 
 
 ### Database Design 
@@ -82,6 +77,11 @@ We are using MySQL as our database. The main objective of this project is to use
 **ER MODEL**
 
 ![docs/er_model.png](docs/er_model.png)
+
+
+### 3-tier Architecture
+
+![docs/architecture.png](docs/architecture.png)
 
 
 
