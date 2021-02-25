@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `class` (
 	`class_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
 	`section` INT NOT NULL,
 	`semester` INT NOT NULL,
-	`year` INT NOT NULL,
+	`year` DATE DEFAULT(CURRENT_DATE),
 	`c_id` VARCHAR(100),
 	`st_id` VARCHAR(36) NOT NULL,
 	PRIMARY KEY (`class_id`)
