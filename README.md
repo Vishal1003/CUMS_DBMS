@@ -7,6 +7,9 @@ assignments and grades for a particular college.It uses Node.js for backend and 
 The purpose of this application is to automate the existing manual system by the help of computerized equipment and full-fledged computer software, fulfilling their requirements, so that their valuable data/information can be stored for a longer period with easy accessing and manipulation of the same. The required software and hardware are easily available and easy to work with.
 
 
+**SEE THE COMPLETE REPORT HERE** [Report](docs/CMSNSIT_Report.pdf)
+
+
 ## Product Features and User Classifications
 
 There are several types of end users for the CMS. They are broadly divided as Students, Staff and the Administrator. Each of these classes have their own set of features
@@ -52,3 +55,31 @@ We are using MySQL as our database. The main objective of this project is to use
 -------------------------------------------------------------------------------
 
 **SEE THE COMPLETE REPORT HERE** [Report](docs/CMSNSIT_Report.pdf)
+
+
+
+
+## Setting up Project
+
+* Open Terminal and execute 
+    `https://github.com/Vishal1003/CUMS_DBMS.git`
+    `cd CUMS_DBMS`
+    `npm install`
+* Create following env variables (in order to connect to database and use JWT) :
+  * DB_HOST
+  * DB_USER
+  * DB_PASS
+  * PORT
+  * JWT_SECRET
+  * JWT_EXPIRE
+  * SESSION_SECRET
+* For setting up mail-gun Go to official doc of mail-gun. Sign up and replace your credentials here.
+  * URL
+  * RESET_PASSWORD_KEY
+  * DOMAIN_NAME
+  * MAILGUN_API_KEY
+* Create the database using following query in mysql : `CREATE DATABASE databasename;`
+* Create tables using the sql script file in `databse/cms.sql`;
+* To seed data in the database run to file in `seed` folder
+* To start the application execute `npm start`
+
