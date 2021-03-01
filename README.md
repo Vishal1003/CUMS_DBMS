@@ -2,7 +2,7 @@
 🏰 A College Management Site (DBMS) using Node and Mysql.
 
 A college management system (web application) that provides complete funtionality to manage enrollment, students, faculty, attendance, fees, scheduling,
-assignments and grades for a particular college.It uses Node.js for backend and MySql as Database. It uses REST APIs for client server communications.
+assignments and grades for a particular college.It uses Node.js for backend and MySql as Database.
 
 The purpose of this application is to automate the existing manual system by the help of computerized equipment and full-fledged computer software, fulfilling their requirements, so that their valuable data/information can be stored for a longer period with easy accessing and manipulation of the same. The required software and hardware are easily available and easy to work with.
 
