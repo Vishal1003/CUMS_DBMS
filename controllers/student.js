@@ -200,6 +200,61 @@ exports.postSelectAttendance = async (req, res, next) => {
   });
 };
 
+exports.getTimeTable = async (req, res, next) => {
+  const sql1 = 'SELECT * FROM student WHERE s_id = ?';
+  const studentData = (await queryParamPromise(sql1, [req.user]))[0];
+  const days = (
+    await queryParamPromise(
+      'select datediff(current_date(), ?) as diff',
+      studentData.joining_date
+    )
+  )[0].diff;
+  const semester = Math.floor(days / 182) + 1;
+  let coursesData = await queryParamPromise(
+    'select c_id from course where dept_id = ? and semester = ?',
+    [studentData.dept_id, semester]
+  );
+  for (let i = 0; i < coursesData.length; ++i) {
+    coursesData[i] = coursesData[i].c_id;
+  }
+
+  let timeTableData = await queryParamPromise(
+    'select * from time_table where c_id in (?) and section = ? order by day, start_time',
+    [coursesData, studentData.section]
+  );
+  const classesData = await queryParamPromise(
+    'select c_id, st_id from class where c_id in (?) and section = ?',
+    [coursesData, studentData.section]
+  );
+  for (let classData of classesData) {
+    const staffName = (
+      await queryParamPromise('select st_name from staff where st_id = ?', [
+        classData.st_id,
+      ])
+    )[0].st_name;
+    const courseName = (
+      await queryParamPromise('select name from course where c_id = ?', [
+        classData.c_id,
+      ])
+    )[0].name;
+    classData.staffName = staffName;
+    classData.courseName = courseName;
+  }
+  const startTimes = ['10:00', '11:00', '12:00', '13:00'];
+  const endTimes = ['11:00', '12:00', '13:00', '14:00'];
+  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  res.render('Student/timetable', {
+    page_name: 'Time Table',
+    studentData,
+    semester,
+    timeTableData,
+    startTimes,
+    endTimes,
+    dayNames,
+    classesData,
+  });
+};
+
 exports.getLogout = (req, res, next) => {
   res.cookie('jwt', '', { maxAge: 1 });
   req.flash('success_msg', 'You are logged out');

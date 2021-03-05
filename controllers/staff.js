@@ -72,9 +72,7 @@ exports.getProfile = async (req, res, next) => {
   const sql1 = 'SELECT * FROM staff WHERE st_id = ?';
   const user = req.user;
   const data = await queryParamPromise(sql1, [user]);
-  const DOB = data[0].dob + '';
-  const userDOB =
-    DOB.split(' ')[2] + ' ' + DOB.split(' ')[1] + ' ' + DOB.split(' ')[3];
+  const userDOB = data[0].dob;
   const sql2 = 'SELECT d_name FROM department WHERE dept_id = ?';
   const deptData = await queryParamPromise(sql2, [data[0].dept_id]);
 
@@ -88,6 +86,28 @@ exports.getProfile = async (req, res, next) => {
     deptData,
     classData,
     page_name: 'profile',
+  });
+};
+
+exports.getTimeTable = async (req, res, next) => {
+  const staffData = (
+    await queryParamPromise('SELECT * FROM staff WHERE st_id = ?', [req.user])
+  )[0];
+  const timeTableData = await queryParamPromise(
+    'select * from time_table where st_id = ? order by day, start_time',
+    [req.user]
+  );
+  console.log(timeTableData);
+  const startTimes = ['10:00', '11:00', '12:00', '13:00'];
+  const endTimes = ['11:00', '12:00', '13:00', '14:00'];
+  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  res.render('Staff/timetable', {
+    page_name: 'timetable',
+    timeTableData,
+    startTimes,
+    staffData,
+    endTimes,
+    dayNames,
   });
 };
 

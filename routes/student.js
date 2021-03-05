@@ -14,6 +14,8 @@ router.get('/profile', requireAuth, controller.getProfile);
 router.get('/selectAttendance', requireAuth, controller.getSelectAttendance);
 router.post('/selectAttendance', requireAuth, controller.postSelectAttendance);
 
+router.get('/timetable', requireAuth, controller.getTimeTable);
+
 router.get('/logout', requireAuth, controller.getLogout);
 
 // 1.5 FORGET PASSWORD

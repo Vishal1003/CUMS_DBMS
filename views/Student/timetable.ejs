@@ -1,5 +1,8 @@
 <%- include('../Includes/begin.ejs') %>
-<%- include('../Includes/staff_nav.ejs') %>
+
+<%- include('../Includes/student_nav.ejs') %>
+
+
 <section id="content-wrapper">
     <main role="main" class="pt-5 main">
         <div class="main-content">
@@ -22,8 +25,8 @@
                             </div>
                             <div class="card-body">
                                 <h6 class="form-control-label mb-5"><b>NAME : </b>
-                                    <%= staffData.s_name %> || <b>SEMESTER : </b>
-                                    1
+                                    <%= studentData.s_name %> || <b>SEMESTER : </b>
+                                    <%= semester %>
                                 </h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
@@ -44,20 +47,36 @@
                                                             <% for (let i = 0; i < dayNames.length; ++i) {%>
                                                             <tr>
                                                                 <th><%=dayNames[i]%></th>
-                                                                <% for (let j = 0; j < startTimes.length; ++j) {%>
-                                                                <td>
-                                                                    <% for (let k = 0; k < timeTableData.length; ++k) {%>
-                                                                    <%if(timeTableData[k].day == i && timeTableData[k].start_time[0] == startTimes[j][0] && timeTableData[k].start_time[1] == startTimes[j][1]) {%>
-                                                                    <%=timeTableData[k].c_id%>
-                                                                    <%}%>
-                                                                    <%}%>
-                                                                </td>
+                                                                <% for (let j = i * 4; j < i * 4 + startTimes.length; ++j) {%>
+                                                                <td><%=timeTableData[j].c_id%></td>
                                                                 <%}%>
-                                                            </tr>
+                                                                </tr>
                                                             <%}%>
                                                                 </tbody>
                                                     </table>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="card col-md-8">
+                                            <div class="card-header">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h3 class="mb-0">Course Details</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <%for(let i = 0; i < classesData.length; ++i){%>
+                                                <div>
+                                                    <span
+                                                        class="badge badge-info col-md-2"><%=classesData[i].c_id%></span>
+                                                    <span
+                                                        class="badge badge-info col-md-9"><%=classesData[i].courseName%>
+                                                        / <%=classesData[i].staffName%></span>
+                                                </div>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>
@@ -73,4 +92,4 @@
     </main>
 </section>
 
-<%- include('../Includes/staff_end.ejs') %>
+<%- include('../Includes/student_end.ejs') %>

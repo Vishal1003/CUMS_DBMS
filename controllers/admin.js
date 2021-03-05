@@ -409,7 +409,7 @@ exports.postRelevantStaff = async (req, res, next) => {
         staffs.push(staff_id.st_id);
       }
       const sql4 = 'select * from staff where st_id in (?)';
-      const results = await queryParamPromise(sql4, staffs);
+      const results = await queryParamPromise(sql4, [staffs]);
       return res.render('Admin/Staff/getStaff', {
         data: results,
         page_name: 'staff',

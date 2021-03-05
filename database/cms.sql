@@ -102,6 +102,16 @@ CREATE TABLE IF NOT EXISTS `assignment_submission` (
 	PRIMARY KEY (`s_id`,`asg_id`)
 );
 
+CREATE TABLE IF NOT EXISTS `time_table` (
+	`c_id` VARCHAR(100),
+	`st_id` VARCHAR(36) NOT NULL,
+	`section` INT NOT NULL,
+	`day` INT NOT NULL,
+	`start_time` TIME NOT NULL,
+	`end_time` TIME NOT NULL,
+	PRIMARY KEY (`c_id`,`section`,`day`)
+);
+
 ALTER TABLE `course` ADD CONSTRAINT `course_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
 
 ALTER TABLE `student` ADD CONSTRAINT `student_fk0` FOREIGN KEY (`dept_id`) REFERENCES `department`(`dept_id`) on update cascade on delete restrict;
@@ -123,6 +133,10 @@ ALTER TABLE `assignment` ADD CONSTRAINT `assignment_fk0` FOREIGN KEY (`class_id`
 ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk0` FOREIGN KEY (`s_id`) REFERENCES `student`(`s_id`) on update cascade on delete restrict;
 
 ALTER TABLE `assignment_submission` ADD CONSTRAINT `assignment_submission_fk1` FOREIGN KEY (`asg_id`) REFERENCES `assignment`(`asg_id`) on update cascade on delete restrict;
+
+ALTER TABLE `time_table` ADD CONSTRAINT `time_table_fk0` FOREIGN KEY (`c_id`) REFERENCES `course`(`c_id`) on update cascade on delete restrict;
+
+ALTER TABLE `time_table` ADD CONSTRAINT `time_table_fk1` FOREIGN KEY (`st_id`) REFERENCES `staff`(`st_id`) on update cascade on delete restrict;
 
 alter table admin
 add resetLink varchar(255) default '';

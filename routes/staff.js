@@ -20,6 +20,9 @@ router.post(
   requireAuth,
   controller.postAttendance
 );
+
+router.get('/timetable', requireAuth, controller.getTimeTable);
+
 router.post('/student-attendance', requireAuth, controller.markAttendance);
 
 router.get('/student-report', requireAuth, controller.getStudentReport);
